@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d9142989c8455f8cf3242b3c525333, type: 3}
   m_Name: Module
   m_EditorClassIdentifier: Assembly-CSharp::Scriptable_Objects.WfcModule
-  tileBase: {fileID: 0}
+  tileBase: {fileID: 11400000, guid: b52eb31537a3c0f4d9b909925745af72, type: 2}
   rules:
   - position: 0
     tiles:
-    - {fileID: 11400000, guid: ded49c94886a1af41a1b1025eadf0a6c, type: 2}
+    - {fileID: 11400000, guid: 25c92bd1a1b2eda46b08a2414b277305, type: 2}
   - position: 1
     tiles:
-    - {fileID: 11400000, guid: ded49c94886a1af41a1b1025eadf0a6c, type: 2}
+    - {fileID: 11400000, guid: 3d9dc795275adfd48af7618f29844554, type: 2}
   - position: 2
     tiles:
     - {fileID: 11400000, guid: ded49c94886a1af41a1b1025eadf0a6c, type: 2}
   - position: 3
     tiles:
-    - {fileID: 11400000, guid: ded49c94886a1af41a1b1025eadf0a6c, type: 2}
+    - {fileID: 11400000, guid: fc84b2b02e60d1546a8a75ba64b5d5f1, type: 2}
