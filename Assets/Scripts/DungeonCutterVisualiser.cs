@@ -6,7 +6,7 @@ public class DungeonCutterVisualiser : MonoBehaviour
     private const float MaxIterations = 10000f;
     private float _currentIteration;
 
-    public IEnumerator CutPerFrame(Node node, int minSizeX, int minSizeY)
+    public IEnumerator CutPerFrame(Node node, int minSizeX, int minSizeY, int roomScale)
     {
         BoundsInt leftNodeRoom;
         BoundsInt rightNodeRoom;
@@ -28,6 +28,16 @@ public class DungeonCutterVisualiser : MonoBehaviour
                 new Vector3Int(node.room.size.x, yMiddle));
             nextCutType = CutType.Vertical;
         }
+        
+        leftNodeRoom.size = new Vector3Int(leftNodeRoom.size.x / 10 * 9, leftNodeRoom.size.y / 10 * roomScale);
+        rightNodeRoom.size =
+            new Vector3Int(rightNodeRoom.size.x / 10 * roomScale, rightNodeRoom.size.y / 10 * roomScale);
+
+        //reposition rooms in the center
+        leftNodeRoom.position += new Vector3Int((int) (leftNodeRoom.center.x - node.room.center.x),
+            (int) (leftNodeRoom.center.y - node.room.center.x));
+        rightNodeRoom.position = new Vector3Int((int) (rightNodeRoom.center.x - node.room.center.x),
+            (int) (rightNodeRoom.center.y - node.room.center.x));
 
         _currentIteration++;
 
@@ -50,7 +60,7 @@ public class DungeonCutterVisualiser : MonoBehaviour
         node.leftNode = new Node {cutType = nextCutType, room = leftNodeRoom};
         node.rightNode = new Node {cutType = nextCutType, room = rightNodeRoom};
 
-        yield return StartCoroutine(CutPerFrame(node.leftNode, minSizeX, minSizeY));
-        yield return StartCoroutine(CutPerFrame(node.rightNode, minSizeX, minSizeY));
+        yield return StartCoroutine(CutPerFrame(node.leftNode, minSizeX, minSizeY, roomScale));
+        yield return StartCoroutine(CutPerFrame(node.rightNode, minSizeX, minSizeY, roomScale));
     }
 }

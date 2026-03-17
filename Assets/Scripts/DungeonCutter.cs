@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum CutType
@@ -19,7 +21,7 @@ public class DungeonCutter
     private const float MaxIterations = 10000f;
     private float _currentIteration;
 
-    public void Cut(Node node, int minSizeX, int minSizeY)
+    public void Cut(Node node, int minSizeX, int minSizeY, List<Node> leaves, float roomScale)
     {
         BoundsInt leftNodeRoom;
         BoundsInt rightNodeRoom;
@@ -42,6 +44,21 @@ public class DungeonCutter
             nexCutType = CutType.Vertical;
         }
 
+        var leftPreScaleCenter = leftNodeRoom.center;
+        var rightPreScaleCenter = rightNodeRoom.center;
+        
+        //scale rooms
+        leftNodeRoom.size = new Vector3Int((int) (leftNodeRoom.size.x * roomScale),
+            (int) (leftNodeRoom.size.y * roomScale));
+        rightNodeRoom.size = new Vector3Int((int) (rightNodeRoom.size.x * roomScale),
+            (int) (rightNodeRoom.size.y * roomScale));
+
+        //reposition rooms in the center
+        leftNodeRoom.position += new Vector3Int((int) (leftPreScaleCenter.x - leftNodeRoom.center.x),
+            (int) (leftPreScaleCenter.y - leftNodeRoom.center.y ));
+        rightNodeRoom.position += new Vector3Int((int) (rightPreScaleCenter.x - rightNodeRoom.center.x),
+            (int) (rightPreScaleCenter.y - rightNodeRoom.center.y));
+
         _currentIteration++;
 
         Debug.Log(_currentIteration);
@@ -52,16 +69,16 @@ public class DungeonCutter
         Debug.DrawLine(new Vector3(node.room.x, node.room.yMax), node.room.max, Color.red, 1000);
         Debug.DrawLine(new Vector3(node.room.xMax, node.room.y), node.room.max, Color.red, 1000);
 
-
         if (leftNodeRoom.size.x < minSizeX || leftNodeRoom.size.y < minSizeY || _currentIteration > MaxIterations)
         {
+            leaves.Add(node);
             return;
         }
 
         node.leftNode = new Node {cutType = nexCutType, room = leftNodeRoom};
         node.rightNode = new Node {cutType = nexCutType, room = rightNodeRoom};
 
-        Cut(node.leftNode, minSizeX, minSizeY);
-        Cut(node.rightNode, minSizeX, minSizeY);
+        Cut(node.leftNode, minSizeX, minSizeY, leaves, roomScale);
+        Cut(node.rightNode, minSizeX, minSizeY, leaves, roomScale);
     }
 }

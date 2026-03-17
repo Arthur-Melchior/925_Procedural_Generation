@@ -192,12 +192,71 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9219786c323efb643bab70e45691dd2f, type: 3}
---- !u!1 &165500568 stripped
+--- !u!1 &865390421
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 5343356971975913419, guid: 9219786c323efb643bab70e45691dd2f,
-    type: 3}
-  m_PrefabInstance: {fileID: 165500567}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 865390424}
+  - component: {fileID: 865390423}
+  - component: {fileID: 865390422}
+  m_Layer: 0
+  m_Name: Dungeon Generator Tile Rule
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &865390422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865390421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f6db2837d3d31a4f9fea203f623befc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonGeneratorTileRule
+  sizeX: 100
+  sizeY: 100
+  minSizeX: 20
+  minSizeY: 20
+  grassTile: {fileID: 11400000, guid: d0c32abb606784345b2a2152d776d93c, type: 2}
+  wallTile: {fileID: 11400000, guid: 7ed793de4bcf8fc4bb2adf18ee2d35ec, type: 2}
+  roomsScale: 0.7
+  test: {fileID: 11400000, guid: d70954ed1f87f974ebe68dcc0671a202, type: 2}
+--- !u!156049354 &865390423
+Grid:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865390421}
+  m_Enabled: 1
+  m_CellSize: {x: 1, y: 1, z: 1}
+  m_CellGap: {x: 0, y: 0, z: 0}
+  m_CellLayout: 0
+  m_CellSwizzle: 0
+--- !u!4 &865390424
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865390421}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3313.5715, y: 757.24316, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &965763320
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,12 +422,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a5bdebb46a3a6247ac04ec19f78add9, type: 3}
---- !u!1 &1008830076 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7049892516824790725, guid: 2a5bdebb46a3a6247ac04ec19f78add9,
-    type: 3}
-  m_PrefabInstance: {fileID: 1008830075}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1734717206
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,7 +439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1734717207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,13 +456,7 @@ MonoBehaviour:
   sizeY: 1000
   minSizeX: 30
   minSizeY: 30
-  defaultTile: {fileID: 11400000, guid: fedab419fdbdeea488795e51c83727c9, type: 2}
-  rooms:
-  - {fileID: 165500568}
-  - {fileID: 1008830076}
-  - {fileID: 1927778903}
-  distanceBetweenRoomsX: 2
-  distanceBetweenRoomsY: 2
+  roomScale: 1
   visualiseGeneration: 1
 --- !u!4 &1734717208
 Transform:
@@ -438,7 +485,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba1b1655fa9247f8ae4b97a3f8bb95f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DungeonCutter
-  _currentIteration: 0
 --- !u!1001 &1927778902
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -549,12 +595,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6944b1047182436498a6d52cf29f720b, type: 3}
---- !u!1 &1927778903 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4824042675333239702, guid: 6944b1047182436498a6d52cf29f720b,
-    type: 3}
-  m_PrefabInstance: {fileID: 1927778902}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -564,3 +604,4 @@ SceneRoots:
   - {fileID: 165500567}
   - {fileID: 1008830075}
   - {fileID: 1927778902}
+  - {fileID: 865390424}
