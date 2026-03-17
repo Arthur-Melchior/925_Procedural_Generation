@@ -21,7 +21,7 @@ public class DungeonGenerator : MonoBehaviour
     private void Start()
     {
         var node = new Node
-            {cutType = CutType.Horizontal, room = new BoundsInt(new Vector3Int(0, 0, 0), new Vector3Int(sizeX, sizeY))};
+            {CutType = CutType.Horizontal, Room = new BoundsInt(new Vector3Int(0, 0, 0), new Vector3Int(sizeX, sizeY))};
         if (visualiseGeneration)
         {
             var cutter = gameObject.AddComponent<DungeonCutterVisualiser>();

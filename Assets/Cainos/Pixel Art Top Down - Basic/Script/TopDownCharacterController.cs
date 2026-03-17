@@ -7,35 +7,42 @@ namespace Cainos.Pixel_Art_Top_Down___Basic.Script
     [RequireComponent(typeof(Animator))]
     public class TopDownCharacterController : MonoBehaviour
     {
-        public float speed;
+        private static readonly int IsDodging = Animator.StringToHash("IsDodging");
+        private static readonly int IsMoving = Animator.StringToHash("IsMoving");
+        private static readonly int DirectionX = Animator.StringToHash("DirectionX");
+        private static readonly int DirectionY = Animator.StringToHash("DirectionY");
 
+        [SerializeField] private float speed = 3f;
+        [SerializeField] private float dodgeMultiplier = 2f;
+        [SerializeField] private float dodgeTimer = 0.2f;
+
+        private float _dodgeMultiplier;
+        private float _dodgeTimer;
         private Animator _animator;
         private Rigidbody2D _rigidbody2D;
         private Vector2 _direction;
-        private float dodgeMultiplier = 1f;
-        private float dodgeTimer = 0f;
 
         private void Start()
         {
             _animator = GetComponent<Animator>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
         }
-        
 
         private void FixedUpdate()
         {
-            if (dodgeTimer > 0)
+            if (_dodgeTimer > 0)
             {
-                dodgeTimer -= Time.fixedDeltaTime;
+                _dodgeTimer -= Time.fixedDeltaTime;
             }
             else
             {
-                dodgeMultiplier = 1f;
+                _dodgeMultiplier = 1f;
+                _animator.SetBool(IsDodging, false);
             }
 
-            _rigidbody2D.linearVelocity = speed * dodgeMultiplier * _direction;
+            _rigidbody2D.linearVelocity = speed * _dodgeMultiplier * _direction;
 
-            _animator.SetBool("IsMoving", _direction.magnitude > 0);
+            _animator.SetBool(IsMoving, _direction.magnitude > 0);
         }
 
         public void OnMove(InputAction.CallbackContext ctx)
@@ -43,16 +50,18 @@ namespace Cainos.Pixel_Art_Top_Down___Basic.Script
             var value = ctx.ReadValue<Vector2>();
             _direction = value.normalized;
 
-            _animator.SetFloat("DirectionX", value.x);
-            _animator.SetFloat("DirectionY", value.y);
+            _animator.SetFloat(DirectionX, value.x);
+            _animator.SetFloat(DirectionY, value.y);
         }
 
         public void OnDodge(InputAction.CallbackContext ctx)
         {
             if (!ctx.performed) return;
 
-            dodgeMultiplier = 2.2f;
-            dodgeTimer = 0.2f;
+            _dodgeMultiplier = dodgeMultiplier;
+            _dodgeTimer = dodgeTimer;
+
+            _animator.SetBool(IsDodging, true);
         }
     }
 }
