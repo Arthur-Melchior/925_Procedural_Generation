@@ -30,7 +30,7 @@ public class DungeonGenerator : MonoBehaviour
         else
         {
             var dungeonCutter = new DungeonCutter();
-            dungeonCutter.Cut(node, minSizeX, minSizeY, new List<Node>(), roomScale);
+            dungeonCutter.Cut(node, minSizeX, minSizeY, new List<Node>());
         }
     }
 }

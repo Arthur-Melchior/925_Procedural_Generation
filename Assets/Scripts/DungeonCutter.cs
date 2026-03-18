@@ -10,10 +10,10 @@ public enum CutType
 
 public class Node
 {
-    public CutType cutType;
-    public BoundsInt room;
-    public Node leftNode;
-    public Node rightNode;
+    public CutType CutType;
+    public BoundsInt Room;
+    public Node LeftNode;
+    public Node RightNode;
 }
 
 public class DungeonCutter
@@ -21,64 +21,46 @@ public class DungeonCutter
     private const float MaxIterations = 10000f;
     private float _currentIteration;
 
-    public void Cut(Node node, int minSizeX, int minSizeY, List<Node> leaves, float roomScale)
+    public void Cut(Node node, int maxSizeX, int maxSizeY, List<Node> leaves)
     {
         BoundsInt leftNodeRoom;
         BoundsInt rightNodeRoom;
         CutType nexCutType;
 
-        if (node.cutType == CutType.Vertical)
+        if (node.CutType == CutType.Vertical)
         {
-            var xMiddle = node.room.size.x / 2;
-            leftNodeRoom = new BoundsInt(node.room.min, new Vector3Int(xMiddle, node.room.size.y));
-            rightNodeRoom = new BoundsInt(new Vector3Int(node.room.x + xMiddle, node.room.yMin),
-                new Vector3Int(xMiddle, node.room.size.y));
+            var xMiddle = node.Room.size.x / 2;
+            leftNodeRoom = new BoundsInt(node.Room.min, new Vector3Int(xMiddle, node.Room.size.y));
+            rightNodeRoom = new BoundsInt(new Vector3Int(node.Room.x + xMiddle, node.Room.yMin),
+                new Vector3Int(xMiddle, node.Room.size.y));
             nexCutType = CutType.Horizontal;
         }
         else
         {
-            var yMiddle = node.room.size.y / 2;
-            leftNodeRoom = new BoundsInt(node.room.min, new Vector3Int(node.room.size.x, yMiddle));
-            rightNodeRoom = new BoundsInt(new Vector3Int(node.room.xMin, node.room.y + yMiddle),
-                new Vector3Int(node.room.size.x, yMiddle));
+            var yMiddle = node.Room.size.y / 2;
+            leftNodeRoom = new BoundsInt(node.Room.min, new Vector3Int(node.Room.size.x, yMiddle));
+            rightNodeRoom = new BoundsInt(new Vector3Int(node.Room.xMin, node.Room.y + yMiddle),
+                new Vector3Int(node.Room.size.x, yMiddle));
             nexCutType = CutType.Vertical;
         }
 
-        var leftPreScaleCenter = leftNodeRoom.center;
-        var rightPreScaleCenter = rightNodeRoom.center;
-        
-        //scale rooms
-        leftNodeRoom.size = new Vector3Int((int) (leftNodeRoom.size.x * roomScale),
-            (int) (leftNodeRoom.size.y * roomScale));
-        rightNodeRoom.size = new Vector3Int((int) (rightNodeRoom.size.x * roomScale),
-            (int) (rightNodeRoom.size.y * roomScale));
-
-        //reposition rooms in the center
-        leftNodeRoom.position += new Vector3Int((int) (leftPreScaleCenter.x - leftNodeRoom.center.x),
-            (int) (leftPreScaleCenter.y - leftNodeRoom.center.y ));
-        rightNodeRoom.position += new Vector3Int((int) (rightPreScaleCenter.x - rightNodeRoom.center.x),
-            (int) (rightPreScaleCenter.y - rightNodeRoom.center.y));
-
         _currentIteration++;
 
-        Debug.Log(_currentIteration);
-        Debug.Log(node.room);
+        Debug.DrawLine(node.Room.min, new Vector3(node.Room.xMax, node.Room.y), Color.red, 1000);
+        Debug.DrawLine(node.Room.min, new Vector3(node.Room.x, node.Room.yMax), Color.red, 1000);
+        Debug.DrawLine(new Vector3(node.Room.x, node.Room.yMax), node.Room.max, Color.red, 1000);
+        Debug.DrawLine(new Vector3(node.Room.xMax, node.Room.y), node.Room.max, Color.red, 1000);
 
-        Debug.DrawLine(node.room.min, new Vector3(node.room.xMax, node.room.y), Color.red, 1000);
-        Debug.DrawLine(node.room.min, new Vector3(node.room.x, node.room.yMax), Color.red, 1000);
-        Debug.DrawLine(new Vector3(node.room.x, node.room.yMax), node.room.max, Color.red, 1000);
-        Debug.DrawLine(new Vector3(node.room.xMax, node.room.y), node.room.max, Color.red, 1000);
-
-        if (leftNodeRoom.size.x < minSizeX || leftNodeRoom.size.y < minSizeY || _currentIteration > MaxIterations)
+        if (leftNodeRoom.size.x < maxSizeX || leftNodeRoom.size.y < maxSizeY || _currentIteration > MaxIterations)
         {
             leaves.Add(node);
             return;
         }
 
-        node.leftNode = new Node {cutType = nexCutType, room = leftNodeRoom};
-        node.rightNode = new Node {cutType = nexCutType, room = rightNodeRoom};
+        node.LeftNode = new Node {CutType = nexCutType, Room = leftNodeRoom};
+        node.RightNode = new Node {CutType = nexCutType, Room = rightNodeRoom};
 
-        Cut(node.leftNode, minSizeX, minSizeY, leaves, roomScale);
-        Cut(node.rightNode, minSizeX, minSizeY, leaves, roomScale);
+        Cut(node.LeftNode, maxSizeX, maxSizeY, leaves);
+        Cut(node.RightNode, maxSizeX, maxSizeY, leaves);
     }
 }

@@ -9,14 +9,14 @@ public class DungeonGeneratorTileRule : MonoBehaviour
 {
     [SerializeField] private int sizeX;
     [SerializeField] private int sizeY;
-    [SerializeField] private int minSizeX;
-    [SerializeField] private int minSizeY;
+    [SerializeField] private int roomMaxSizeX;
+    [SerializeField] private int roomMaxSizeY;
+    [SerializeField] private int roomMinSizeX;
+    [SerializeField] private int roomMinSizeY;
 
     [SerializeField] private TileBase grassTile;
     [SerializeField] private TileBase wallTile;
-
-    [Tooltip("If the scaled down room is smaller than the min size the room won't be created")] [SerializeField]
-    private float roomsScale;
+    [SerializeField] private TileBase doorTile;
 
     private int _roomIndex;
 
@@ -29,21 +29,57 @@ public class DungeonGeneratorTileRule : MonoBehaviour
     [ContextMenu("Generate Dungeon")]
     public void GenerateDungeon()
     {
-        for (int i = 0; i < transform.childCount; i++)
+        for (var i = 0; i < transform.childCount; i++)
         {
             Destroy(transform.GetChild(i).gameObject);
         }
 
         var grassMap = GenerateGrassMap();
         var dungeonCutter = new DungeonCutter();
-        var roomBinaryTree = new Node {cutType = CutType.Vertical, room = grassMap};
+        var roomBinaryTree = new Node { CutType = CutType.Vertical, Room = grassMap };
         var leaves = new List<Node>();
-        dungeonCutter.Cut(roomBinaryTree, minSizeX, minSizeY, leaves, roomsScale);
+        dungeonCutter.Cut(roomBinaryTree, roomMaxSizeX, roomMaxSizeY, leaves);
 
         foreach (var leaf in leaves)
         {
-            GenerateRoom(leaf.room);
+            leaf.Room = ResizeRoom(leaf.Room);
+            GenerateRoom(leaf.Room);
         }
+    }
+
+    private BoundsInt ResizeRoom(BoundsInt room)
+    {
+        var tempRoom = room;
+        var randomValueX = new Random().Next(1, 10) * 0.1f;
+        var randomValueY = new Random().Next(1, 10) * 0.1f;
+
+        tempRoom.size = new Vector3Int((int)(tempRoom.size.x * randomValueX), (int)(tempRoom.size.y * randomValueY));
+        
+        if (tempRoom.size.x < roomMinSizeX && tempRoom.size.y < roomMinSizeY)
+        {
+            return room;
+        }
+
+        if (tempRoom.size.x < roomMinSizeX && tempRoom.size.y > roomMinSizeY)
+        {
+            tempRoom.size = new Vector3Int(room.size.x, tempRoom.size.y);
+            tempRoom.position += new Vector3Int((int)(room.center.x - tempRoom.center.x),
+                (int)(room.center.y - tempRoom.center.y));
+            return tempRoom;
+        }
+
+        if (tempRoom.size.x > roomMinSizeX && tempRoom.size.y < roomMinSizeY)
+        {
+            tempRoom.size = new Vector3Int(tempRoom.size.x, room.size.y);
+            tempRoom.position += new Vector3Int((int)(room.center.x - tempRoom.center.x),
+                (int)(room.center.y - tempRoom.center.y));
+            return tempRoom;
+        }
+
+        tempRoom.position += new Vector3Int((int)(room.center.x - tempRoom.center.x),
+            (int)(room.center.y - tempRoom.center.y));
+
+        return tempRoom;
     }
 
     private BoundsInt GenerateGrassMap()
@@ -67,11 +103,9 @@ public class DungeonGeneratorTileRule : MonoBehaviour
         objectMap.transform.SetParent(transform);
 
         var tilemap = objectMap.AddComponent<Tilemap>();
-        objectMap.AddComponent<TilemapRenderer>();
+        objectMap.AddComponent<TilemapRenderer>().sortingOrder = _roomIndex;
         return tilemap;
     }
-
-    public TileBase test;
 
     private void GenerateRoom(BoundsInt bounds)
     {
@@ -84,15 +118,11 @@ public class DungeonGeneratorTileRule : MonoBehaviour
                 tilemap.SetTile(new Vector3Int(i, j), wallTile);
             }
         }
-        
+
         tilemap.CompressBounds();
 
-        //choisis une direction aléatoire
-        // var random = new Random().Next(0, 4);
-        // if (random == 0)
-        // {
-        // }
+        //add door
         var position = new Vector3Int(tilemap.cellBounds.x + tilemap.cellBounds.size.x / 2, tilemap.cellBounds.y);
-        tilemap.SetTile(position, test);
+        tilemap.SetTile(position, doorTile);
     }
 }
