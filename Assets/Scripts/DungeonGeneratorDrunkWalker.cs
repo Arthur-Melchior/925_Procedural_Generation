@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
@@ -10,71 +11,224 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
     [SerializeField] private int sizeX;
     [SerializeField] private int sizeY;
     [SerializeField] private int maxSteps;
-    [SerializeField] [Min(1)] private int growthIteration;
+    [SerializeField] [Min(1)] private int numberOfRooms;
+    [SerializeField] [Min(1)] private int growthIterations;
 
     [SerializeField] private TileBase grassTile;
     [SerializeField] private TileBase wallTile;
+    [SerializeField] private GameObject leftStairs;
+    [SerializeField] private GameObject rightStairs;
+    [SerializeField] private GameObject bottomStairs;
 
     private System.Random _random;
-    private List<Vector3Int> _drunkWalkerPath;
     private Tilemap _grassMap;
-    private Tilemap _drunkMap;
+    private Tilemap _roomsMap;
+    private List<HashSet<Vector3Int>> _rooms;
 
     private void Start()
     {
         _random = new System.Random();
-        _drunkWalkerPath = new List<Vector3Int>();
-        GenerateMap();
+        _rooms = new List<HashSet<Vector3Int>>();
+        GenerateDungeon();
     }
 
-    [ContextMenu("Generate Map")]
-    public void GenerateMap()
+    [ContextMenu("Generate Dungeon")]
+    public void GenerateDungeon()
+    {
+        ClearDungeon();
+        GenerateGrassMap();
+
+        _roomsMap = GenerateTilemap("wall map");
+
+        for (var i = 0; i < numberOfRooms; i++)
+        {
+            MakeRoom();
+        }
+
+        ExpandRooms();
+        MergeRooms();
+        AddStairs();
+
+        _roomsMap.CompressBounds();
+        _roomsMap.GetComponent<TilemapRenderer>().sortingOrder = 1;
+    }
+
+    private void ClearDungeon()
     {
         for (var i = 0; i < transform.childCount; i++)
         {
             Destroy(transform.GetChild(i).gameObject);
-            _drunkWalkerPath.Clear();
+            _rooms.Clear();
         }
-
-        GenerateGrassMap();
-        DrunkWalkerMarch();
-        ExtendDrunkWalkerPath();
-        _drunkMap.CompressBounds();
-        _drunkMap.GetComponent<TilemapRenderer>().sortingOrder = 1;
     }
 
-    private void ExtendDrunkWalkerPath()
+    private void AddStairs()
     {
-        for (int i = 0; i < growthIteration; i++)
+        foreach (var room in _rooms)
         {
-            foreach (var position in _drunkWalkerPath)
+            var stairCreated = false;
+            var currentIteration = 0;
+            var maxIterations = 100000;
+            var numberOfStairs = room.Count < 100 ? 1 : room.Count / 100;
+            var stairIteration = 0;
+
+            while (!stairCreated && currentIteration < maxIterations && stairIteration != numberOfStairs)
             {
-                _drunkMap.SetTile(new Vector3Int(position.x + i, position.y), wallTile);
-                _drunkMap.SetTile(new Vector3Int(position.x + i, position.y + i), wallTile);
-                _drunkMap.SetTile(new Vector3Int(position.x, position.y + i), wallTile);
-                _drunkMap.SetTile(new Vector3Int(position.x - i, position.y + i), wallTile);
-                _drunkMap.SetTile(new Vector3Int(position.x - i, position.y), wallTile);
-                _drunkMap.SetTile(new Vector3Int(position.x - i, position.y - i), wallTile);
-                _drunkMap.SetTile(new Vector3Int(position.x, position.y - i), wallTile);
-                _drunkMap.SetTile(new Vector3Int(position.x + i, position.y - i), wallTile);
+                var randomDirection = _random.Next(0, 4);
+                var position = room.ElementAt(_random.Next(0, room.Count));
+                switch (randomDirection)
+                {
+                    case 0:
+                    {
+                        while (_roomsMap.GetTile(new Vector3Int(position.x, position.y)) &&
+                               currentIteration < maxIterations)
+                        {
+                            if (!_roomsMap.GetTile(new Vector3Int(position.x - 1, position.y))
+                                && !_roomsMap.GetTile(new Vector3Int(position.x - 2, position.y))
+                                && !_roomsMap.GetTile(new Vector3Int(position.x - 3, position.y))
+                                && _roomsMap.GetTile(new Vector3Int(position.x, position.y - 3))
+                                && _roomsMap.GetTile(new Vector3Int(position.x, position.y + 1)))
+                            {
+                                var stair = Instantiate(leftStairs, _roomsMap.gameObject.transform, true);
+                                stair.transform.position = position;
+                                stairCreated = true;
+                                stairIteration++;
+                            }
+
+                            position.x--;
+                            currentIteration++;
+                        }
+
+                        break;
+                    }
+                    case 1:
+                    {
+                        while (_roomsMap.GetTile(new Vector3Int(position.x, position.y)) &&
+                               currentIteration < maxIterations)
+                        {
+                            if (!_roomsMap.GetTile(new Vector3Int(position.x, position.y - 1))
+                                && !_roomsMap.GetTile(new Vector3Int(position.x, position.y - 2))
+                                && !_roomsMap.GetTile(new Vector3Int(position.x, position.y - 3))
+                                && _roomsMap.GetTile(new Vector3Int(position.x - 1, position.y))
+                                && _roomsMap.GetTile(new Vector3Int(position.x + 1, position.y)))
+                            {
+                                var stair = Instantiate(bottomStairs, _roomsMap.gameObject.transform, true);
+                                stair.transform.position = new Vector3(position.x, position.y + 1);
+                                stairCreated = true;
+                                stairIteration++;
+                            }
+
+                            position.y--;
+                            currentIteration++;
+                        }
+
+                        break;
+                    }
+                    case 2:
+                    {
+                        while (_roomsMap.GetTile(new Vector3Int(position.x, position.y)) &&
+                               currentIteration < maxIterations)
+                        {
+                            if (!_roomsMap.GetTile(new Vector3Int(position.x + 1, position.y))
+                                && !_roomsMap.GetTile(new Vector3Int(position.x + 2, position.y))
+                                && !_roomsMap.GetTile(new Vector3Int(position.x + 3, position.y))
+                                && _roomsMap.GetTile(new Vector3Int(position.x, position.y - 3))
+                                && _roomsMap.GetTile(new Vector3Int(position.x, position.y + 1)))
+                            {
+                                var stair = Instantiate(rightStairs, _roomsMap.gameObject.transform, true);
+                                stair.transform.position = new Vector3(position.x + 1, position.y);
+                                stairCreated = true;
+                                stairIteration++;
+                            }
+
+                            position.x++;
+                            currentIteration++;
+                        }
+
+                        break;
+                    }
+                }
             }
         }
     }
 
-    private void DrunkWalkerMarch()
+    public void ExpandRooms()
     {
-        _drunkMap = GenerateTilemap("wall map");
-        var startingPosition = new Vector3Int(_random.Next(0, sizeX + 1), _random.Next(0, sizeY + 1));
-
-        for (var i = 0; i < maxSteps; i++)
+        for (var i = 0; i < growthIterations; i++)
         {
-            startingPosition = TakeAStep(startingPosition);
+            foreach (var room in _rooms)
+            {
+                //the tempList is there to avoid changing the collection of positions
+                var tempList = new List<Vector3Int>();
+
+                foreach (var position in room)
+                {
+                    ExtendTile(new Vector3Int(position.x, position.y + 1), tempList);
+                    ExtendTile(new Vector3Int(position.x + 1, position.y + 1), tempList);
+                    ExtendTile(new Vector3Int(position.x + 1, position.y), tempList);
+                    ExtendTile(new Vector3Int(position.x + 1, position.y - 1), tempList);
+                    ExtendTile(new Vector3Int(position.x, position.y - 1), tempList);
+                    ExtendTile(new Vector3Int(position.x - 1, position.y - 1), tempList);
+                    ExtendTile(new Vector3Int(position.x - 1, position.y), tempList);
+                    ExtendTile(new Vector3Int(position.x - 1, position.y + 1), tempList);
+                }
+
+                foreach (var vector3Int in tempList)
+                {
+                    room.Add(vector3Int);
+                }
+            }
         }
     }
 
-    private Vector3Int TakeAStep(Vector3Int position)
+    private void ExtendTile(Vector3Int position, List<Vector3Int> room)
     {
-        //choisir une direction
+        _roomsMap.SetTile(position, wallTile);
+        room.Add(position);
+    }
+
+    private void MergeRooms()
+    {
+        for (var currentRoomIndex = 0; currentRoomIndex < _rooms.Count - 1; currentRoomIndex++)
+        {
+            var room = _rooms[currentRoomIndex];
+            for (var nextRoomIndex = currentRoomIndex + 1; nextRoomIndex < _rooms.Count; nextRoomIndex++)
+            {
+                var nextRoom = _rooms[nextRoomIndex];
+
+                if (room.Overlaps(nextRoom))
+                {
+                    var newRoom = room.Concat(nextRoom).ToHashSet();
+                    _rooms.Remove(room);
+                    _rooms.Remove(nextRoom);
+                    _rooms.Add(newRoom);
+                    currentRoomIndex = -1;
+                    break;
+                }
+            }
+        }
+    }
+
+    public void MakeRoom()
+    {
+        var startingPosition = new Vector3Int(_random.Next(20, sizeX - 20), _random.Next(20, sizeY - 20));
+        var room = new HashSet<Vector3Int>();
+
+        for (var i = 0; i < maxSteps; i++)
+        {
+            startingPosition = TakeAStep(startingPosition, room);
+        }
+
+        foreach (var vector3Int in room)
+        {
+            _roomsMap.SetTile(vector3Int, wallTile);
+        }
+
+        _rooms.Add(room);
+    }
+
+    private Vector3Int TakeAStep(Vector3Int position, HashSet<Vector3Int> room)
+    {
         var direction = _random.Next(0, 4);
 
         switch (direction)
@@ -93,8 +247,8 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
                 break;
         }
 
-        _drunkWalkerPath.Add(position);
-        _drunkMap.SetTile(position, wallTile);
+        room.Add(position);
+
         return position;
     }
 

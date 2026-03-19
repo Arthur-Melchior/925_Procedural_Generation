@@ -13,8 +13,20 @@ namespace Editor
             var generator = (DungeonGeneratorDrunkWalker)target;
             if (GUILayout.Button("Generate Dungeon"))
             {
-               generator.GenerateMap();
+               generator.GenerateDungeon();
             }
+            
+            if (GUILayout.Button("Generate Room"))
+            {
+                generator.MakeRoom();
+            }
+
+            if (GUILayout.Button("Extend Dungeon"))
+            {
+                generator.ExpandRooms();
+            }
+            
+            
         }
     }
 }
