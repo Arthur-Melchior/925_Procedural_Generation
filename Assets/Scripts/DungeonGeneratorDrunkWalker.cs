@@ -13,6 +13,7 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
     [SerializeField] private int maxSteps;
     [SerializeField] [Min(1)] private int numberOfRooms;
     [SerializeField] [Min(1)] private int growthIterations;
+    [SerializeField] [Min(1)] private int tilePerStair = 200;
 
     [SerializeField] private TileBase grassTile;
     [SerializeField] private TileBase wallTile;
@@ -66,13 +67,13 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
     {
         foreach (var room in _rooms)
         {
-            var stairCreated = false;
             var currentIteration = 0;
             var maxIterations = 100000;
-            var numberOfStairs = room.Count < 100 ? 1 : room.Count / 100;
             var stairIteration = 0;
+            var numberOfStairs = room.Count / tilePerStair;
+            if (numberOfStairs < 1) numberOfStairs = 1;
 
-            while (!stairCreated && currentIteration < maxIterations && stairIteration != numberOfStairs)
+            while (currentIteration < maxIterations && stairIteration != numberOfStairs)
             {
                 var randomDirection = _random.Next(0, 4);
                 var position = room.ElementAt(_random.Next(0, room.Count));
@@ -91,7 +92,6 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
                             {
                                 var stair = Instantiate(leftStairs, _roomsMap.gameObject.transform, true);
                                 stair.transform.position = position;
-                                stairCreated = true;
                                 stairIteration++;
                             }
 
@@ -114,7 +114,6 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
                             {
                                 var stair = Instantiate(bottomStairs, _roomsMap.gameObject.transform, true);
                                 stair.transform.position = new Vector3(position.x, position.y + 1);
-                                stairCreated = true;
                                 stairIteration++;
                             }
 
@@ -137,7 +136,6 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
                             {
                                 var stair = Instantiate(rightStairs, _roomsMap.gameObject.transform, true);
                                 stair.transform.position = new Vector3(position.x + 1, position.y);
-                                stairCreated = true;
                                 stairIteration++;
                             }
 

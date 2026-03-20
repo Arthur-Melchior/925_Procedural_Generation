@@ -154,6 +154,7 @@ MonoBehaviour:
   maxSteps: 100
   numberOfRooms: 8
   growthIterations: 2
+  tilePerStair: 200
   grassTile: {fileID: 11400000, guid: d0c32abb606784345b2a2152d776d93c, type: 2}
   wallTile: {fileID: 11400000, guid: 7ed793de4bcf8fc4bb2adf18ee2d35ec, type: 2}
   leftStairs: {fileID: 6075975974975622418, guid: 4fdd2d191ed68b0458ac373d43e8de1e,
@@ -100645,74 +100646,10 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &1734717206
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1734717208}
-  - component: {fileID: 1734717207}
-  - component: {fileID: 1734717209}
-  m_Layer: 0
-  m_Name: Dungeon Generator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1734717207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1734717206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d709ea14aac2bb54fa150b4612fe5544, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DungeonGenerator
-  sizeX: 1000
-  sizeY: 1000
-  minSizeX: 30
-  minSizeY: 30
-  roomScale: 1
-  visualiseGeneration: 1
---- !u!4 &1734717208
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1734717206}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1734717209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1734717206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba1b1655fa9247f8ae4b97a3f8bb95f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DungeonCutter
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 965763323}
-  - {fileID: 1734717208}
   - {fileID: 865390424}
   - {fileID: 103467105}
