@@ -1,9 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
+
+public class WalkableTile
+{
+    public Vector3Int Position;
+    public bool IsWalkable;
+
+    public WalkableTile(Vector3Int position, bool isWalkable)
+    {
+        Position = position;
+        IsWalkable = isWalkable;
+    }
+}
 
 [RequireComponent(typeof(Grid))]
 public class DungeonGeneratorDrunkWalker : MonoBehaviour
@@ -21,15 +36,19 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
     [SerializeField] private GameObject rightStairs;
     [SerializeField] private GameObject bottomStairs;
 
+    [HideInInspector] public Tilemap grassMap;
+    [HideInInspector] public Tilemap roomsMap;
+    public HashSet<WalkableTile> WalkableTiles = new();
+    private HashSet<Vector3Int> _wallPositions;
+
     private System.Random _random;
-    private Tilemap _grassMap;
-    private Tilemap _roomsMap;
     private List<HashSet<Vector3Int>> _rooms;
 
     private void Start()
     {
         _random = new System.Random();
         _rooms = new List<HashSet<Vector3Int>>();
+        _wallPositions = new HashSet<Vector3Int>();
         GenerateDungeon();
     }
 
@@ -39,19 +58,20 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
         ClearDungeon();
         GenerateGrassMap();
 
-        _roomsMap = GenerateTilemap("wall map");
+        roomsMap = GenerateTilemap("wall map");
 
         for (var i = 0; i < numberOfRooms; i++)
         {
-            MakeRoom();
+            GenerateRoom();
         }
 
         ExpandRooms();
         MergeRooms();
         AddStairs();
+        GenerateWalkableTiles();
 
-        _roomsMap.CompressBounds();
-        _roomsMap.GetComponent<TilemapRenderer>().sortingOrder = 1;
+        roomsMap.CompressBounds();
+        roomsMap.GetComponent<TilemapRenderer>().sortingOrder = 1;
     }
 
     private void ClearDungeon()
@@ -60,6 +80,7 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
         {
             Destroy(transform.GetChild(i).gameObject);
             _rooms.Clear();
+            _wallPositions.Clear();
         }
     }
 
@@ -81,16 +102,16 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
                 {
                     case 0:
                     {
-                        while (_roomsMap.GetTile(new Vector3Int(position.x, position.y)) &&
+                        while (roomsMap.GetTile(new Vector3Int(position.x, position.y)) &&
                                currentIteration < maxIterations)
                         {
-                            if (!_roomsMap.GetTile(new Vector3Int(position.x - 1, position.y))
-                                && !_roomsMap.GetTile(new Vector3Int(position.x - 2, position.y))
-                                && !_roomsMap.GetTile(new Vector3Int(position.x - 3, position.y))
-                                && _roomsMap.GetTile(new Vector3Int(position.x, position.y - 3))
-                                && _roomsMap.GetTile(new Vector3Int(position.x, position.y + 1)))
+                            if (!roomsMap.GetTile(new Vector3Int(position.x - 1, position.y))
+                                && !roomsMap.GetTile(new Vector3Int(position.x - 2, position.y))
+                                && !roomsMap.GetTile(new Vector3Int(position.x - 3, position.y))
+                                && roomsMap.GetTile(new Vector3Int(position.x, position.y - 3))
+                                && roomsMap.GetTile(new Vector3Int(position.x, position.y + 1)))
                             {
-                                var stair = Instantiate(leftStairs, _roomsMap.gameObject.transform, true);
+                                var stair = Instantiate(leftStairs, roomsMap.gameObject.transform, true);
                                 stair.transform.position = position;
                                 stairIteration++;
                             }
@@ -103,16 +124,16 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
                     }
                     case 1:
                     {
-                        while (_roomsMap.GetTile(new Vector3Int(position.x, position.y)) &&
+                        while (roomsMap.GetTile(new Vector3Int(position.x, position.y)) &&
                                currentIteration < maxIterations)
                         {
-                            if (!_roomsMap.GetTile(new Vector3Int(position.x, position.y - 1))
-                                && !_roomsMap.GetTile(new Vector3Int(position.x, position.y - 2))
-                                && !_roomsMap.GetTile(new Vector3Int(position.x, position.y - 3))
-                                && _roomsMap.GetTile(new Vector3Int(position.x - 1, position.y))
-                                && _roomsMap.GetTile(new Vector3Int(position.x + 1, position.y)))
+                            if (!roomsMap.GetTile(new Vector3Int(position.x, position.y - 1))
+                                && !roomsMap.GetTile(new Vector3Int(position.x, position.y - 2))
+                                && !roomsMap.GetTile(new Vector3Int(position.x, position.y - 3))
+                                && roomsMap.GetTile(new Vector3Int(position.x - 1, position.y))
+                                && roomsMap.GetTile(new Vector3Int(position.x + 1, position.y)))
                             {
-                                var stair = Instantiate(bottomStairs, _roomsMap.gameObject.transform, true);
+                                var stair = Instantiate(bottomStairs, roomsMap.gameObject.transform, true);
                                 stair.transform.position = new Vector3(position.x, position.y + 1);
                                 stairIteration++;
                             }
@@ -125,16 +146,16 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
                     }
                     case 2:
                     {
-                        while (_roomsMap.GetTile(new Vector3Int(position.x, position.y)) &&
+                        while (roomsMap.GetTile(new Vector3Int(position.x, position.y)) &&
                                currentIteration < maxIterations)
                         {
-                            if (!_roomsMap.GetTile(new Vector3Int(position.x + 1, position.y))
-                                && !_roomsMap.GetTile(new Vector3Int(position.x + 2, position.y))
-                                && !_roomsMap.GetTile(new Vector3Int(position.x + 3, position.y))
-                                && _roomsMap.GetTile(new Vector3Int(position.x, position.y - 3))
-                                && _roomsMap.GetTile(new Vector3Int(position.x, position.y + 1)))
+                            if (!roomsMap.GetTile(new Vector3Int(position.x + 1, position.y))
+                                && !roomsMap.GetTile(new Vector3Int(position.x + 2, position.y))
+                                && !roomsMap.GetTile(new Vector3Int(position.x + 3, position.y))
+                                && roomsMap.GetTile(new Vector3Int(position.x, position.y - 3))
+                                && roomsMap.GetTile(new Vector3Int(position.x, position.y + 1)))
                             {
-                                var stair = Instantiate(rightStairs, _roomsMap.gameObject.transform, true);
+                                var stair = Instantiate(rightStairs, roomsMap.gameObject.transform, true);
                                 stair.transform.position = new Vector3(position.x + 1, position.y);
                                 stairIteration++;
                             }
@@ -150,6 +171,23 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
         }
     }
 
+    private void GenerateWalkableTiles()
+    {
+        foreach (var tile in grassMap.cellBounds.allPositionsWithin)
+        {
+            WalkableTiles.Add(new WalkableTile(tile, true));
+        }
+
+        foreach (var wall in _wallPositions)
+        {
+            var w = WalkableTiles.FirstOrDefault(w => w.Position == wall);
+            if (w != null)
+            {
+                w.IsWalkable = false;
+            }
+        }
+    }
+
     public void ExpandRooms()
     {
         for (var i = 0; i < growthIterations; i++)
@@ -158,6 +196,7 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
             {
                 //the tempList is there to avoid changing the collection of positions
                 var tempList = new List<Vector3Int>();
+                var tempList2 = new List<Vector3Int>();
 
                 foreach (var position in room)
                 {
@@ -169,11 +208,17 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
                     ExtendTile(new Vector3Int(position.x - 1, position.y - 1), tempList);
                     ExtendTile(new Vector3Int(position.x - 1, position.y), tempList);
                     ExtendTile(new Vector3Int(position.x - 1, position.y + 1), tempList);
+                    tempList2.Add(position);
                 }
 
                 foreach (var vector3Int in tempList)
                 {
                     room.Add(vector3Int);
+                }
+
+                foreach (var vector3Int in tempList2)
+                {
+                    _wallPositions.Remove(vector3Int);
                 }
             }
         }
@@ -181,8 +226,9 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
 
     private void ExtendTile(Vector3Int position, List<Vector3Int> room)
     {
-        _roomsMap.SetTile(position, wallTile);
+        roomsMap.SetTile(position, wallTile);
         room.Add(position);
+        _wallPositions.Add(position);
     }
 
     private void MergeRooms()
@@ -196,7 +242,7 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
 
                 if (room.Overlaps(nextRoom))
                 {
-                    var newRoom = room.Concat(nextRoom).ToHashSet();
+                    var newRoom = Enumerable.ToHashSet(room.Concat(nextRoom));
                     _rooms.Remove(room);
                     _rooms.Remove(nextRoom);
                     _rooms.Add(newRoom);
@@ -207,9 +253,10 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
         }
     }
 
-    public void MakeRoom()
+    public void GenerateRoom()
     {
-        var startingPosition = new Vector3Int(_random.Next(20, sizeX - 20), _random.Next(20, sizeY - 20));
+        var startingPosition =
+            new Vector3Int(_random.Next(0, (int)(sizeX * 0.8f)), _random.Next(0, (int)(sizeY * 0.8f)));
         var room = new HashSet<Vector3Int>();
 
         for (var i = 0; i < maxSteps; i++)
@@ -219,7 +266,7 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
 
         foreach (var vector3Int in room)
         {
-            _roomsMap.SetTile(vector3Int, wallTile);
+            roomsMap.SetTile(vector3Int, wallTile);
         }
 
         _rooms.Add(room);
@@ -252,17 +299,17 @@ public class DungeonGeneratorDrunkWalker : MonoBehaviour
 
     private BoundsInt GenerateGrassMap()
     {
-        _grassMap = GenerateTilemap("grass map");
+        grassMap = GenerateTilemap("grass map");
 
         for (var i = 0; i < sizeX; i++)
         {
             for (var j = 0; j < sizeY; j++)
             {
-                _grassMap.SetTile(new Vector3Int(i, j), grassTile);
+                grassMap.SetTile(new Vector3Int(i, j), grassTile);
             }
         }
 
-        return _grassMap.cellBounds;
+        return grassMap.cellBounds;
     }
 
     private Tilemap GenerateTilemap(string tilemapName)

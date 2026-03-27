@@ -127,6 +127,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5628018140324151391}
+  - {fileID: 5294075798397512603}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5628018141983903119
@@ -142,6 +143,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  dodgeMultiplier: 2
+  dodgeTimer: 0.2
 --- !u!212 &5628018141983903107
 SpriteRenderer:
   serializedVersion: 2
@@ -339,8 +342,127 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 312909e8-952b-447e-8293-a6822771d2cd
     m_ActionName: 'Default/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/DualSenseGamepadHID/leftStick]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5628018141983903119}
+        m_TargetAssemblyTypeName: Cainos.Pixel_Art_Top_Down___Basic.Script.TopDownCharacterController,
+          Assembly-CSharp
+        m_MethodName: OnDodge
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8c036c70-511e-4ed3-8764-a85f7d7c0495
+    m_ActionName: 'Default/Dodge[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3510335822690761825}
+        m_TargetAssemblyTypeName: GunScript, Assembly-CSharp
+        m_MethodName: OnShoot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c4b07f59-89c5-4f3a-ad4c-7da70e76cfd0
+    m_ActionName: 'Default/Shoot[/Mouse/leftButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Default
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!1001 &6531277518647046708
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5628018141983903106}
+    m_Modifications:
+    - target: {fileID: 82824114700058684, guid: 26aad711a7ce4524585672fc4d8b0a16,
+        type: 3}
+      propertyPath: m_Name
+      value: Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430904085519423919, guid: 26aad711a7ce4524585672fc4d8b0a16,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.2909999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430904085519423919, guid: 26aad711a7ce4524585672fc4d8b0a16,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.09200001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430904085519423919, guid: 26aad711a7ce4524585672fc4d8b0a16,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430904085519423919, guid: 26aad711a7ce4524585672fc4d8b0a16,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430904085519423919, guid: 26aad711a7ce4524585672fc4d8b0a16,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430904085519423919, guid: 26aad711a7ce4524585672fc4d8b0a16,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430904085519423919, guid: 26aad711a7ce4524585672fc4d8b0a16,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430904085519423919, guid: 26aad711a7ce4524585672fc4d8b0a16,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430904085519423919, guid: 26aad711a7ce4524585672fc4d8b0a16,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430904085519423919, guid: 26aad711a7ce4524585672fc4d8b0a16,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 26aad711a7ce4524585672fc4d8b0a16, type: 3}
+--- !u!114 &3510335822690761825 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7644004507277069909, guid: 26aad711a7ce4524585672fc4d8b0a16,
+    type: 3}
+  m_PrefabInstance: {fileID: 6531277518647046708}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2668436466947cc972c1eec344574a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GunScript
+--- !u!4 &5294075798397512603 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1430904085519423919, guid: 26aad711a7ce4524585672fc4d8b0a16,
+    type: 3}
+  m_PrefabInstance: {fileID: 6531277518647046708}
+  m_PrefabAsset: {fileID: 0}

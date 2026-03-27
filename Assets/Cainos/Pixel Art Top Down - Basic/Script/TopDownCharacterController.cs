@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 
 namespace Cainos.Pixel_Art_Top_Down___Basic.Script
 {
@@ -56,7 +57,7 @@ namespace Cainos.Pixel_Art_Top_Down___Basic.Script
 
         public void OnDodge(InputAction.CallbackContext ctx)
         {
-            if (!ctx.performed) return;
+            if (!ctx.performed || _dodgeTimer > 0) return;
 
             _dodgeMultiplier = dodgeMultiplier;
             _dodgeTimer = dodgeTimer;

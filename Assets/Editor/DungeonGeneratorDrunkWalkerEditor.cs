@@ -18,7 +18,7 @@ namespace Editor
             
             if (GUILayout.Button("Generate Room"))
             {
-                generator.MakeRoom();
+                generator.GenerateRoom();
             }
 
             if (GUILayout.Button("Extend Dungeon"))
