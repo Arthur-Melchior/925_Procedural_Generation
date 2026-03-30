@@ -129,6 +129,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2565974814171995438, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
+      propertyPath: map
+      value: 
+      objectReference: {fileID: 1405108804}
+    - target: {fileID: 2565974814171995438, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 1305422982}
@@ -141,6 +146,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Flying eye
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803415564735348538, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8360026053654109327, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
@@ -207,6 +217,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2565974814171995438, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
+      propertyPath: map
+      value: 
+      objectReference: {fileID: 1405108804}
+    - target: {fileID: 2565974814171995438, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 1305422982}
@@ -219,6 +234,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Flying eye (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803415564735348538, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8360026053654109327, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
@@ -382,7 +402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyScript
   attackRange: 2
   target: {fileID: 1305422982}
-  map: {fileID: 1405108803}
+  map: {fileID: 1405108804}
   onDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -394,6 +414,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2565974814171995438, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
+      propertyPath: map
+      value: 
+      objectReference: {fileID: 1405108804}
     - target: {fileID: 2565974814171995438, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
       propertyPath: target
@@ -408,6 +433,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Flying eye (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803415564735348538, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8360026053654109327, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
@@ -636,6 +666,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2565974814171995438, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
+      propertyPath: map
+      value: 
+      objectReference: {fileID: 1405108804}
+    - target: {fileID: 2565974814171995438, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 1305422982}
@@ -648,6 +683,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Flying eye (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803415564735348538, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8360026053654109327, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}

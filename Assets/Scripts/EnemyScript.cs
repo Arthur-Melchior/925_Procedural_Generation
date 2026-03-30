@@ -9,16 +9,24 @@ public class EnemyScript : MonoBehaviour
 {
     [SerializeField] private float attackRange;
     [SerializeField] private Transform target;
-    [SerializeField] private DungeonGeneratorDrunkWalker map;
+    [SerializeField] private DungeonGenerator map;
     public UnityEvent onDeath;
-    private GameObject[] _stairs;
 
     private Animator _animator;
+    private PathfindingScript _pathfindingScript;
+    private List<PathNode> _path;
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        _stairs = GameObject.FindGameObjectsWithTag("Stairs");
+    }
+
+    public void GoToTarget()
+    {
+        _pathfindingScript = new PathfindingScript(map.walkableTiles);
+        _path = _pathfindingScript.FindPathToTarget(
+            new Vector3Int((int) transform.position.x, (int) transform.position.y),
+            new Vector3Int((int) target.position.x, (int) target.position.y));
     }
 
     private void Update()
@@ -36,24 +44,5 @@ public class EnemyScript : MonoBehaviour
             _animator.SetTrigger("Death");
             onDeath?.Invoke();
         }
-    }
-
-    private void GoToPlayer()
-    {
-        if (!Mathf.Approximately(target.position.z, transform.position.z))
-        {
-            GoToStairs();
-        }
-    }
-
-    private void GoToStairs()
-    {
-        var closestStair = _stairs.OrderBy(s => Vector3.Distance(target.position, s.transform.position)).First();
-        FindFastestPath(closestStair);
-    }
-
-    private void FindFastestPath(GameObject pathTarget)
-    {
-        var startingPosition = map.grassMap.WorldToCell(transform.position);
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,10 +9,10 @@ public enum CutType
 
 public class Node
 {
-    public CutType CutType;
-    public BoundsInt Room;
-    public Node LeftNode;
-    public Node RightNode;
+    public CutType cutType;
+    public BoundsInt room;
+    public Node leftNode;
+    public Node rightNode;
 }
 
 public class DungeonCutter
@@ -27,29 +26,29 @@ public class DungeonCutter
         BoundsInt rightNodeRoom;
         CutType nexCutType;
 
-        if (node.CutType == CutType.Vertical)
+        if (node.cutType == CutType.Vertical)
         {
-            var xMiddle = node.Room.size.x / 2;
-            leftNodeRoom = new BoundsInt(node.Room.min, new Vector3Int(xMiddle, node.Room.size.y));
-            rightNodeRoom = new BoundsInt(new Vector3Int(node.Room.x + xMiddle, node.Room.yMin),
-                new Vector3Int(xMiddle, node.Room.size.y));
+            var xMiddle = node.room.size.x / 2;
+            leftNodeRoom = new BoundsInt(node.room.min, new Vector3Int(xMiddle, node.room.size.y));
+            rightNodeRoom = new BoundsInt(new Vector3Int(node.room.x + xMiddle, node.room.yMin),
+                new Vector3Int(xMiddle, node.room.size.y));
             nexCutType = CutType.Horizontal;
         }
         else
         {
-            var yMiddle = node.Room.size.y / 2;
-            leftNodeRoom = new BoundsInt(node.Room.min, new Vector3Int(node.Room.size.x, yMiddle));
-            rightNodeRoom = new BoundsInt(new Vector3Int(node.Room.xMin, node.Room.y + yMiddle),
-                new Vector3Int(node.Room.size.x, yMiddle));
+            var yMiddle = node.room.size.y / 2;
+            leftNodeRoom = new BoundsInt(node.room.min, new Vector3Int(node.room.size.x, yMiddle));
+            rightNodeRoom = new BoundsInt(new Vector3Int(node.room.xMin, node.room.y + yMiddle),
+                new Vector3Int(node.room.size.x, yMiddle));
             nexCutType = CutType.Vertical;
         }
 
         _currentIteration++;
 
-        Debug.DrawLine(node.Room.min, new Vector3(node.Room.xMax, node.Room.y), Color.red, 1000);
-        Debug.DrawLine(node.Room.min, new Vector3(node.Room.x, node.Room.yMax), Color.red, 1000);
-        Debug.DrawLine(new Vector3(node.Room.x, node.Room.yMax), node.Room.max, Color.red, 1000);
-        Debug.DrawLine(new Vector3(node.Room.xMax, node.Room.y), node.Room.max, Color.red, 1000);
+        Debug.DrawLine(node.room.min, new Vector3(node.room.xMax, node.room.y), Color.red, 1000);
+        Debug.DrawLine(node.room.min, new Vector3(node.room.x, node.room.yMax), Color.red, 1000);
+        Debug.DrawLine(new Vector3(node.room.x, node.room.yMax), node.room.max, Color.red, 1000);
+        Debug.DrawLine(new Vector3(node.room.xMax, node.room.y), node.room.max, Color.red, 1000);
 
         if (leftNodeRoom.size.x < maxSizeX || leftNodeRoom.size.y < maxSizeY || _currentIteration > MaxIterations)
         {
@@ -57,10 +56,10 @@ public class DungeonCutter
             return;
         }
 
-        node.LeftNode = new Node {CutType = nexCutType, Room = leftNodeRoom};
-        node.RightNode = new Node {CutType = nexCutType, Room = rightNodeRoom};
+        node.leftNode = new Node {cutType = nexCutType, room = leftNodeRoom};
+        node.rightNode = new Node {cutType = nexCutType, room = rightNodeRoom};
 
-        Cut(node.LeftNode, maxSizeX, maxSizeY, leaves);
-        Cut(node.RightNode, maxSizeX, maxSizeY, leaves);
+        Cut(node.leftNode, maxSizeX, maxSizeY, leaves);
+        Cut(node.rightNode, maxSizeX, maxSizeY, leaves);
     }
 }

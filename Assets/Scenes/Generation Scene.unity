@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 103467105}
   - component: {fileID: 103467104}
-  - component: {fileID: 103467103}
+  - component: {fileID: 103467106}
   m_Layer: 0
   m_Name: DungeonGeneratorDrunkWalker
   m_TagString: Untagged
@@ -137,34 +137,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &103467103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 103467102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbb5b14b7eb04bba9532bdc82b12b603, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DungeonGeneratorDrunkWalker
-  sizeX: 100
-  sizeY: 100
-  maxSteps: 100
-  numberOfRooms: 8
-  growthIterations: 2
-  tilePerStair: 200
-  grassTile: {fileID: 11400000, guid: d0c32abb606784345b2a2152d776d93c, type: 2}
-  wallTile: {fileID: 11400000, guid: 7ed793de4bcf8fc4bb2adf18ee2d35ec, type: 2}
-  leftStairs: {fileID: 6075975974975622418, guid: 4fdd2d191ed68b0458ac373d43e8de1e,
-    type: 3}
-  rightStairs: {fileID: 6075975974975622418, guid: c4f2be6ec434a7f459aa4b66ff7fa133,
-    type: 3}
-  bottomStairs: {fileID: 6075975974975622418, guid: a92434f05fc24a2408687e0356655548,
-    type: 3}
-  grassMap: {fileID: 0}
-  roomsMap: {fileID: 0}
 --- !u!156049354 &103467104
 Grid:
   m_ObjectHideFlags: 0
@@ -192,72 +164,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &865390421
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 865390424}
-  - component: {fileID: 865390423}
-  - component: {fileID: 865390422}
-  m_Layer: 0
-  m_Name: Dungeon Generator Tile Rule
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &865390422
+--- !u!114 &103467106
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 865390421}
+  m_GameObject: {fileID: 103467102}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f6db2837d3d31a4f9fea203f623befc, type: 3}
+  m_Script: {fileID: 11500000, guid: dbb5b14b7eb04bba9532bdc82b12b603, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DungeonGeneratorTileRule
-  sizeX: 100
-  sizeY: 100
-  roomMaxSizeX: 20
-  roomMaxSizeY: 20
-  roomMinSizeX: 5
-  roomMinSizeY: 5
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonGenerator
+  sizeX: 200
+  sizeY: 200
+  maxSteps: 12
+  numberOfRooms: 5
+  growthIterations: 8
+  tilePerStair: 200
   grassTile: {fileID: 11400000, guid: d0c32abb606784345b2a2152d776d93c, type: 2}
   wallTile: {fileID: 11400000, guid: 7ed793de4bcf8fc4bb2adf18ee2d35ec, type: 2}
-  doorTile: {fileID: 11400000, guid: d70954ed1f87f974ebe68dcc0671a202, type: 2}
---- !u!156049354 &865390423
-Grid:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 865390421}
-  m_Enabled: 1
-  m_CellSize: {x: 1, y: 1, z: 1}
-  m_CellGap: {x: 0, y: 0, z: 0}
-  m_CellLayout: 0
-  m_CellSwizzle: 0
---- !u!4 &865390424
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 865390421}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3313.5715, y: 757.24316, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  leftStairs: {fileID: 6075975974975622418, guid: 82fc30c178d77ba448d65fe8434c568b,
+    type: 3}
+  rightStairs: {fileID: 6075975974975622418, guid: 74908d4e572f4c541baeae9f5c236a36,
+    type: 3}
+  bottomStairs: {fileID: 6075975974975622418, guid: a92434f05fc24a2408687e0356655548,
+    type: 3}
+  grassMap: {fileID: 0}
+  roomsMap: {fileID: 0}
 --- !u!1 &965763320
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,5 +289,4 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 965763323}
-  - {fileID: 865390424}
   - {fileID: 103467105}
