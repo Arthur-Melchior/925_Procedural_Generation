@@ -613,12 +613,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb5b14b7eb04bba9532bdc82b12b603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DungeonGeneratorDrunkWalker
+  onGenerationFinished:
+    m_PersistentCalls:
+      m_Calls: []
   sizeX: 100
   sizeY: 100
   maxSteps: 100
   numberOfRooms: 5
   growthIterations: 3
   tilePerStair: 200
+  spaceBetweenStairs: 20
   grassTile: {fileID: 11400000, guid: d0c32abb606784345b2a2152d776d93c, type: 2}
   wallTile: {fileID: 11400000, guid: 7ed793de4bcf8fc4bb2adf18ee2d35ec, type: 2}
   leftStairs: {fileID: 6075975974975622418, guid: 4fdd2d191ed68b0458ac373d43e8de1e,

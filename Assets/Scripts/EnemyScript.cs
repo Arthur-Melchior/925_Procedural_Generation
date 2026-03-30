@@ -19,11 +19,11 @@ public class EnemyScript : MonoBehaviour
     private void Start()
     {
         _animator = GetComponent<Animator>();
+        map.onGenerationFinished.AddListener(() => _pathfindingScript = new PathfindingScript(map.walkableTiles));
     }
 
     public void GoToTarget()
     {
-        _pathfindingScript = new PathfindingScript(map.walkableTiles);
         _path = _pathfindingScript.FindPathToTarget(
             new Vector3Int((int) transform.position.x, (int) transform.position.y),
             new Vector3Int((int) target.position.x, (int) target.position.y));
