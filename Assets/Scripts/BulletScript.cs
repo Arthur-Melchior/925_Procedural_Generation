@@ -37,9 +37,9 @@ public class BulletScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (penIteration < numberOfPenetrations)
+        if (_penIterations < numberOfPenetrations)
         {
-            penIteration++;
+            _penIterations++;
         }
         else
         {

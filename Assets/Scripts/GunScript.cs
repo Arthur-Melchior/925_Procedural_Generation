@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,8 +14,9 @@ public class GunScript : MonoBehaviour
     [SerializeField] private int magazineSize = 20;
     [SerializeField] private GameObject bullet;
 
-    public GameObject[] bullets;
-    
+    [HideInInspector] public GameObject[] bullets;
+    [HideInInspector] public int remainingBullets;
+
     private Transform _gunTip;
     private float _shootDeltaTime;
     private bool _isShooting;
@@ -23,7 +26,8 @@ public class GunScript : MonoBehaviour
     {
         _gunTip = transform.Find("gun tip");
         _camera = Camera.main;
-        bullets = new GameObject[magazineSize]
+        bullets = new GameObject[magazineSize];
+        remainingBullets = magazineSize;
     }
 
     private void Update()
@@ -31,7 +35,7 @@ public class GunScript : MonoBehaviour
         Shoot();
         RotateGunTowardsMouse();
     }
-    
+
     public void OnShoot(InputAction.CallbackContext ctx)
     {
         if (ctx.performed) _isShooting = true;
@@ -42,14 +46,22 @@ public class GunScript : MonoBehaviour
     {
         if (_isShooting && _shootDeltaTime > shootRate)
         {
-            var bulletInstance = Instantiate(bullet, _gunTip);
-            bulletInstance.transform.SetParent(transform.parent);
+            if (remainingBullets > 0)
+            {
+                bullets[remainingBullets].SetActive(true);
+                remainingBullets--;
+            }
+            else
+            {
+                StartCoroutine(Reload());
+            }
+
             _shootDeltaTime = 0;
         }
 
         _shootDeltaTime += Time.deltaTime;
     }
-    
+
     private void RotateGunTowardsMouse()
     {
         var mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
@@ -84,7 +96,7 @@ public class GunScript : MonoBehaviour
 
         while (passedTime < reloadTime)
         {
-            passedTime += Time.DeltaTime;
+            passedTime += Time.deltaTime;
             if (_reloadPressed)
             {
                 if (passedTime > sweetSpotStart && passedTime < sweetSpotEnd)
@@ -92,12 +104,28 @@ public class GunScript : MonoBehaviour
                     for (int i = 0; i < magazineSize; i++)
                     {
                         bullets[i] = Instantiate(bullet, _gunTip);
-                        bullets[i]
+                        bullets[i].transform.SetParent(transform.parent);
+                        bullets[i].GetComponent<BulletScript>().isSuper = true;
+                        bullets[i].SetActive(false);
                     }
+
+                    _isReloading = false;
+                    _reloadPressed = false;
+                    yield break;
+                }
+                else
+                {
+                    //jam gun
                 }
             }
         }
-        
-        
+
+        for (var i = 0; i < magazineSize; i++)
+        {
+            bullets[i] = Instantiate(bullet, _gunTip);
+            bullets[i].transform.SetParent(transform.parent);
+        }
+
+        _isReloading = false;
     }
 }
