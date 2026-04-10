@@ -6,7 +6,13 @@ using UnityEngine.InputSystem;
 public class GunScript : MonoBehaviour
 {
     [SerializeField] private float shootRate;
+    [SerializeField] private float reloadTime;
+    [SerializeField] private float sweetSpotStart;
+    [SerializeField] private float sweetSpotEnd;
+    [SerializeField] private int magazineSize = 20;
     [SerializeField] private GameObject bullet;
+
+    public GameObject[] bullets;
     
     private Transform _gunTip;
     private float _shootDeltaTime;
@@ -17,6 +23,7 @@ public class GunScript : MonoBehaviour
     {
         _gunTip = transform.Find("gun tip");
         _camera = Camera.main;
+        bullets = new GameObject[magazineSize]
     }
 
     private void Update()
@@ -53,5 +60,44 @@ public class GunScript : MonoBehaviour
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         transform.rotation = Quaternion.Euler(0f, 0f, angle + 90f);
+    }
+
+    private bool _isReloading;
+    private bool _reloadPressed;
+
+    public void OnReload(InputAction.CallbackContext ctx)
+    {
+        if (!_isReloading)
+        {
+            StartCoroutine(Reload());
+        }
+        else
+        {
+            _reloadPressed = true;
+        }
+    }
+
+    private IEnumerator Reload()
+    {
+        _isReloading = true;
+        var passedTime = 0f;
+
+        while (passedTime < reloadTime)
+        {
+            passedTime += Time.DeltaTime;
+            if (_reloadPressed)
+            {
+                if (passedTime > sweetSpotStart && passedTime < sweetSpotEnd)
+                {
+                    for (int i = 0; i < magazineSize; i++)
+                    {
+                        bullets[i] = Instantiate(bullet, _gunTip);
+                        bullets[i]
+                    }
+                }
+            }
+        }
+        
+        
     }
 }

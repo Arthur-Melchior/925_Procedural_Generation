@@ -6,6 +6,9 @@ public class BulletScript : MonoBehaviour
     [SerializeField] private Sprite bulletSprite;
     [SerializeField] private float speed = 1f;
     [SerializeField] private float maxLifeTime = 10f;
+    [SerializeField] private int numberOfPenetrations = 3;
+    public bool isSuper;
+    private int _penIterations;
 
     private SpriteRenderer _spriteRenderer;
 
@@ -34,6 +37,13 @@ public class BulletScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        Destroy(gameObject);
+        if (penIteration < numberOfPenetrations)
+        {
+            penIteration++;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }
