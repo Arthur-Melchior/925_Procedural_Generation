@@ -261,7 +261,7 @@ public class DungeonGenerator : MonoBehaviour
 
                 if (room.Overlaps(nextRoom))
                 {
-                    var newRoom = Enumerable.ToHashSet(room.Concat(nextRoom));
+                    var newRoom = room.Concat(nextRoom).ToHashSet();
                     _rooms.Remove(room);
                     _rooms.Remove(nextRoom);
                     _rooms.Add(newRoom);

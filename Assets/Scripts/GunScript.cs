@@ -3,6 +3,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 
 public class GunScript : MonoBehaviour
@@ -17,6 +18,10 @@ public class GunScript : MonoBehaviour
     [HideInInspector] public GameObject[] bullets;
     [HideInInspector] public int remainingBullets;
 
+    [Header("UI")] [SerializeField] private Image backgroundImage;
+    [SerializeField] private Image forGroundImage;
+    [SerializeField] private Image sweetSpotImage;
+
     private Transform _gunTip;
     private float _shootDeltaTime;
     private bool _isShooting;
@@ -27,7 +32,15 @@ public class GunScript : MonoBehaviour
         _gunTip = transform.Find("gun tip");
         _camera = Camera.main;
         bullets = new GameObject[magazineSize];
-        remainingBullets = magazineSize;
+        for (var i = 0; i < magazineSize; i++)
+        {
+            bullets[i] = Instantiate(bullet, _gunTip);
+            bullets[i].transform.SetParent(transform.parent);
+            bullets[i].GetComponent<BulletScript>().isSuper = true;
+            bullets[i].SetActive(false);
+        }
+        remainingBullets = magazineSize - 1;
+        sweetSpotImage.transform.rotation = Quaternion.Euler(0, 0, 360 / reloadTime * sweetSpotStart * -1);
     }
 
     private void Update()
@@ -79,6 +92,8 @@ public class GunScript : MonoBehaviour
 
     public void OnReload(InputAction.CallbackContext ctx)
     {
+        if (!ctx.performed) return;
+        
         if (!_isReloading)
         {
             StartCoroutine(Reload());
@@ -97,6 +112,8 @@ public class GunScript : MonoBehaviour
         while (passedTime < reloadTime)
         {
             passedTime += Time.deltaTime;
+            forGroundImage.fillAmount = 1 / reloadTime * passedTime;
+            Debug.Log(passedTime);
             if (_reloadPressed)
             {
                 if (passedTime > sweetSpotStart && passedTime < sweetSpotEnd)
@@ -118,6 +135,8 @@ public class GunScript : MonoBehaviour
                     //jam gun
                 }
             }
+            
+            yield return null;
         }
 
         for (var i = 0; i < magazineSize; i++)
