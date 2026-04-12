@@ -1,36 +1,27 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Scriptable_Objects;
 using UnityEngine;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public List<EnemySo> enemiesList;
-    public List<Transform> spawnPoints;
-    public float enemiesBudget;
+    public List<GameObject> enemiesList;
 
-    private bool _enemiesSpawned;
-
-    private void OnTriggerEnter2D(Collider2D other)
+    private void Start()
     {
-        if (_enemiesSpawned) return;
-        SpawnEnemies();
-        _enemiesSpawned = true;
+        StartCoroutine(SpawnEnemy());
     }
 
-    private void SpawnEnemies()
+    private IEnumerator SpawnEnemy()
     {
-        var random = new Random();
-        foreach (var spawnPoint in spawnPoints)
+        while (true)
         {
-            var rng = random.Next(enemiesList.Count);
-            var enemy = enemiesList[rng];
-            if (enemy.cost < enemiesBudget)
-            {
-                Instantiate(enemy.prefab, spawnPoint);
-                enemiesBudget -= enemy.cost;
-            }
+            var enemy = enemiesList[Random.Range(0, enemiesList.Count)];
+            Instantiate(enemy);
+
+            yield return new WaitForSeconds(0.5f);
         }
     }
 }
