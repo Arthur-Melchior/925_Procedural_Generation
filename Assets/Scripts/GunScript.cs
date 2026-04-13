@@ -46,6 +46,7 @@ public class GunScript : MonoBehaviour
 
         remainingBullets = magazineSize - 1;
         sweetSpotImage.transform.rotation = Quaternion.Euler(0, 0, 360 / reloadTime * sweetSpotStart * -1);
+        sweetSpotImage.fillAmount = 1 / (reloadTime / (sweetSpotEnd - sweetSpotStart));
     }
 
     private void Update()

@@ -98,6 +98,8 @@ public class DungeonGenerator : MonoBehaviour
                 }
             }
         }
+
+        roomsMap.gameObject.AddComponent<TilemapCollider2D>();
     }
 
     private void ClearDungeon()
@@ -112,6 +114,7 @@ public class DungeonGenerator : MonoBehaviour
 
     private void AddStairs()
     {
+        var tempList = new List<GameObject>();
         foreach (var room in _wallPositions)
         {
             //how many stairs should there be in this room
@@ -145,6 +148,7 @@ public class DungeonGenerator : MonoBehaviour
                     {
                         var stairs = Instantiate(rightStairs, transform);
                         stairs.transform.position = new Vector3(first.x + 1, first.y);
+                        tempList.Add(stairs);
                         instantiatedStairs++;
                         distanceBetweenStairs = 0;
                     }
@@ -152,6 +156,7 @@ public class DungeonGenerator : MonoBehaviour
                     {
                         var stairs = Instantiate(leftStairs, transform);
                         stairs.transform.position = new Vector3(fourth.x, fourth.y);
+                        tempList.Add(stairs);
                         instantiatedStairs++;
                         distanceBetweenStairs = 0;
                     }
@@ -164,11 +169,18 @@ public class DungeonGenerator : MonoBehaviour
                     {
                         var stairs = Instantiate(bottomStairs, transform);
                         stairs.transform.position = new Vector3(second.x, second.y + 1);
+                        tempList.Add(stairs);
                         instantiatedStairs++;
                         distanceBetweenStairs = 0;
                     }
                 }
             }
+        }
+
+        foreach (var stair in tempList)
+        {
+            var stairsScript = stair.AddComponent<StairsScript>();
+            stairsScript.wall = roomsMap.GetComponent<TilemapCollider2D>();
         }
     }
 

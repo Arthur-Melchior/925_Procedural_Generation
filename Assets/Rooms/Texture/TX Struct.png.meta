@@ -1,273 +1,88 @@
 fileFormatVersion: 2
-guid: c3a40e1c46727b94e959990527f8e7fa
+guid: dda6bbdb704d84847b38f9eced72bf59
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187605
+  packageName: Pixel Art Top Down - Basic
+  packageVersion: 1.2.3
+  assetPath: Assets/Cainos/Pixel Art Top Down - Basic/Texture/TX Struct.png
+  uploadId: 849082
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 21300000
-    second: TX Props Chest
+    second: TX Stairs M L
   - first:
       213: 21300002
-    second: TX Props Grass A
+    second: TX Stairs M R
   - first:
       213: 21300004
-    second: TX Props Grass B
+    second: TX Stairs M M
   - first:
       213: 21300006
-    second: TX Props Grass C
+    second: TX Stairs West
   - first:
       213: 21300008
-    second: TX Props Grass D
+    second: TX Stairs West F
   - first:
       213: 21300010
-    second: TX Props Grass E
+    second: TX Stairs L L
   - first:
       213: 21300012
-    second: TX Props Grass F
+    second: TX Stairs L R
   - first:
       213: 21300014
-    second: TX Props Grass G
+    second: TX Stairs L M
   - first:
       213: 21300016
-    second: TX Props Grass H
+    second: TX Struct Gate T2 T
   - first:
       213: 21300018
-    second: TX Props Grass I
+    second: TX Struct Gate T2 B
   - first:
       213: 21300020
-    second: TX Props Grass J
+    second: TX Stairs R L
   - first:
       213: 21300022
-    second: TX Props Grass K
+    second: TX Stairs R M
   - first:
       213: 21300024
-    second: TX Props Grass L
+    second: TX Stairs R R
   - first:
       213: 21300026
-    second: TX Props Grass M
+    second: TX Struct Gate T1 B
   - first:
       213: 21300028
-    second: TX Props Grass N
+    second: TX Struct Gate T1 T
   - first:
       213: 21300030
-    second: TX Props Grass O
+    second: TX Stairs Broken M M
   - first:
       213: 21300032
-    second: TX Props Grass Flower
+    second: TX Stairs Broken M R
   - first:
       213: 21300034
-    second: TX Props Crate
+    second: TX Stairs Broken L L
   - first:
       213: 21300036
-    second: TX Props Cube
+    second: TX Stairs Broken L M
   - first:
       213: 21300038
-    second: TX Props Crate Small
+    second: TX Stairs Broken L R
   - first:
       213: 21300040
-    second: TX Props Chest Opened
+    second: TX Stairs Broken R L
   - first:
       213: 21300042
-    second: TX Props Rune Pillar X2
+    second: TX Stairs Broken R M
   - first:
       213: 21300044
-    second: TX Props Rune Pillar X2 Glow
+    second: TX Stairs Broken R R
   - first:
       213: 21300046
-    second: TX Props Stair S L
-  - first:
-      213: 21300048
-    second: TX Props Stair S R
-  - first:
-      213: 21300050
-    second: TX Props Stair NL
-  - first:
-      213: 21300052
-    second: TX Props Stair NU
-  - first:
-      213: 21300054
-    second: TX Props Stair NR
-  - first:
-      213: 21300056
-    second: TX Props Stair NM
-  - first:
-      213: 21300058
-    second: TX Props Rune Pillar X3
-  - first:
-      213: 21300060
-    second: TX Props Rune Pillar Broken
-  - first:
-      213: 21300062
-    second: TX Props Rune Pillar X3 Glow
-  - first:
-      213: 21300064
-    second: TX Props Rune Pillar Broken Glow
-  - first:
-      213: 21300066
-    second: TX Props Barrel
-  - first:
-      213: 21300068
-    second: TX Props Gravestone A
-  - first:
-      213: 21300070
-    second: TX Props Gravestone B
-  - first:
-      213: 21300072
-    second: TX Props Gravestone C
-  - first:
-      213: 21300074
-    second: TX Props Tree A
-  - first:
-      213: 21300076
-    second: TX Props Stone Coffin V
-  - first:
-      213: 21300078
-    second: TX Props Stone Coffin H
-  - first:
-      213: 21300080
-    second: TX Bush T6
-  - first:
-      213: 21300082
-    second: TX Tree T3 Lower
-  - first:
-      213: 21300084
-    second: TX Tree T3 Upper
-  - first:
-      213: 21300086
-    second: TX Props Road Sign E
-  - first:
-      213: 21300088
-    second: TX Props Road Sign W
-  - first:
-      213: 21300090
-    second: TX Props Pot A
-  - first:
-      213: 21300092
-    second: TX Props Pot B
-  - first:
-      213: 21300094
-    second: TX Props Pot C
-  - first:
-      213: 21300096
-    second: TX Props Stone Bench S
-  - first:
-      213: 21300098
-    second: TX Props Stone Bench W
-  - first:
-      213: 21300100
-    second: TX Props Stone Bench E
-  - first:
-      213: 21300102
-    second: TX Props Stone T1
-  - first:
-      213: 21300104
-    second: TX Props Stone T2
-  - first:
-      213: 21300106
-    second: TX Props Stone T3
-  - first:
-      213: 21300108
-    second: TX Props Stone T4
-  - first:
-      213: 21300110
-    second: TX Props Stone T5
-  - first:
-      213: 21300112
-    second: TX Props Stone T6
-  - first:
-      213: 21300114
-    second: TX Props Statue
-  - first:
-      213: 21300116
-    second: TX Props Stone Lantern
-  - first:
-      213: 21300118
-    second: TX Props Pillar
-  - first:
-      213: 21300120
-    second: TX Props Pillar Broken
-  - first:
-      213: 21300122
-    second: TX Tree T1 Lower
-  - first:
-      213: 21300124
-    second: TX Tree T1 Upper
-  - first:
-      213: 21300126
-    second: TX Tree T2 Lower
-  - first:
-      213: 21300128
-    second: TX Tree T2 Upper
-  - first:
-      213: 21300130
-    second: TX Props Stone Cube
-  - first:
-      213: 21300132
-    second: TX Bush T5
-  - first:
-      213: 21300134
-    second: TX Bush T2
-  - first:
-      213: 21300136
-    second: TX Bush T1
-  - first:
-      213: 21300138
-    second: TX Bush T4
-  - first:
-      213: 21300140
-    second: TX Bush T3
-  - first:
-      213: 21300142
-    second: TX Props Altar
-  - first:
-      213: 21300144
-    second: TX Grass A
-  - first:
-      213: 21300146
-    second: TX Grass B
-  - first:
-      213: 21300148
-    second: TX Grass C
-  - first:
-      213: 21300150
-    second: TX Grass D
-  - first:
-      213: 21300152
-    second: TX Grass E
-  - first:
-      213: 21300154
-    second: TX Grass F
-  - first:
-      213: 21300156
-    second: TX Grass G
-  - first:
-      213: 21300158
-    second: TX Grass H
-  - first:
-      213: 21300160
-    second: TX Grass I
-  - first:
-      213: 21300162
-    second: TX Grass J
-  - first:
-      213: 21300164
-    second: TX Grass K
-  - first:
-      213: 21300166
-    second: TX Grass L
-  - first:
-      213: 21300168
-    second: TX Grass M
-  - first:
-      213: 21300170
-    second: TX Grass N
-  - first:
-      213: 21300172
-    second: TX Grass O
-  - first:
-      213: 21300174
-    second: TX Flower
+    second: TX Stairs Broken M L
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -284,11 +99,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -313,7 +129,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -327,9 +143,10 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 1
+  swizzle: 50462976
   cookieLightType: 1
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -339,9 +156,10 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -351,9 +169,10 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 1
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -363,9 +182,10 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -375,10 +195,11 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: iPhone
+  - serializedVersion: 4
+    buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -387,9 +208,10 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -399,648 +221,731 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TX Bush T6
+      name: TX Stairs M L
       rect:
         serializedVersion: 2
-        x: 346
-        y: 287
-        width: 40
-        height: 35
+        x: 32
+        y: 384
+        width: 8
+        height: 96
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d8f8f427415847545a646dff20410123
-      internalID: 21300080
+      spriteID: 7e85007cc5e36b0489dac583a154f4a4
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TX Tree T3 Lower
+      name: TX Stairs M R
       rect:
         serializedVersion: 2
-        x: 24
-        y: 359
-        width: 113
-        height: 64
+        x: 88
+        y: 384
+        width: 8
+        height: 96
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d24745cb345f15d4e8380714ce1ddaf9
-      internalID: 21300082
+      spriteID: e6af09618cf90b045aa25eef748e8de0
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TX Tree T3 Upper
+      name: TX Stairs M M
       rect:
         serializedVersion: 2
-        x: 24
-        y: 423
-        width: 113
-        height: 75
+        x: 40
+        y: 384
+        width: 48
+        height: 96
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b4970110c2203d40978fa60018d8dbc
-      internalID: 21300084
+      spriteID: d2a619254875fd248ba89328e4e4b0af
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TX Tree T1 Lower
+      name: TX Stairs L L
       rect:
         serializedVersion: 2
-        x: 295
-        y: 361
-        width: 79
-        height: 63
+        x: 128
+        y: 384
+        width: 8
+        height: 96
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e000a902da7b93543a0c48f5962975b7
-      internalID: 21300122
+      spriteID: d1dea89094ffe8040a0dbb26e8d43ad2
+      internalID: 21300010
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TX Tree T1 Upper
+      name: TX Stairs L R
       rect:
         serializedVersion: 2
-        x: 295
-        y: 424
-        width: 79
-        height: 57
+        x: 185
+        y: 384
+        width: 8
+        height: 96
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2854a8023a2ff649b564e4796745ad2
-      internalID: 21300124
+      spriteID: bf8786d2e3f6b1f42b3465b7ed95e462
+      internalID: 21300012
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TX Tree T2 Lower
+      name: TX Stairs L M
       rect:
         serializedVersion: 2
-        x: 161
-        y: 359
-        width: 95
-        height: 63
+        x: 136
+        y: 384
+        width: 49
+        height: 96
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 315dce2be60554b43bdf5597b28ee495
-      internalID: 21300126
+      spriteID: cb5b4d78b0ad20246b1c8bca8f1337a2
+      internalID: 21300014
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TX Tree T2 Upper
+      name: TX Struct Gate T2 T
       rect:
         serializedVersion: 2
-        x: 161
-        y: 422
-        width: 95
-        height: 73
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 408
+        y: 466
+        width: 80
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd857c16621ac764e84100b2f24afb01
-      internalID: 21300128
+      spriteID: 443bab2316fa4a94d8fee39b0034c1b3
+      internalID: 21300016
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TX Bush T5
+      name: TX Struct Gate T2 B
       rect:
         serializedVersion: 2
-        x: 282
-        y: 282
-        width: 39
+        x: 416
+        y: 421
+        width: 64
         height: 45
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 50d762841ad5eb54293a2e19dc43e86a
-      internalID: 21300132
+      spriteID: cd698d1c0dd0315479af25cb8cd008d2
+      internalID: 21300018
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TX Bush T2
+      name: TX Stairs R L
       rect:
         serializedVersion: 2
-        x: 98
-        y: 292
-        width: 27
-        height: 25
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: be674d96323c0d04d955971daad5dd91
-      internalID: 21300134
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Bush T1
-      rect:
-        serializedVersion: 2
-        x: 38
-        y: 295
-        width: 22
-        height: 19
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fa619ae4fe292a4439059c72f6694b97
-      internalID: 21300136
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Bush T4
-      rect:
-        serializedVersion: 2
-        x: 216
-        y: 285
-        width: 47
-        height: 42
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aa59c01ea4a9ed844a2d9e999fe03dd1
-      internalID: 21300138
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Bush T3
-      rect:
-        serializedVersion: 2
-        x: 156
-        y: 290
-        width: 38
-        height: 32
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7a3cf780b7b11e94780b5a353c743da7
-      internalID: 21300140
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Plant - Grass 01
-      rect:
-        serializedVersion: 2
-        x: 8
-        y: 109
-        width: 17
-        height: 9
-      alignment: 9
-      pivot: {x: 0.47058824, y: -0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1fad50d0492147c489b454b3845cc537
-      internalID: 21300144
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Plant - Grass 02
-      rect:
-        serializedVersion: 2
-        x: 41
-        y: 108
-        width: 16
-        height: 10
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a3ff5397c629e104fbae23d8e458e22d
-      internalID: 21300146
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Plant - Grass 03
-      rect:
-        serializedVersion: 2
-        x: 73
-        y: 108
-        width: 15
-        height: 10
-      alignment: 9
-      pivot: {x: 0.4666667, y: -0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7da6c2257284caf43abe56937a3a6ceb
-      internalID: 21300148
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Plant - Grass 04
-      rect:
-        serializedVersion: 2
-        x: 102
-        y: 107
-        width: 15
-        height: 11
-      alignment: 9
-      pivot: {x: 0.4666667, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fbc5966edab527c4487590a8eae5847a
-      internalID: 21300150
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Plant - Grass 05
-      rect:
-        serializedVersion: 2
-        x: 9
-        y: 76
-        width: 12
-        height: 10
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ad127a6b0495444459f13ff8e73b1018
-      internalID: 21300152
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Plant - Grass 06
-      rect:
-        serializedVersion: 2
-        x: 43
-        y: 76
-        width: 13
-        height: 9
-      alignment: 9
-      pivot: {x: 0.4615385, y: -0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6f7ef7d933d54e14bae1aade26af9491
-      internalID: 21300154
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Plant - Grass 07
-      rect:
-        serializedVersion: 2
-        x: 74
-        y: 76
-        width: 13
-        height: 9
-      alignment: 9
-      pivot: {x: 0.4615385, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 501c7139739e8154ebd966446aada3bd
-      internalID: 21300156
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Plant - Grass 08
-      rect:
-        serializedVersion: 2
-        x: 104
-        y: 77
-        width: 14
-        height: 7
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b62ab87c26849ff4e8286d8459272a9b
-      internalID: 21300158
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Plant - Grass 09
-      rect:
-        serializedVersion: 2
-        x: 9
-        y: 45
-        width: 12
-        height: 8
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ad1c2b69af544b345b9b4a609dd39334
-      internalID: 21300160
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Plant - Grass 10
-      rect:
-        serializedVersion: 2
-        x: 41
-        y: 44
-        width: 12
-        height: 10
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6d9dad3a959dc6943ba23b31e347bf4e
-      internalID: 21300162
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Plant - Grass 11
-      rect:
-        serializedVersion: 2
-        x: 71
-        y: 43
-        width: 14
-        height: 10
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f839d87cfc2741b428f311c7f93472e7
-      internalID: 21300164
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Plant - Grass 12
-      rect:
-        serializedVersion: 2
-        x: 106
-        y: 44
-        width: 12
-        height: 9
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 04191885799ef284fabd148f827b1c80
-      internalID: 21300166
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Plant - Grass 13
-      rect:
-        serializedVersion: 2
-        x: 11
-        y: 11
-        width: 10
-        height: 10
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 007c9777633e13f4d9508a6599f3944b
-      internalID: 21300168
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Plant - Grass 14
-      rect:
-        serializedVersion: 2
-        x: 44
-        y: 11
-        width: 10
-        height: 10
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e637337dfda92514db5ee2606419f0ee
-      internalID: 21300170
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TX Plant - Grass 15
-      rect:
-        serializedVersion: 2
-        x: 76
-        y: 11
+        x: 224
+        y: 384
         width: 8
-        height: 8
+        height: 96
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eca805eda50176d4891ea5031c6b982b
-      internalID: 21300172
+      spriteID: e96131a19bf462e40bf10d498caf7c22
+      internalID: 21300020
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TX Plant - Flower 01
+      name: TX Stairs R M
       rect:
         serializedVersion: 2
-        x: 110
-        y: 12
-        width: 6
-        height: 5
+        x: 232
+        y: 385
+        width: 49
+        height: 96
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e9847fee735b664f90a58fc9f78c05c
-      internalID: 21300174
+      spriteID: 149d3803b1d57264cb224ce4b81e298e
+      internalID: 21300022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Stairs R R
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 384
+        width: 8
+        height: 96
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe77d278ac00f4c43a35d574b4f5b365
+      internalID: 21300024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Struct Gate T1 B
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 320
+        width: 64
+        height: 45
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b483c74c6b745c34daaf3edc0dd739e3
+      internalID: 21300026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Struct Gate T1 T
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 365
+        width: 64
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fe8ef7d9527ba54f9ae5aedb13a66b2
+      internalID: 21300028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Stairs Broken M M
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 256
+        width: 48
+        height: 96
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3e078e1b740fba4aa8ac4554c556ee7
+      internalID: 21300030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Stairs Broken M R
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 256
+        width: 8
+        height: 96
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f242e679232c374fbd80979fb6a5f3e
+      internalID: 21300032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Stairs Broken L L
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 8
+        height: 96
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d689fdfe1a558f347bd4b54db882d1ea
+      internalID: 21300034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Stairs Broken L M
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 256
+        width: 49
+        height: 96
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5733b58d180fad748ba85777753c9e8b
+      internalID: 21300036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Stairs Broken L R
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 256
+        width: 8
+        height: 96
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06f3a4ec492ccfb44872c2f58cdcb1d5
+      internalID: 21300038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Stairs Broken R L
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 256
+        width: 8
+        height: 96
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e2725ba6a59a3e44b2fda0edb60a8ab
+      internalID: 21300040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Stairs Broken R M
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 256
+        width: 49
+        height: 96
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df047a83398149a45997df1124def30c
+      internalID: 21300042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Stairs Broken R R
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 256
+        width: 8
+        height: 96
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a09e5fa9b9f1ae143b9cb0cc538628e0
+      internalID: 21300044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Stairs Broken M L
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 256
+        width: 8
+        height: 96
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a1abfab279448845870b1256227c941
+      internalID: 21300046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Stairs W 01 U
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 178
+        width: 90
+        height: 46
+      alignment: 9
+      pivot: {x: 0.9777778, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cd4653d5bbb4bc4ea6667899d3254f8
+      internalID: -293941904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Stairs W 02 U
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 178
+        width: 90
+        height: 46
+      alignment: 9
+      pivot: {x: 0.9777778, y: -0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba57ac0322361484794ec40c0457be52
+      internalID: -275658010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Stairs E 01 U
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 82
+        width: 88
+        height: 46
+      alignment: 9
+      pivot: {x: -0, y: -0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69e65740d3af19c4e9b029c83016ab07
+      internalID: -1827870714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Stairs E 02 U
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 82
+        width: 88
+        height: 46
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4004381b203e751498e7f100712da326
+      internalID: -1076116132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Stairs W 01 L
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 128
+        width: 90
+        height: 50
+      alignment: 9
+      pivot: {x: 0.9777778, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45b1d6d97576dfc4a9cc6a616127d904
+      internalID: -132900705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Stairs W 02 L
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 128
+        width: 90
+        height: 50
+      alignment: 9
+      pivot: {x: 0.9777778, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6903d2652a0e593418ae64677614f669
+      internalID: -461411122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Stairs E 02 L
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 32
+        width: 88
+        height: 50
+      alignment: 9
+      pivot: {x: 0, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 811c87504747e0341905d92d31f3e36d
+      internalID: -575057542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Stairs E 01 L
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 32
+        width: 88
+        height: 50
+      alignment: 9
+      pivot: {x: 0, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89dea26f247f7ec46a9115131df2da76
+      internalID: -935552555
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
-    spriteID: c89561e7115ccae4cb9f395a5fee57ba
+    spriteID: b7d7f8e627d8cba42b12a511a2f63685
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
-      TX Bush T6: 21300080
-      TX Plant - Grass 09: 21300160
-      TX Tree T2 Lower: 21300126
-      TX Bush T5: 21300132
-      TX Bush T4: 21300138
-      TX Tree T2 Upper: 21300128
-      TX Plant - Grass 11: 21300164
-      TX Plant - Grass 07: 21300156
-      TX Tree T3 Upper: 21300084
-      TX Plant - Grass 14: 21300170
-      TX Plant - Flower 01: 21300174
-      TX Tree T1 Lower: 21300122
-      TX Plant - Grass 04: 21300150
-      TX Plant - Grass 10: 21300162
-      TX Plant - Grass 06: 21300154
-      TX Bush T3: 21300140
-      TX Tree T3 Lower: 21300082
-      TX Plant - Grass 02: 21300146
-      TX Bush T1: 21300136
-      TX Plant - Grass 08: 21300158
-      TX Plant - Grass 03: 21300148
-      TX Plant - Grass 13: 21300168
-      TX Plant - Grass 01: 21300144
-      TX Plant - Grass 15: 21300172
-      TX Bush T2: 21300134
-      TX Plant - Grass 05: 21300152
-      TX Plant - Grass 12: 21300166
-      TX Tree T1 Upper: 21300124
-  spritePackingTag: 
+      TX Stairs Broken L L: 21300034
+      TX Stairs Broken L M: 21300036
+      TX Stairs Broken L R: 21300038
+      TX Stairs Broken M L: 21300046
+      TX Stairs Broken M M: 21300030
+      TX Stairs Broken M R: 21300032
+      TX Stairs Broken R L: 21300040
+      TX Stairs Broken R M: 21300042
+      TX Stairs Broken R R: 21300044
+      TX Stairs E 01 L: -935552555
+      TX Stairs E 01 U: -1827870714
+      TX Stairs E 02 L: -575057542
+      TX Stairs E 02 U: -1076116132
+      TX Stairs L L: 21300010
+      TX Stairs L M: 21300014
+      TX Stairs L R: 21300012
+      TX Stairs M L: 21300000
+      TX Stairs M M: 21300004
+      TX Stairs M R: 21300002
+      TX Stairs R L: 21300020
+      TX Stairs R M: 21300022
+      TX Stairs R R: 21300024
+      TX Stairs W 01 L: -132900705
+      TX Stairs W 01 U: -293941904
+      TX Stairs W 02 L: -461411122
+      TX Stairs W 02 U: -275658010
+      TX Struct Gate T1 B: 21300026
+      TX Struct Gate T1 T: 21300028
+      TX Struct Gate T2 B: 21300018
+      TX Struct Gate T2 T: 21300016
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 187605
-  packageName: Pixel Art Top Down - Basic
-  packageVersion: 1.2.3
-  assetPath: Assets/Cainos/Pixel Art Top Down - Basic/Texture/TX Plant.png
-  uploadId: 849082
