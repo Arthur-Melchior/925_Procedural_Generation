@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Tilemaps;
+using Random = System.Random;
 
 public class WalkableTile
 {
@@ -41,12 +42,12 @@ public class DungeonGenerator : MonoBehaviour
     [HideInInspector] public Tilemap roomsMap;
 
     private Dictionary<HashSet<Vector3Int>, HashSet<Vector3Int>> _wallPositions;
-    private System.Random _random;
+    private Random _random;
     private List<HashSet<Vector3Int>> _rooms;
 
     private void Start()
     {
-        _random = new System.Random();
+        _random = new Random();
         _rooms = new List<HashSet<Vector3Int>>();
         _wallPositions = new Dictionary<HashSet<Vector3Int>, HashSet<Vector3Int>>();
         GenerateDungeon();
@@ -68,8 +69,8 @@ public class DungeonGenerator : MonoBehaviour
         ExpandRooms();
         MergeRooms();
         FillWallList();
-        AddStairs();
         GenerateWalkableTiles();
+        AddStairs();
 
         roomsMap.CompressBounds();
         roomsMap.GetComponent<TilemapRenderer>().sortingOrder = 1;
@@ -152,6 +153,8 @@ public class DungeonGenerator : MonoBehaviour
                         tempList.Add(stairs);
                         instantiatedStairs++;
                         distanceBetweenStairs = 0;
+                        walkableTiles[first.x, first.y].isWalkable = true;
+
                     }
                     else if (first.x - 3 > 0 && !SpaceIsOccupied(room, i, 3, -1, 0))
                     {
@@ -160,6 +163,7 @@ public class DungeonGenerator : MonoBehaviour
                         tempList.Add(stairs);
                         instantiatedStairs++;
                         distanceBetweenStairs = 0;
+                        walkableTiles[fourth.x, fourth.y].isWalkable = true;
                     }
                 }
                 else if (first.y == second.y &&
@@ -173,6 +177,7 @@ public class DungeonGenerator : MonoBehaviour
                         tempList.Add(stairs);
                         instantiatedStairs++;
                         distanceBetweenStairs = 0;
+                        walkableTiles[second.x, second.y].isWalkable = true;
                     }
                 }
             }
@@ -219,12 +224,7 @@ public class DungeonGenerator : MonoBehaviour
         {
             foreach (var vector3Int in wall.Value)
             {
-                //if not on a stair position
-                if (!Stairs.Any(s =>
-                        (int)s.transform.position.x == vector3Int.x || (int)s.transform.position.y == vector3Int.y))
-                {
-                    walkableTiles[vector3Int.x, vector3Int.y].isWalkable = false;
-                }
+                walkableTiles[vector3Int.x, vector3Int.y].isWalkable = false;
             }
         }
     }
@@ -294,7 +294,7 @@ public class DungeonGenerator : MonoBehaviour
     public void GenerateRoom()
     {
         var startingPosition =
-            new Vector3Int(_random.Next(0, (int)(sizeX * 0.8f)), _random.Next(0, (int)(sizeY * 0.8f)));
+            new Vector3Int(_random.Next(0, (int) (sizeX * 0.8f)), _random.Next(0, (int) (sizeY * 0.8f)));
         var room = new HashSet<Vector3Int>();
 
         for (var i = 0; i < maxSteps; i++)
@@ -358,5 +358,25 @@ public class DungeonGenerator : MonoBehaviour
         var tilemap = objectMap.AddComponent<Tilemap>();
         objectMap.AddComponent<TilemapRenderer>();
         return tilemap;
+    }
+
+    private bool _drawWalkableTiles;
+
+    public void DrawWalkableTiles()
+    {
+        _drawWalkableTiles = !_drawWalkableTiles;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (_drawWalkableTiles)
+        {
+            foreach (var walkableTile in walkableTiles)
+            {
+                Gizmos.color = walkableTile.isWalkable ? Color.green : Color.red;
+                Gizmos.DrawWireCube(new Vector3(walkableTile.position.x + 0.5f, walkableTile.position.y + 0.5f),
+                    new Vector3(1f, 1f));
+            }
+        }
     }
 }

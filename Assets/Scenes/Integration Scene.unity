@@ -153,13 +153,13 @@ PrefabInstance:
     - target: {fileID: 2565974814171995438, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
       propertyPath: speed
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2565974814171995438, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1805454685}
+      objectReference: {fileID: 1305422988}
     - target: {fileID: 2565974814171995438, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
       propertyPath: target
@@ -389,7 +389,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -555,7 +555,7 @@ MonoBehaviour:
   attackRange: 2
   speed: 0
   target: {fileID: 1305422982}
-  player: {fileID: 1805454685}
+  player: {fileID: 0}
   map: {fileID: 1405108804}
   steeringScript: {fileID: 0}
   onDeath:
@@ -775,32 +775,27 @@ PrefabInstance:
     - target: {fileID: 1801003039628020420, guid: 36fd8319cc37c3b4bb9dc57d07721f5f,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1801003039628020420, guid: 36fd8319cc37c3b4bb9dc57d07721f5f,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1801003039628020420, guid: 36fd8319cc37c3b4bb9dc57d07721f5f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1801003039628020420, guid: 36fd8319cc37c3b4bb9dc57d07721f5f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8205469546215196551, guid: 36fd8319cc37c3b4bb9dc57d07721f5f,
         type: 3}
       propertyPath: m_Name
       value: Bullets HUD
-      objectReference: {fileID: 0}
-    - target: {fileID: 8205469546215196551, guid: 36fd8319cc37c3b4bb9dc57d07721f5f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -997,6 +992,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1305422981}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1305422988 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5628018141983903119, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1305422981}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd146093740c5d43b5909c7913f3109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1405108803
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,6 +1113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemiesList:
   - {fileID: 178308540}
+  - {fileID: 835312339}
 --- !u!4 &1532619341
 Transform:
   m_ObjectHideFlags: 0
@@ -1313,18 +1321,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1805454685 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5628018141983903119, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
-    type: 3}
-  m_PrefabInstance: {fileID: 1305422981}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abd146093740c5d43b5909c7913f3109, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1899399330
 GameObject:
   m_ObjectHideFlags: 0

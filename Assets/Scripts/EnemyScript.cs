@@ -50,7 +50,7 @@ public class EnemyScript : MonoBehaviour
             }
             
             transform.position = Vector3.Lerp(transform.position,_path[index].tile.position, speed * Time.deltaTime);
-            if (Vector3.Distance(transform.position, _path[index].tile.position) < 1)
+            if (Vector3.Distance(transform.position, _path[index].tile.position) < 2)
             {
                 index++;
             }

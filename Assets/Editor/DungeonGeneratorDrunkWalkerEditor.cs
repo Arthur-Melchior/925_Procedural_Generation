@@ -25,8 +25,11 @@ namespace Editor
             {
                 generator.ExpandRooms();
             }
-            
-            
+
+            if (GUILayout.Button("Draw Walkable Tiles"))
+            {
+                generator.DrawWalkableTiles();
+            }
         }
     }
 }
