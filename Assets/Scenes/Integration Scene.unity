@@ -125,6 +125,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 470749770}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &178308544 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3192172073877797387, guid: e4f7f16b4375eed49a8df195315278b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 470749770}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178308540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f7c65da6b654f4d9a299186258dc154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SteeringScript
 --- !u!1001 &470749770
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -140,18 +152,43 @@ PrefabInstance:
       objectReference: {fileID: 1405108804}
     - target: {fileID: 2565974814171995438, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
+      propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2565974814171995438, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1805454685}
+    - target: {fileID: 2565974814171995438, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 1305422982}
+    - target: {fileID: 2565974814171995438, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
+      propertyPath: steeringScript
+      value: 
+      objectReference: {fileID: 178308544}
     - target: {fileID: 3192172073877797387, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 1305422982}
+    - target: {fileID: 4635076643393287782, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4803415564735348538, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
       propertyPath: m_Name
       value: Flying eye
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803415564735348538, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4803415564735348538, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
@@ -417,6 +454,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mushroom
       objectReference: {fileID: 0}
+    - target: {fileID: 2403897692942207311, guid: ad829f20cbc7be64986a3c05d4e300c1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6060496570209586071, guid: ad829f20cbc7be64986a3c05d4e300c1,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -509,9 +551,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a0f3becf5e94dcc81a082af3263f48c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyScript
+  currentLayer: 0
   attackRange: 2
+  speed: 0
   target: {fileID: 1305422982}
+  player: {fileID: 1805454685}
   map: {fileID: 1405108804}
+  steeringScript: {fileID: 0}
   onDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -981,6 +1027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb5b14b7eb04bba9532bdc82b12b603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DungeonGeneratorDrunkWalker
+  Stairs: []
   onGenerationFinished:
     m_PersistentCalls:
       m_Calls: []
@@ -1044,7 +1091,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1532619340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1059,7 +1106,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemiesList:
   - {fileID: 178308540}
-  - {fileID: 835312339}
 --- !u!4 &1532619341
 Transform:
   m_ObjectHideFlags: 0
@@ -1267,6 +1313,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1805454685 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5628018141983903119, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1305422981}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd146093740c5d43b5909c7913f3109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1899399330
 GameObject:
   m_ObjectHideFlags: 0

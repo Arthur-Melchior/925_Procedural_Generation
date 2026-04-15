@@ -20,6 +20,7 @@ public class WalkableTile
 public class DungeonGenerator : MonoBehaviour
 {
     public WalkableTile[,] walkableTiles;
+    public List<GameObject> Stairs;
     public UnityEvent onGenerationFinished;
 
     [SerializeField] private int sizeX;
@@ -181,6 +182,7 @@ public class DungeonGenerator : MonoBehaviour
         {
             var stairsScript = stair.AddComponent<StairsScript>();
             stairsScript.wall = roomsMap.GetComponent<TilemapCollider2D>();
+            Stairs.Add(stair);
         }
     }
 
@@ -217,7 +219,12 @@ public class DungeonGenerator : MonoBehaviour
         {
             foreach (var vector3Int in wall.Value)
             {
-                walkableTiles[vector3Int.x, vector3Int.y].isWalkable = false;
+                //if not on a stair position
+                if (!Stairs.Any(s =>
+                        (int)s.transform.position.x == vector3Int.x || (int)s.transform.position.y == vector3Int.y))
+                {
+                    walkableTiles[vector3Int.x, vector3Int.y].isWalkable = false;
+                }
             }
         }
     }
@@ -287,7 +294,7 @@ public class DungeonGenerator : MonoBehaviour
     public void GenerateRoom()
     {
         var startingPosition =
-            new Vector3Int(_random.Next(0, (int) (sizeX * 0.8f)), _random.Next(0, (int) (sizeY * 0.8f)));
+            new Vector3Int(_random.Next(0, (int)(sizeX * 0.8f)), _random.Next(0, (int)(sizeY * 0.8f)));
         var room = new HashSet<Vector3Int>();
 
         for (var i = 0; i < maxSteps; i++)

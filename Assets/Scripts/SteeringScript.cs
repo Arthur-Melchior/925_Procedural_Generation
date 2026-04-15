@@ -8,6 +8,7 @@ public class SteeringScript : MonoBehaviour
     public float speed;
     public float maxSpeed;
     private Rigidbody2D _rb;
+    public bool shouldSeek = true;
 
     private void Start()
     {
@@ -16,9 +17,12 @@ public class SteeringScript : MonoBehaviour
 
     private void Update()
     {
-        var direction = Vector3.ClampMagnitude(Seek(target) * speed, maxSpeed);
-        Debug.DrawRay(transform.position, direction);
-        _rb.linearVelocity = direction;
+        if (shouldSeek)
+        {
+            var direction = Vector3.ClampMagnitude(Seek(target) * speed, maxSpeed);
+            Debug.DrawRay(transform.position, direction);
+            _rb.linearVelocity = direction;
+        }
     }
 
     public Vector3 Seek(Transform seekTarget) => seekTarget.position - transform.position;
