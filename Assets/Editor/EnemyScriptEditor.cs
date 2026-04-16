@@ -12,6 +12,11 @@ namespace Editor
             DrawDefaultInspector();
 
             var script = (EnemyScript)target;
+
+            if (GUILayout.Button("Draw Path To Target"))
+            {
+                script.DrawPathToTarget();
+            }
         }
     }
 }
