@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
@@ -38,6 +39,8 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private GameObject rightStairs;
     [SerializeField] private GameObject bottomStairs;
 
+    [SerializeField] private GameObject safeRoom;
+
     [HideInInspector] public Tilemap grassMap;
     [HideInInspector] public Tilemap roomsMap;
 
@@ -58,6 +61,8 @@ public class DungeonGenerator : MonoBehaviour
     {
         ClearDungeon();
         GenerateGrassMap();
+        GenerateOuterWall();
+        GenerateSafeRoom();
 
         roomsMap = GenerateTilemap("wall map");
 
@@ -71,11 +76,89 @@ public class DungeonGenerator : MonoBehaviour
         FillWallList();
         GenerateWalkableTiles();
         AddStairs();
+        DrawRooms();
 
-        roomsMap.CompressBounds();
-        roomsMap.GetComponent<TilemapRenderer>().sortingOrder = 1;
+        grassMap.GetComponent<TilemapRenderer>().sortingOrder = 1;
 
         onGenerationFinished?.Invoke();
+    }
+
+    private void DrawRooms()
+    {
+        Destroy(roomsMap.gameObject);
+
+        for (var index = 0; index < _rooms.Count; index++)
+        {
+            var room = _rooms[index];
+            var tilemap = GenerateTilemap($"Room {index + 1}");
+
+            foreach (var vector3Int in room)
+            {
+                tilemap.SetTile(vector3Int, wallTile);
+            }
+
+            var tileCollider = tilemap.gameObject.AddComponent<TilemapCollider2D>();
+            tileCollider.compositeOperation = Collider2D.CompositeOperation.Merge;
+            var rb = tilemap.gameObject.AddComponent<Rigidbody2D>();
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            tilemap.gameObject.AddComponent<CompositeCollider2D>();
+
+            tilemap.CompressBounds();
+            tilemap.GetComponent<TilemapRenderer>().sortingOrder = 2;
+
+            foreach (var stair in _tempStairsList.Where(stair => stair.Value == index))
+            {
+                stair.Key.transform.SetParent(tilemap.transform);
+            }
+        }
+    }
+
+    private void ClearDungeon()
+    {
+        for (var i = 0; i < transform.childCount; i++)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+
+        _rooms.Clear();
+        _wallPositions.Clear();
+    }
+
+    private BoundsInt GenerateGrassMap()
+    {
+        grassMap = GenerateTilemap("grass map");
+
+        for (var i = 0; i < sizeX; i++)
+        {
+            for (var j = 0; j < sizeY; j++)
+            {
+                grassMap.SetTile(new Vector3Int(i, j), grassTile);
+            }
+        }
+
+        return grassMap.cellBounds;
+    }
+
+    private void GenerateOuterWall()
+    {
+        var outerWall = GenerateTilemap("outer wall map");
+
+        for (var i = 0; i < sizeX; i++)
+        {
+            for (var j = 0; j < sizeY; j++)
+            {
+                outerWall.SetTile(new Vector3Int(i, j), wallTile);
+            }
+        }
+
+        outerWall.gameObject.AddComponent<TilemapCollider2D>();
+        outerWall.GetComponent<TilemapRenderer>().sortingOrder = 3;
+    }
+
+    private void GenerateSafeRoom()
+    {
+        Instantiate(safeRoom, new Vector3(sizeX / 2, -4),
+            transform.localRotation).transform.SetParent(transform);
     }
 
     private void FillWallList()
@@ -100,23 +183,16 @@ public class DungeonGenerator : MonoBehaviour
                 }
             }
         }
-
-        roomsMap.gameObject.AddComponent<TilemapCollider2D>();
     }
 
-    private void ClearDungeon()
-    {
-        for (var i = 0; i < transform.childCount; i++)
-        {
-            Destroy(transform.GetChild(i).gameObject);
-            _rooms.Clear();
-            _wallPositions.Clear();
-        }
-    }
+    private readonly Dictionary<GameObject, int> _tempStairsList = new();
 
+    /// <summary>
+    /// This methode is horrible, i'm sorry
+    /// </summary>
     private void AddStairs()
     {
-        var tempList = new List<GameObject>();
+        var roomIndex = 0;
         foreach (var room in _wallPositions)
         {
             //how many stairs should there be in this room
@@ -150,20 +226,21 @@ public class DungeonGenerator : MonoBehaviour
                     {
                         var stairs = Instantiate(rightStairs, transform);
                         stairs.transform.position = new Vector3(first.x + 1, first.y);
-                        tempList.Add(stairs);
+                        Stairs.Add(stairs);
                         instantiatedStairs++;
                         distanceBetweenStairs = 0;
                         walkableTiles[first.x, first.y].isWalkable = true;
-
+                        _tempStairsList.Add(stairs, roomIndex);
                     }
                     else if (first.x - 3 > 0 && !SpaceIsOccupied(room, i, 3, -1, 0))
                     {
                         var stairs = Instantiate(leftStairs, transform);
                         stairs.transform.position = new Vector3(fourth.x, fourth.y);
-                        tempList.Add(stairs);
+                        Stairs.Add(stairs);
                         instantiatedStairs++;
                         distanceBetweenStairs = 0;
                         walkableTiles[fourth.x, fourth.y].isWalkable = true;
+                        _tempStairsList.Add(stairs, roomIndex);
                     }
                 }
                 else if (first.y == second.y &&
@@ -174,20 +251,16 @@ public class DungeonGenerator : MonoBehaviour
                     {
                         var stairs = Instantiate(bottomStairs, transform);
                         stairs.transform.position = new Vector3(second.x, second.y + 1);
-                        tempList.Add(stairs);
                         instantiatedStairs++;
                         distanceBetweenStairs = 0;
                         walkableTiles[second.x, second.y].isWalkable = true;
+                        Stairs.Add(stairs);
+                        _tempStairsList.Add(stairs, roomIndex);
                     }
                 }
             }
-        }
 
-        foreach (var stair in tempList)
-        {
-            var stairsScript = stair.AddComponent<StairsScript>();
-            stairsScript.wall = roomsMap.GetComponent<TilemapCollider2D>();
-            Stairs.Add(stair);
+            roomIndex++;
         }
     }
 
@@ -293,13 +366,14 @@ public class DungeonGenerator : MonoBehaviour
 
     public void GenerateRoom()
     {
-        var startingPosition =
+        var randomPosition =
             new Vector3Int(_random.Next(0, (int) (sizeX * 0.8f)), _random.Next(0, (int) (sizeY * 0.8f)));
-        var room = new HashSet<Vector3Int>();
+        var room = new HashSet<Vector3Int> {randomPosition};
 
         for (var i = 0; i < maxSteps; i++)
         {
-            startingPosition = TakeAStep(startingPosition, room);
+            randomPosition = TakeAStep(randomPosition);
+            room.Add(randomPosition);
         }
 
         foreach (var vector3Int in room)
@@ -310,7 +384,7 @@ public class DungeonGenerator : MonoBehaviour
         _rooms.Add(room);
     }
 
-    private Vector3Int TakeAStep(Vector3Int position, HashSet<Vector3Int> room)
+    private Vector3Int TakeAStep(Vector3Int position)
     {
         var direction = _random.Next(0, 4);
 
@@ -330,24 +404,7 @@ public class DungeonGenerator : MonoBehaviour
                 break;
         }
 
-        room.Add(position);
-
         return position;
-    }
-
-    private BoundsInt GenerateGrassMap()
-    {
-        grassMap = GenerateTilemap("grass map");
-
-        for (var i = 0; i < sizeX; i++)
-        {
-            for (var j = 0; j < sizeY; j++)
-            {
-                grassMap.SetTile(new Vector3Int(i, j), grassTile);
-            }
-        }
-
-        return grassMap.cellBounds;
     }
 
     private Tilemap GenerateTilemap(string tilemapName)

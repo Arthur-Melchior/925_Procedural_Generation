@@ -145,7 +145,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 103467102}
   m_Enabled: 1
-  m_CellSize: {x: 1, y: 1, z: 1}
+  m_CellSize: {x: 1, y: 1, z: 0}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
@@ -158,7 +158,7 @@ Transform:
   m_GameObject: {fileID: 103467102}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 69.25399, y: 47.17423, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -176,19 +176,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb5b14b7eb04bba9532bdc82b12b603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DungeonGenerator
+  Stairs: []
+  onGenerationFinished:
+    m_PersistentCalls:
+      m_Calls: []
   sizeX: 200
   sizeY: 200
   maxSteps: 12
   numberOfRooms: 5
   growthIterations: 8
   tilePerStair: 200
+  spaceBetweenStairs: 10
   grassTile: {fileID: 11400000, guid: d0c32abb606784345b2a2152d776d93c, type: 2}
   wallTile: {fileID: 11400000, guid: 7ed793de4bcf8fc4bb2adf18ee2d35ec, type: 2}
-  leftStairs: {fileID: 6075975974975622418, guid: 82fc30c178d77ba448d65fe8434c568b,
+  leftStairs: {fileID: 6075975974975622418, guid: 4fdd2d191ed68b0458ac373d43e8de1e,
     type: 3}
   rightStairs: {fileID: 6075975974975622418, guid: 74908d4e572f4c541baeae9f5c236a36,
     type: 3}
   bottomStairs: {fileID: 6075975974975622418, guid: a92434f05fc24a2408687e0356655548,
+    type: 3}
+  safeRoom: {fileID: 4824042675333239702, guid: 6944b1047182436498a6d52cf29f720b,
     type: 3}
   grassMap: {fileID: 0}
   roomsMap: {fileID: 0}

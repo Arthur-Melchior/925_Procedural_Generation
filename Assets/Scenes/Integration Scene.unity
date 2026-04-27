@@ -172,9 +172,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2565974814171995438, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2565974814171995438, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
       propertyPath: steeringScript
       value: 
       objectReference: {fileID: 178308544}
+    - target: {fileID: 3192172073877797387, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
+      propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3192172073877797387, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
       propertyPath: target
@@ -183,7 +193,22 @@ PrefabInstance:
     - target: {fileID: 3192172073877797387, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
       propertyPath: shouldSeek
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3192172073877797387, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
+      propertyPath: aheadDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3192172073877797387, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
+      propertyPath: avoidanceForce
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3192172073877797387, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 7340087
       objectReference: {fileID: 0}
     - target: {fileID: 4635076643393287782, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
@@ -1095,6 +1120,8 @@ MonoBehaviour:
     type: 3}
   bottomStairs: {fileID: 6075975974975622418, guid: b7a5fce6e52ebbf488a8e8516c6692cb,
     type: 3}
+  safeRoom: {fileID: 4824042675333239702, guid: 6944b1047182436498a6d52cf29f720b,
+    type: 3}
   grassMap: {fileID: 0}
   roomsMap: {fileID: 0}
 --- !u!156049354 &1405108805
@@ -1140,7 +1167,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1532619340
 MonoBehaviour:
   m_ObjectHideFlags: 0
