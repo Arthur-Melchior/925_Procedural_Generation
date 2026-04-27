@@ -4,14 +4,14 @@ using UnityEngine.UIElements;
 
 namespace Editor
 {
-    [CustomEditor(typeof(EnemyScript))]
-    public class EnemyScriptEditor : UnityEditor.Editor
+    [CustomEditor(typeof(EnemiesManager))]
+    public class EnemiesManagerEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
 
-            var script = (EnemyScript)target;
+            var script = (EnemiesManager)target;
 
             if (GUILayout.Button("Draw Path To Target"))
             {

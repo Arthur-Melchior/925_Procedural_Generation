@@ -8,8 +8,8 @@ using UnityEngine;
 public class PathNode
 {
     public readonly WalkableTile tile;
-    public float distance;
-    public float cost;
+    public readonly float distance;
+    public readonly float cost;
     public float priority;
     public PathNode parent;
     public PathNode[] neighbors;
@@ -31,7 +31,7 @@ public class PathfindingScript
     private readonly PathNode[,] _pathMap;
     private Vector3Int _targetPosition;
     private const int MaxIterations = 100000;
-    public HashSet<PathNode> debugPath = new HashSet<PathNode>();
+    public readonly HashSet<PathNode> debugPath = new();
 
     public PathfindingScript(WalkableTile[,] map)
     {

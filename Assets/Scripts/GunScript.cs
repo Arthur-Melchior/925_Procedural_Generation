@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class GunScript : MonoBehaviour
 {
-    [SerializeField] private float shootRate;
+    [SerializeField] private float fireRate;
     [SerializeField] private float reloadTime;
     [SerializeField] private float sweetSpotStart;
     [SerializeField] private float sweetSpotEnd;
@@ -63,7 +63,7 @@ public class GunScript : MonoBehaviour
 
     private void Shoot()
     {
-        if (_isShooting && _shootDeltaTime > shootRate)
+        if (_isShooting && _shootDeltaTime > 1 / fireRate)
         {
             if (remainingBullets > 0)
             {

@@ -91,6 +91,68 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 1
+--- !u!1 &783791579014448810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4245199734355715375}
+  m_Layer: 8
+  m_Name: TP Top
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4245199734355715375
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783791579014448810}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.35, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6075975974975622417}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1767235571198284495
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8249701959583315140}
+  m_Layer: 8
+  m_Name: TP Bottom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8249701959583315140
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767235571198284495}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.55, y: -1.18, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6075975974975622417}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2405699924202088644
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,7 +163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3459423010551704794}
   - component: {fileID: 31587954199402513}
-  m_Layer: 21
+  m_Layer: 8
   m_Name: Collider Upper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +256,7 @@ GameObject:
   - component: {fileID: 6900378002116221633}
   - component: {fileID: 5684490648277034953}
   - component: {fileID: 4366428172926117513}
-  m_Layer: 20
+  m_Layer: 21
   m_Name: Collider Lower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -455,6 +517,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6075975974975622417}
   - component: {fileID: 3244205527517069764}
+  - component: {fileID: 1852900048197780449}
+  - component: {fileID: 8130098600628809679}
   m_Layer: 8
   m_Name: PF Struct - Stairs W 01
   m_TagString: Stairs
@@ -479,6 +543,8 @@ Transform:
   - {fileID: 8875010615375480629}
   - {fileID: 3459423010551704794}
   - {fileID: 2506581194374419485}
+  - {fileID: 4245199734355715375}
+  - {fileID: 8249701959583315140}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &3244205527517069764
@@ -527,3 +593,63 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3.3453484, y: 2.7762568}
   m_EdgeRadius: 0
+--- !u!61 &1852900048197780449
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6075975974975622418}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.8600695, y: -0.3928712}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 3.335991, y: 2.8050838}
+  m_EdgeRadius: 0
+--- !u!114 &8130098600628809679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6075975974975622418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 255c9f19c6a800b40b45b2658470eef5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StairsScript
+  tpTop: {fileID: 4245199734355715375}
+  tpBottom: {fileID: 8249701959583315140}

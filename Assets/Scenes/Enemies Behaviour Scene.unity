@@ -344,7 +344,7 @@ PrefabInstance:
     - target: {fileID: 3192172073877797387, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
       propertyPath: avoidanceForce
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3192172073877797387, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}

@@ -10,16 +10,8 @@ public class EnemySpawner : MonoBehaviour
     public List<GameObject> enemiesList;
     [SerializeField] private DungeonGenerator map;
 
-    private void Start()
-    {
-        map.onGenerationFinished.AddListener(() => test());
-    }
-
-    public void test()
-    {
-        StartCoroutine(SpawnEnemy());
-    }
-
+    public void StartSpawn() => StartCoroutine(SpawnEnemy());
+    
     private IEnumerator SpawnEnemy()
     {
         while (true)
