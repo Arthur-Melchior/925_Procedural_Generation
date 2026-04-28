@@ -13,6 +13,8 @@ namespace Cainos.Pixel_Art_Top_Down___Basic.Script
         private static readonly int DirectionX = Animator.StringToHash("DirectionX");
         private static readonly int DirectionY = Animator.StringToHash("DirectionY");
 
+        public bool hasKey;
+        
         [HideInInspector] public int currentLayer;
         
         [SerializeField] private float speed = 3f;

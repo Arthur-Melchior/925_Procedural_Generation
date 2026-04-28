@@ -24,9 +24,9 @@ public class DungeonGenerator : MonoBehaviour
     public WalkableTile[,] walkableTiles;
     public List<GameObject> Stairs;
     public UnityEvent onGenerationFinished;
+    public int sizeX;
+    public int sizeY;
 
-    [SerializeField] private int sizeX;
-    [SerializeField] private int sizeY;
     [SerializeField] private int maxSteps;
     [SerializeField] [Min(1)] private int numberOfRooms;
     [SerializeField] [Min(1)] private int growthIterations;
@@ -46,6 +46,7 @@ public class DungeonGenerator : MonoBehaviour
 
     private Dictionary<HashSet<Vector3Int>, HashSet<Vector3Int>> _wallPositions;
     private Random _random;
+    private Tilemap _outerWall;
     private List<HashSet<Vector3Int>> _rooms;
 
     private void Start()
@@ -139,26 +140,30 @@ public class DungeonGenerator : MonoBehaviour
         return grassMap.cellBounds;
     }
 
+
     private void GenerateOuterWall()
     {
-        var outerWall = GenerateTilemap("outer wall map");
+        _outerWall = GenerateTilemap("outer wall map");
 
         for (var i = 0; i < sizeX; i++)
         {
             for (var j = 0; j < sizeY; j++)
             {
-                outerWall.SetTile(new Vector3Int(i, j), wallTile);
+                _outerWall.SetTile(new Vector3Int(i, j), wallTile);
             }
         }
 
-        outerWall.gameObject.AddComponent<TilemapCollider2D>();
-        outerWall.GetComponent<TilemapRenderer>().sortingOrder = 3;
+        _outerWall.gameObject.AddComponent<TilemapCollider2D>().compositeOperation =
+            Collider2D.CompositeOperation.Merge;
+        _outerWall.GetComponent<TilemapRenderer>().sortingOrder = 3;
+        _outerWall.gameObject.AddComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        _outerWall.gameObject.AddComponent<CompositeCollider2D>();
     }
 
     private void GenerateSafeRoom()
     {
         Instantiate(safeRoom, new Vector3(sizeX / 2, -4),
-            transform.localRotation).transform.SetParent(transform);
+            transform.localRotation).transform.SetParent(_outerWall.transform);
     }
 
     private void FillWallList()

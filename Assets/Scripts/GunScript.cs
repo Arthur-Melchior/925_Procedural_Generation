@@ -2,28 +2,25 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
 public class GunScript : MonoBehaviour
 {
+    public UnityEvent onReloadFinished;
+    public float reloadTime;
+    public float sweetSpotStart;
+    public float sweetSpotEnd;
+    public int magazineSize = 20;
+
+    [SerializeField] private HUDScript hudScript;
     [SerializeField] private float fireRate;
-    [SerializeField] private float reloadTime;
-    [SerializeField] private float sweetSpotStart;
-    [SerializeField] private float sweetSpotEnd;
-    [SerializeField] private int magazineSize = 20;
     [SerializeField] private GameObject bullet;
 
     [HideInInspector] public GameObject[] bullets;
     [HideInInspector] public int remainingBullets;
-
-    [Header("UI")] [SerializeField] private Image backgroundImage;
-    [SerializeField] private Image forGroundImage;
-    [SerializeField] private Image sweetSpotImage;
-    [SerializeField] private Transform reloadHud;
-    [SerializeField] private Transform bulletHud;
-    [SerializeField] private Image bulletSprite;
 
     private Transform _gunTip;
     private float _shootDeltaTime;
@@ -41,12 +38,9 @@ public class GunScript : MonoBehaviour
             bullets[i].transform.SetParent(transform.parent);
             bullets[i].GetComponent<BulletScript>().isSuper = true;
             bullets[i].SetActive(false);
-            Instantiate(bulletSprite, bulletHud, true);
         }
 
         remainingBullets = magazineSize - 1;
-        sweetSpotImage.transform.rotation = Quaternion.Euler(0, 0, 360 / reloadTime * sweetSpotStart * -1);
-        sweetSpotImage.fillAmount = 1 / (reloadTime / (sweetSpotEnd - sweetSpotStart));
     }
 
     private void Update()
@@ -63,21 +57,19 @@ public class GunScript : MonoBehaviour
 
     private void Shoot()
     {
-        if (_isShooting && _shootDeltaTime > 1 / fireRate)
+        if (_isShooting && _shootDeltaTime > 1 / fireRate && remainingBullets > 0)
         {
-            if (remainingBullets > 0)
-            {
-                bullets[remainingBullets].transform.position = _gunTip.position;
-                bullets[remainingBullets].transform.rotation = _gunTip.rotation;
-                bullets[remainingBullets].SetActive(true);
-                bullets[remainingBullets].transform.SetParent(transform);
-                remainingBullets--;
-            }
-            else
+            bullets[remainingBullets].transform.position = _gunTip.position;
+            bullets[remainingBullets].transform.rotation = _gunTip.rotation;
+            bullets[remainingBullets].SetActive(true);
+            bullets[remainingBullets].transform.SetParent(transform);
+            remainingBullets--;
+
+            if (remainingBullets == 0)
             {
                 StartCoroutine(Reload());
             }
-
+            
             _shootDeltaTime = 0;
         }
 
@@ -117,30 +109,19 @@ public class GunScript : MonoBehaviour
     private IEnumerator Reload()
     {
         _isReloading = true;
-        reloadHud.gameObject.SetActive(true);
+
         var passedTime = 0f;
 
         while (passedTime < reloadTime)
         {
             passedTime += Time.deltaTime;
-            forGroundImage.fillAmount = 1 / reloadTime * passedTime;
+            hudScript.UpdateReloadHUD(passedTime);
 
             if (_reloadPressed)
             {
                 if (passedTime > sweetSpotStart && passedTime < sweetSpotEnd)
                 {
-                    for (var i = 0; i < magazineSize; i++)
-                    {
-                        bullets[i] = Instantiate(bullet, _gunTip);
-                        bullets[i].transform.SetParent(transform.parent);
-                        bullets[i].GetComponent<BulletScript>().isSuper = true;
-                        bullets[i].SetActive(false);
-                    }
-
-                    _isReloading = false;
-                    _reloadPressed = false;
-                    remainingBullets = magazineSize - 1;
-                    reloadHud.gameObject.SetActive(false);
+                    FillMagazine(true);
                     yield break;
                 }
                 else
@@ -152,16 +133,26 @@ public class GunScript : MonoBehaviour
             yield return null;
         }
 
+        FillMagazine();
+    }
+
+    private void FillMagazine(bool isSuper = false)
+    {
         for (var i = 0; i < magazineSize; i++)
         {
             bullets[i] = Instantiate(bullet, _gunTip);
             bullets[i].transform.SetParent(transform.parent);
+            if (isSuper)
+            {
+                bullets[i].GetComponent<BulletScript>().isSuper = true;
+            }
+
             bullets[i].SetActive(false);
         }
 
         _isReloading = false;
         _reloadPressed = false;
         remainingBullets = magazineSize - 1;
-        reloadHud.gameObject.SetActive(false);
+        onReloadFinished?.Invoke();
     }
 }
