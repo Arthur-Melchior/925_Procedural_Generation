@@ -106,8 +106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ad048b3f7e4323bb80361b43e29da9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  bulletSprite: {fileID: 0}
-  speed: 2
+  bulletSprite: {fileID: -2346302928887187388, guid: 4c4b38c04673a0b42bf2704c8ab0e812,
+    type: 3}
+  speed: 10
   maxLifeTime: 10
   numberOfPenetrations: 3
   isSuper: 0

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2565974814171995438}
   - component: {fileID: 4635076643393287782}
   - component: {fileID: 6186665582648839264}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Flying eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_MaskInteraction: 0
   m_Sprite: {fileID: -4795363162621231457, guid: 6d7cd4f7505dc674c891ca8946cfd98b,
     type: 3}
@@ -132,8 +132,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SteeringScript
   target: {fileID: 0}
-  speed: 3
+  speed: 2
   maxSpeed: 3
+  aheadDistance: 2
+  avoidanceForce: 0.75
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 6291511
 --- !u!114 &2565974814171995438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,8 +151,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a0f3becf5e94dcc81a082af3263f48c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyScript
-  attackRange: 2
+  currentRoomIndex: 1
   target: {fileID: 0}
+  player: {fileID: 0}
+  enemiesManager: {fileID: 0}
+  attackRange: 2
+  speed: 3
+  steeringScript: {fileID: 3192172073877797387}
+  stopingDistance: 2
   onDeath:
     m_PersistentCalls:
       m_Calls:
@@ -187,6 +198,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2565974814171995438}
+        m_TargetAssemblyTypeName: EnemyScript, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  index: 0
 --- !u!50 &4635076643393287782
 Rigidbody2D:
   serializedVersion: 5
@@ -202,7 +226,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -224,7 +248,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 38a1b6021512e2245b50b87a4f8b2c69, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

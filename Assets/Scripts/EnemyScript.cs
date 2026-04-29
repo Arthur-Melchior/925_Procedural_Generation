@@ -10,14 +10,15 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyScript : MonoBehaviour
 {
-    public int currentLayer;
+    public int currentRoomIndex;
+    public Transform target;
+    public TopDownCharacterController player;
+    public EnemiesManager enemiesManager;
 
     [SerializeField] private float attackRange;
     [SerializeField] private float speed;
-    [SerializeField] private Transform target;
-    [SerializeField] private TopDownCharacterController player;
     [SerializeField] private SteeringScript steeringScript;
-    [SerializeField] private EnemiesManager enemiesManager;
+    [SerializeField] private float stopingDistance = 1f;
     public UnityEvent onDeath;
 
     private Animator _animator;
@@ -30,15 +31,16 @@ public class EnemyScript : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
+    public int index;
+
     private IEnumerator FollowPath()
     {
         steeringScript.enabled = false;
-        var index = 0;
 
-        while (index < _path.Count)
+        while (index < _path.Count && currentRoomIndex != player.currentRoomIndex)
         {
             transform.position = Vector3.Lerp(transform.position, _path[index].tile.position, speed * Time.deltaTime);
-            if (Vector3.Distance(transform.position, _path[index].tile.position) < 3)
+            if (Vector3.Distance(transform.position, _path[index].tile.position) < stopingDistance)
             {
                 index++;
             }
@@ -57,7 +59,7 @@ public class EnemyScript : MonoBehaviour
             _animator.SetTrigger("Attack");
         }
 
-        if (currentLayer != player.currentLayer && !_isFollowingPath)
+        if (currentRoomIndex != player.currentRoomIndex && !_isFollowingPath)
         {
             _isFollowingPath = true;
             _path = await enemiesManager.GetPathAsync(transform.position);

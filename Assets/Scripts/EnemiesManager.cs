@@ -103,4 +103,9 @@ public class EnemiesManager : MonoBehaviour
         UnityEditor.Handles.Label(center + Vector3.down * offset, v3.ToString(), style);
 #endif
     }
+
+    public void ClearPath()
+    {
+        _path = null;
+    }
 }

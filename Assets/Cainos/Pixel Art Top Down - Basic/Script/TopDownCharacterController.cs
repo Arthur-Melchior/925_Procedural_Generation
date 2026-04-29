@@ -14,9 +14,9 @@ namespace Cainos.Pixel_Art_Top_Down___Basic.Script
         private static readonly int DirectionY = Animator.StringToHash("DirectionY");
 
         public bool hasKey;
-        
-        [HideInInspector] public int currentLayer;
-        
+        public int currentRoomIndex;
+
+
         [SerializeField] private float speed = 3f;
         [SerializeField] private float dodgeMultiplier = 2f;
         [SerializeField] private float dodgeTimer = 0.2f;

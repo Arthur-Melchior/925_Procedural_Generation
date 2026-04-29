@@ -9,6 +9,7 @@ using Random = System.Random;
 public class WalkableTile
 {
     public Vector3Int position;
+    public int roomIndex = 0;
     public bool isWalkable;
 
     public WalkableTile(Vector3Int position, bool isWalkable)
@@ -38,6 +39,7 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private GameObject leftStairs;
     [SerializeField] private GameObject rightStairs;
     [SerializeField] private GameObject bottomStairs;
+    [SerializeField] private PhysicsMaterial2D wallMaterial;
 
     [SerializeField] private GameObject safeRoom;
 
@@ -95,14 +97,18 @@ public class DungeonGenerator : MonoBehaviour
 
             foreach (var vector3Int in room)
             {
+                walkableTiles[vector3Int.x, vector3Int.y].roomIndex = index + 1;
                 tilemap.SetTile(vector3Int, wallTile);
             }
 
             var tileCollider = tilemap.gameObject.AddComponent<TilemapCollider2D>();
             tileCollider.compositeOperation = Collider2D.CompositeOperation.Merge;
+
             var rb = tilemap.gameObject.AddComponent<Rigidbody2D>();
             rb.bodyType = RigidbodyType2D.Kinematic;
-            tilemap.gameObject.AddComponent<CompositeCollider2D>();
+
+            var compositeCollider = tilemap.gameObject.AddComponent<CompositeCollider2D>();
+            compositeCollider.sharedMaterial = wallMaterial;
 
             tilemap.CompressBounds();
             tilemap.GetComponent<TilemapRenderer>().sortingOrder = 2;
@@ -110,6 +116,7 @@ public class DungeonGenerator : MonoBehaviour
             foreach (var stair in _tempStairsList.Where(stair => stair.Value == index))
             {
                 stair.Key.transform.SetParent(tilemap.transform);
+                stair.Key.gameObject.GetComponent<StairsScript>().roomIndex = index + 1;
             }
         }
     }
@@ -372,8 +379,8 @@ public class DungeonGenerator : MonoBehaviour
     public void GenerateRoom()
     {
         var randomPosition =
-            new Vector3Int(_random.Next(0, (int) (sizeX * 0.8f)), _random.Next(0, (int) (sizeY * 0.8f)));
-        var room = new HashSet<Vector3Int> {randomPosition};
+            new Vector3Int(_random.Next(0, (int)(sizeX * 0.8f)), _random.Next(0, (int)(sizeY * 0.8f)));
+        var room = new HashSet<Vector3Int> { randomPosition };
 
         for (var i = 0; i < maxSteps; i++)
         {
