@@ -1,7 +1,4 @@
-using System;
-using Cainos.Pixel_Art_Top_Down___Basic.Script;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class StairsScript : MonoBehaviour
 {
@@ -30,7 +27,7 @@ public class StairsScript : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        var playerScript = other.GetComponent<TopDownCharacterController>();
+        var playerScript = other.GetComponent<PlayerScript>();
         if (playerScript)
         {
             GameObject.Find("EnemiesManager").GetComponent<EnemiesManager>().ClearPath();

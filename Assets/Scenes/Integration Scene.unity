@@ -242,6 +242,16 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3364231611973054682, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 3364231611973054682, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.99
+      objectReference: {fileID: 0}
     - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
         type: 3}
       propertyPath: fireRate
@@ -264,8 +274,38 @@ PrefabInstance:
       objectReference: {fileID: 2074298222}
     - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
         type: 3}
+      propertyPath: bulletSize
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+        type: 3}
+      propertyPath: jamColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+        type: 3}
+      propertyPath: jamColor.b
+      value: 0.06941971
+      objectReference: {fileID: 0}
+    - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+        type: 3}
+      propertyPath: jamColor.g
+      value: 0.06941971
+      objectReference: {fileID: 0}
+    - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+        type: 3}
+      propertyPath: jamColor.r
+      value: 0.9811321
+      objectReference: {fileID: 0}
+    - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+        type: 3}
       propertyPath: reloadTime
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+        type: 3}
+      propertyPath: jamDuration
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
         type: 3}
@@ -275,7 +315,7 @@ PrefabInstance:
     - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
         type: 3}
       propertyPath: sweetSpotEnd
-      value: 1
+      value: 1.55
       objectReference: {fileID: 0}
     - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
         type: 3}
@@ -290,13 +330,28 @@ PrefabInstance:
     - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
         type: 3}
       propertyPath: sweetSpotStart
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
         type: 3}
       propertyPath: backgroundImage
       value: 
       objectReference: {fileID: 2074298225}
+    - target: {fileID: 5294075798397512603, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294075798397512603, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294075798397512603, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5628018141983903104, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
         type: 3}
       propertyPath: m_Name
@@ -359,12 +414,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5628018141983903119, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
         type: 3}
+      propertyPath: dodgeForce
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5628018141983903119, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+        type: 3}
       propertyPath: dodgeTimer
       value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 5628018141983903119, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
         type: 3}
+      propertyPath: dodgeDuration
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5628018141983903119, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+        type: 3}
       propertyPath: dodgeMultiplier
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6069799711434263130, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+        type: 3}
+      propertyPath: m_SortingOrder
       value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -420,7 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb5b14b7eb04bba9532bdc82b12b603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DungeonGeneratorDrunkWalker
-  Stairs: []
+  stairs: []
   onGenerationFinished:
     m_PersistentCalls:
       m_Calls:
@@ -585,11 +655,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemiesList:
   - {fileID: 4803415564735348538, guid: e4f7f16b4375eed49a8df195315278b7, type: 3}
+  maximumNumberOfEnemies: 100
   enemiesPerSpawn: 3
   map: {fileID: 1405108804}
   player: {fileID: 1305422988}
   enemiesManager: {fileID: 1468818716}
-  spawnRateIncrementation: 0.1
+  spawnRateIncrementation: 0.01
+  currentNumberOfEnemies: 0
   spawnRate: 0.5
 --- !u!4 &1532619341
 Transform:

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Cainos.Pixel_Art_Top_Down___Basic.Script;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,14 +9,15 @@ public class EnemyScript : MonoBehaviour
 {
     public int currentRoomIndex;
     public Transform target;
-    public TopDownCharacterController player;
+    public PlayerScript player;
     public EnemiesManager enemiesManager;
+    public UnityEvent onDeath;
+    public int pathIndex;
 
     [SerializeField] private float attackRange;
     [SerializeField] private float speed;
     [SerializeField] private SteeringScript steeringScript;
     [SerializeField] private float stopingDistance = 1f;
-    public UnityEvent onDeath;
 
     private Animator _animator;
     private List<PathNode> _path;
@@ -31,18 +29,28 @@ public class EnemyScript : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public int index;
 
     private IEnumerator FollowPath()
     {
         steeringScript.enabled = false;
-
-        while (index < _path.Count && currentRoomIndex != player.currentRoomIndex)
+        
+        var distance = float.MaxValue;
+        for (var i = 0; i < _path.Count; i++)
         {
-            transform.position = Vector3.Lerp(transform.position, _path[index].tile.position, speed * Time.deltaTime);
-            if (Vector3.Distance(transform.position, _path[index].tile.position) < stopingDistance)
+            var difference = Vector3.Distance(transform.position, _path[i].Tile.Position);
+            if (difference < distance)
             {
-                index++;
+                distance = difference;
+                pathIndex = i;
+            }
+        }
+
+        while (pathIndex > 0 && currentRoomIndex != player.currentRoomIndex)
+        {
+            transform.position = Vector3.Lerp(transform.position, _path[pathIndex].Tile.Position, speed * Time.deltaTime);
+            if (Vector3.Distance(transform.position, _path[pathIndex].Tile.Position) < stopingDistance)
+            {
+                pathIndex--;
             }
 
             yield return null;

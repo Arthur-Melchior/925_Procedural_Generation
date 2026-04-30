@@ -523,6 +523,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Reload HUD
       objectReference: {fileID: 0}
+    - target: {fileID: 7671992788424373253, guid: 94a1eed3c76f27c42b95c1eab4a2528f,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 0.301
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

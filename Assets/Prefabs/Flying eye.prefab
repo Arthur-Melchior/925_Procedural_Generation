@@ -135,7 +135,7 @@ MonoBehaviour:
   speed: 2
   maxSpeed: 3
   aheadDistance: 2
-  avoidanceForce: 0.75
+  avoidanceForce: 0.5
   layerMask:
     serializedVersion: 2
     m_Bits: 6291511
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a0f3becf5e94dcc81a082af3263f48c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyScript
-  currentRoomIndex: 1
+  currentRoomIndex: 0
   target: {fileID: 0}
   player: {fileID: 0}
   enemiesManager: {fileID: 0}

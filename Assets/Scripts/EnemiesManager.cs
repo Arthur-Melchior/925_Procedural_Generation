@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class EnemiesManager : MonoBehaviour
 {
@@ -15,7 +12,7 @@ public class EnemiesManager : MonoBehaviour
 
     public void InstantiateVariables()
     {
-        _pathfindingScript = new PathfindingScript(map.walkableTiles);
+        _pathfindingScript = new PathfindingScript(map.WalkableTiles);
     }
 
     private List<PathNode> _path;
@@ -46,6 +43,12 @@ public class EnemiesManager : MonoBehaviour
         );
     }
     
+    public void ClearPath()
+    {
+        _currentPathTask = null;
+        _path = null;
+    }
+    
     [Space]
     [SerializeField] private float waitTime;
     public void DrawPathToTarget()
@@ -61,29 +64,29 @@ public class EnemiesManager : MonoBehaviour
         {
             foreach (var pathNode in _path)
             {
-                Gizmos.DrawWireCube(pathNode.tile.position, new Vector3(1, 1));
-                DrawThreeValues(pathNode.tile.position, pathNode.distance, pathNode.cost, pathNode.priority);
+                Gizmos.DrawWireCube(pathNode.Tile.Position, new Vector3(1, 1));
+                DrawThreeValues(pathNode.Tile.Position, pathNode.Distance, pathNode.Cost, pathNode.Priority);
             }
         }
 
-        if (_pathfindingScript?.debugPath == null) return;
+        if (_pathfindingScript?.DebugPath == null) return;
 
-        for (var index = 0; index < _pathfindingScript.debugPath.Count; index++)
+        for (var index = 0; index < _pathfindingScript.DebugPath.Count; index++)
         {
-            var pathNode = _pathfindingScript.debugPath.ElementAt(index);
+            var pathNode = _pathfindingScript.DebugPath.ElementAt(index);
 
-            Gizmos.color = pathNode.isSelected ? Color.aquamarine : Color.white;
+            Gizmos.color = pathNode.IsSelected ? Color.aquamarine : Color.white;
 
-            Gizmos.DrawWireCube(pathNode.tile.position, new Vector3(1, 1));
-            DrawThreeValues(pathNode.tile.position, pathNode.distance, pathNode.cost, pathNode.priority);
+            Gizmos.DrawWireCube(pathNode.Tile.Position, new Vector3(1, 1));
+            DrawThreeValues(pathNode.Tile.Position, pathNode.Distance, pathNode.Cost, pathNode.Priority);
         }
 
-        var selectedPath = _pathfindingScript.debugPath.Where(p => p.isSelected).ToArray();
+        var selectedPath = _pathfindingScript.DebugPath.Where(p => p.IsSelected).ToArray();
         for (var i = 0; i < selectedPath.Count(); i++)
         {
             if (i < selectedPath.Count() - 1)
             {
-                Debug.DrawLine(selectedPath.ElementAt(i).tile.position, selectedPath.ElementAt(i + 1).tile.position);
+                Debug.DrawLine(selectedPath.ElementAt(i).Tile.Position, selectedPath.ElementAt(i + 1).Tile.Position);
             }
         }
     }
@@ -102,10 +105,5 @@ public class EnemiesManager : MonoBehaviour
         // UnityEditor.Handles.Label(center + Vector3.down * offset + Vector3.left * offset, v2.ToString(), style);
         UnityEditor.Handles.Label(center + Vector3.down * offset, v3.ToString(), style);
 #endif
-    }
-
-    public void ClearPath()
-    {
-        _path = null;
     }
 }

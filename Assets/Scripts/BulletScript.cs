@@ -3,14 +3,15 @@
 [RequireComponent(typeof(SpriteRenderer))]
 public class BulletScript : MonoBehaviour
 {
+    public bool isSuper;
+    
     [SerializeField] private Sprite bulletSprite;
     [SerializeField] private float speed = 1f;
     [SerializeField] private float maxLifeTime = 10f;
     [SerializeField] private int maxSuperBulletPenetrations = 3;
+    
     private int _numberOfPenetrations;
-    public bool isSuper;
     private int _penIterations;
-
     private SpriteRenderer _spriteRenderer;
 
     private void Start()

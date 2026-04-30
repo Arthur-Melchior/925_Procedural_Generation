@@ -1,5 +1,3 @@
-using System;
-using Cainos.Pixel_Art_Top_Down___Basic.Script;
 using UnityEngine;
 
 public class KeyScript : MonoBehaviour
@@ -8,7 +6,7 @@ public class KeyScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.GetComponent<TopDownCharacterController>().hasKey = true;
+            other.GetComponent<PlayerScript>().hasKey = true;
             transform.SetParent(other.transform);
         }
     }

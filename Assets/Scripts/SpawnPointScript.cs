@@ -1,5 +1,4 @@
 using System;
-using Cainos.Pixel_Art_Top_Down___Basic.Script;
 using UnityEngine;
 
 public class SpawnPointScript : MonoBehaviour
@@ -19,7 +18,7 @@ public class SpawnPointScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if (other.GetComponent<TopDownCharacterController>().hasKey)
+            if (other.GetComponent<PlayerScript>().hasKey)
             {
                 Lock.SetActive(false);
                 Teleporter.SetActive(true);
