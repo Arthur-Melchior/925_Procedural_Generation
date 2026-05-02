@@ -1,42 +1,69 @@
 ﻿using System;
 using System.Collections;
+using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-
+using Matrix4x4 = UnityEngine.Matrix4x4;
+using Quaternion = UnityEngine.Quaternion;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class GunScript : MonoBehaviour
 {
-    public UnityEvent onReloadFinished;
-    public float reloadTime;
-    public float sweetSpotStart;
-    public float sweetSpotEnd;
-    public int magazineSize = 20;
+    [Header("Events")] [Space] public UnityEvent onReloadFinished;
 
-    [SerializeField] private HUDScript hudScript;
-    [SerializeField] private float fireRate;
-    [SerializeField] private float jamDuration;
-    [SerializeField] private GameObject bullet;
-    [SerializeField] private float bulletSize;
+    [Header("Stats")] [Tooltip("Reload time in seconds")]
+    public float reloadTime = 2f;
+
+    [Tooltip("Start of the sweet spot in seconds")]
+    public float sweetSpotStart = 0.5f;
+
+    [Tooltip("End of the sweet spot in seconds")]
+    public float sweetSpotEnd = 1f;
+
+    public int magazineSize = 20;
+    public float meleeAttackDuration = 0.5f;
+    public Vector2 meleeAttackSize = new(2f, 2f);
+
+    [SerializeField] [Tooltip("Number of shots per second")]
+    private float fireRate = 2f;
+
+    [SerializeField] private float jamDuration = 1f;
+
+    [Header("Bullet")] [SerializeField] private GameObject bullet;
+    [SerializeField] private float bulletSize = 1f;
+    [SerializeField] private Transform gunTip;
+
+    [Header("HUD")] [SerializeField] private HUDScript hudScript;
+
+    [Header("Animations")] [SerializeField]
+    private SpriteRenderer spriteRenderer;
+
+    [SerializeField] private AnimationCurve meleeAttackCurve;
+    [SerializeField] private float meleeAttackRotation = 190f;
+    [SerializeField] private ParticleSystem meleeAttackVFX;
+
+    [SerializeField] private Vector2 recoilForce = new(0.1f, 0.02f);
+
     [SerializeField] private Color jamColor;
 
     [HideInInspector] public GameObject[] bullets;
     [HideInInspector] public int remainingBullets;
 
-    private Transform _gunTip;
     private float _shootDeltaTime;
     private bool _isShooting;
     private bool _isJammed;
-    private SpriteRenderer _spriteRenderer;
+    private bool _isAttacking;
+    private bool _isReloading;
+    private bool _reloadPressed;
     private Camera _camera;
 
     private void Start()
     {
-        _gunTip = transform.Find("gun tip");
         _camera = Camera.main;
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         bullets = new GameObject[magazineSize];
         FillMagazine();
 
@@ -46,7 +73,14 @@ public class GunScript : MonoBehaviour
     private void Update()
     {
         Shoot();
-        RotateGunTowardsMouse();
+    }
+
+    private void LateUpdate()
+    {
+        if (!_isAttacking)
+        {
+            RotateGunTowardsMouse();
+        }
     }
 
     public void OnShoot(InputAction.CallbackContext ctx)
@@ -55,16 +89,70 @@ public class GunScript : MonoBehaviour
         if (ctx.canceled) _isShooting = false;
     }
 
+    public void OnMeleeAttack(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed || _isAttacking) return;
+        _isAttacking = true;
+       
+        var hits = Physics2D.BoxCastAll(transform.position, meleeAttackSize, transform.eulerAngles.z, transform.right,
+            meleeAttackSize.y);
+
+        foreach (var raycastHit2D in hits)
+        {
+            if (raycastHit2D.transform.gameObject.CompareTag("Enemy"))
+            {
+                raycastHit2D.transform.gameObject.GetComponent<EnemyScript>().Die();
+            }
+        }
+
+        StartCoroutine(AttackAnimation());
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (_isAttacking)
+        {
+            Gizmos.color = Color.red;
+            var end = transform.position + gunTip.right * meleeAttackSize.y;
+            var rotation = Quaternion.Euler(0, 0, gunTip.eulerAngles.z);
+            Gizmos.matrix = Matrix4x4.TRS(end, rotation, meleeAttackSize);
+            Gizmos.DrawWireCube(Vector3.zero, meleeAttackSize);
+        }
+    }
+
+    private IEnumerator AttackAnimation()
+    {
+        var delta = 0f;
+        var originalRotation = spriteRenderer.transform.rotation;
+        var animationDestination = Quaternion.Euler(spriteRenderer.transform.eulerAngles.x,
+            spriteRenderer.transform.eulerAngles.y,
+            spriteRenderer.transform.eulerAngles.z + meleeAttackRotation);
+        meleeAttackVFX.transform.position = gunTip.position;
+        meleeAttackVFX.Play();
+
+        while (delta < meleeAttackDuration)
+        {
+            delta += Time.deltaTime;
+            spriteRenderer.transform.rotation = Quaternion.Slerp(originalRotation, animationDestination,
+                meleeAttackCurve.Evaluate(1 / (meleeAttackDuration / delta)));
+            yield return null;
+        }
+
+        spriteRenderer.transform.rotation = originalRotation;
+        _isAttacking = false;
+    }
+
     private void Shoot()
     {
-        if (_isShooting && _shootDeltaTime > 1 / fireRate && remainingBullets > 0 && !_isJammed)
+        if (_isShooting && _shootDeltaTime > 1 / fireRate && remainingBullets > 0 && !_isReloading && !_isJammed &&
+            !_isAttacking)
         {
-            bullets[remainingBullets].transform.position = _gunTip.position;
-            bullets[remainingBullets].transform.rotation = _gunTip.rotation;
+            bullets[remainingBullets].transform.position = gunTip.position;
+            bullets[remainingBullets].transform.rotation = gunTip.rotation;
             bullets[remainingBullets].transform.localScale = new Vector3(bulletSize, bulletSize, bulletSize);
             bullets[remainingBullets].SetActive(true);
-            bullets[remainingBullets].transform.SetParent(transform);
             remainingBullets--;
+            StartCoroutine(Recoil());
 
             _shootDeltaTime = 0;
         }
@@ -86,11 +174,9 @@ public class GunScript : MonoBehaviour
 
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        transform.rotation = Quaternion.Euler(0f, 0f, angle + 90f);
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        transform.position = transform.parent.position + direction.normalized;
     }
-
-    private bool _isReloading;
-    private bool _reloadPressed;
 
     public void OnReload(InputAction.CallbackContext ctx)
     {
@@ -143,18 +229,18 @@ public class GunScript : MonoBehaviour
         onReloadFinished?.Invoke();
 
         _isJammed = true;
-        var originalColor = _spriteRenderer.color;
-        _spriteRenderer.color = jamColor;
+        var originalColor = spriteRenderer.color;
+        spriteRenderer.color = jamColor;
 
         var deltaTime = Time.deltaTime;
         while (deltaTime < jamDuration)
         {
-            _spriteRenderer.color = Color.Lerp(jamColor, originalColor, 1 / (jamDuration / deltaTime));
+            spriteRenderer.color = Color.Lerp(jamColor, originalColor, 1 / (jamDuration / deltaTime));
             yield return null;
             deltaTime += Time.deltaTime;
         }
 
-        _spriteRenderer.color = originalColor;
+        spriteRenderer.color = originalColor;
         _isJammed = false;
         _isReloading = false;
         _reloadPressed = false;
@@ -164,7 +250,7 @@ public class GunScript : MonoBehaviour
     {
         for (var i = 0; i < magazineSize; i++)
         {
-            bullets[i] = Instantiate(bullet, _gunTip);
+            bullets[i] = Instantiate(bullet, gunTip);
             bullets[i].transform.SetParent(transform.parent);
             if (isSuper)
             {
@@ -178,5 +264,22 @@ public class GunScript : MonoBehaviour
         _reloadPressed = false;
         remainingBullets = magazineSize - 1;
         onReloadFinished?.Invoke();
+    }
+
+    private IEnumerator Recoil()
+    {
+        var recoilDuration = 1 / fireRate;
+        var recoilDelta = 0f;
+        while (recoilDelta < recoilDuration)
+        {
+            var recoilPosition = new Vector3(-transform.right.x * recoilForce.x, -transform.right.y * recoilForce.y) +
+                                 transform.position;
+            recoilDelta += Time.deltaTime;
+            spriteRenderer.transform.position =
+                Vector3.Lerp(transform.position, recoilPosition, 1 / (recoilDuration / recoilDelta));
+            yield return null;
+        }
+
+        spriteRenderer.transform.position = transform.position;
     }
 }

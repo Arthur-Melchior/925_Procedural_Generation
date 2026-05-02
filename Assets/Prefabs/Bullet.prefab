@@ -89,7 +89,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.65, y: 0.66}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -106,12 +106,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ad048b3f7e4323bb80361b43e29da9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  bulletSprite: {fileID: -2346302928887187388, guid: 4c4b38c04673a0b42bf2704c8ab0e812,
-    type: 3}
-  speed: 10
+  isSuper: 0
+  speed: 20
   maxLifeTime: 10
   maxSuperBulletPenetrations: 3
-  isSuper: 0
+  swayIntensity: 15
 --- !u!61 &-3160727635490758182
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -150,8 +149,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.67, y: 1.61}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 1.65, y: 0.66}
+    newSize: {x: 1.65, y: 0.66}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

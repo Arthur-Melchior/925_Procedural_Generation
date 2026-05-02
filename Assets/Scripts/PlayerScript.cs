@@ -17,9 +17,11 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float speed = 3f;
     [SerializeField] private float dodgeForce = 2f;
     [SerializeField] private float dodgeDuration = 0.2f;
-
+    [SerializeField] private float dodgeCooldown = 1f;
+    
     private float _dodgeForce;
     private float _dodgeDuration;
+    private float _dodgeDelta;
     private Animator _animator;
     private Rigidbody2D _rigidbody2D;
     private Vector2 _direction;
@@ -28,13 +30,16 @@ public class PlayerScript : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _dodgeDelta = dodgeCooldown;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
+        _dodgeDelta += Time.deltaTime;
+        
         if (_dodgeDuration > 0)
         {
-            _dodgeDuration -= Time.fixedDeltaTime;
+            _dodgeDuration -= Time.deltaTime;
         }
         else
         {
@@ -58,10 +63,11 @@ public class PlayerScript : MonoBehaviour
 
     public void OnDodge(InputAction.CallbackContext ctx)
     {
-        if (!ctx.performed || _dodgeDuration > 0) return;
+        if (!ctx.performed || _dodgeDuration > 0 || _dodgeDelta < dodgeCooldown) return;
 
         _dodgeForce = dodgeForce;
         _dodgeDuration = dodgeDuration;
+        _dodgeDelta = 0;
 
         _animator.SetBool(IsDodging, true);
     }

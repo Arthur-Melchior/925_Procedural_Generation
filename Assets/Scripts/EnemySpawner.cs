@@ -8,14 +8,14 @@ public class EnemySpawner : MonoBehaviour
 {
     public List<GameObject> enemiesList;
     [SerializeField] private int maximumNumberOfEnemies = 100;
-    [SerializeField] [Min(1)] private int enemiesPerSpawn;
+    [SerializeField] [Min(1)] private int enemiesPerSpawn = 3;
     [SerializeField] private DungeonGenerator map;
     [SerializeField] private PlayerScript player;
     [SerializeField] private EnemiesManager enemiesManager;
-    [SerializeField] private float spawnRateIncrementation = 0.1f;
+    [SerializeField] private float spawnRateIncrementation = 0.01f;
     private Camera _camera;
     public int currentNumberOfEnemies;
-    public float spawnRate = 2f;
+    public float spawnRate = 1f;
 
     private void Start()
     {
@@ -47,24 +47,22 @@ public class EnemySpawner : MonoBehaviour
                     possibleSpawnPoints =
                         map.WalkableTiles.Cast<WalkableTile>().Where(tile => tile.RoomIndex == 0).ToArray();
                 }
-
-
+                
                 for (var i = 0; i < enemiesPerSpawn; i++)
                 {
+                    var randomTile = possibleSpawnPoints[Random.Range(0, possibleSpawnPoints.Length)];
                     var enemy = enemiesList[Random.Range(0, enemiesList.Count)];
 
                     var enemyScript = enemy.GetComponent<EnemyScript>();
                     enemyScript.player = player;
                     enemyScript.target = player.transform;
                     enemyScript.enemiesManager = enemiesManager;
-                    enemyScript.currentRoomIndex = player.currentRoomIndex;
+                    enemyScript.currentRoomIndex = randomTile.RoomIndex;
 
                     var steeringScript = enemy.GetComponent<SteeringScript>();
                     steeringScript.target = player.transform;
-
-                    var position = possibleSpawnPoints[Random.Range(0, possibleSpawnPoints.Length)].Position;
-
-                    var instance = Instantiate(enemy, position, new Quaternion(0, 0, 0, 0));
+                    
+                    var instance = Instantiate(enemy, randomTile.Position, new Quaternion(0, 0, 0, 0));
                     var instanceScript = instance.GetComponent<EnemyScript>();
                     instanceScript.onDeath.AddListener(IncreaseSpawnRate);
                     instanceScript.onDeath.AddListener(() => currentNumberOfEnemies--);

@@ -15,7 +15,6 @@ public class EnemyScript : MonoBehaviour
     public int pathIndex;
 
     [SerializeField] private float attackRange;
-    [SerializeField] private float speed;
     [SerializeField] private SteeringScript steeringScript;
     [SerializeField] private float stopingDistance = 1f;
 
@@ -27,12 +26,14 @@ public class EnemyScript : MonoBehaviour
     private void Start()
     {
         _animator = GetComponent<Animator>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
 
     private IEnumerator FollowPath()
     {
         steeringScript.enabled = false;
+        gameObject.layer = LayerMask.NameToLayer("Ignore Collisions");
         
         var distance = float.MaxValue;
         for (var i = 0; i < _path.Count; i++)
@@ -45,18 +46,21 @@ public class EnemyScript : MonoBehaviour
             }
         }
 
-        while (pathIndex > 0 && currentRoomIndex != player.currentRoomIndex)
+        while (pathIndex < _path.Count && currentRoomIndex != player.currentRoomIndex)
         {
-            transform.position = Vector3.Lerp(transform.position, _path[pathIndex].Tile.Position, speed * Time.deltaTime);
+            var newPosition = Vector3.Lerp(_rigidbody2D.position, _path[pathIndex].Tile.Position, steeringScript.speed * Time.deltaTime);
+            _rigidbody2D.MovePosition(newPosition);
             if (Vector3.Distance(transform.position, _path[pathIndex].Tile.Position) < stopingDistance)
             {
-                pathIndex--;
+                pathIndex++;
             }
 
             yield return null;
         }
-
+        
+        
         steeringScript.enabled = true;
+        gameObject.layer = LayerMask.NameToLayer("Enemy");
         _isFollowingPath = false;
     }
 
@@ -67,7 +71,7 @@ public class EnemyScript : MonoBehaviour
             _animator.SetTrigger("Attack");
         }
 
-        if (currentRoomIndex != player.currentRoomIndex && !_isFollowingPath)
+        if (!steeringScript.isFlying && currentRoomIndex != player.currentRoomIndex && !_isFollowingPath)
         {
             _isFollowingPath = true;
             _path = await enemiesManager.GetPathAsync(transform.position);
@@ -79,8 +83,13 @@ public class EnemyScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Bullet"))
         {
-            _animator.SetTrigger("Death");
-            onDeath?.Invoke();
+            Die();
         }
+    }
+
+    public void Die()
+    {
+        _animator.SetTrigger("Death");
+        onDeath?.Invoke();
     }
 }

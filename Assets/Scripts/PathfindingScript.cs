@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 
@@ -30,7 +31,7 @@ public class PathfindingScript
     private readonly WalkableTile[,] _map;
     private PathNode[,] _pathNodeMap;
     private Vector3Int _targetPosition;
-    private const int MaxIterations = 100000;
+    private const int MaxIterations = 10000;
     public readonly HashSet<PathNode> DebugPath = new();
 
     public PathfindingScript(WalkableTile[,] map)
@@ -38,8 +39,11 @@ public class PathfindingScript
         _map = map;
     }
 
-    public List<PathNode> FindPathToTarget(Vector3Int startingPosition, Vector3Int targetPosition)
+    public Task<List<PathNode>> FindPathToTarget(Vector3Int startingPosition, Vector3Int targetPosition)
     {
+        SanitizeInput(ref startingPosition);
+        SanitizeInput(ref targetPosition);
+        
         Debug.Log("Pathfinding started");
         _targetPosition = targetPosition;
         _pathNodeMap = new PathNode[_map.GetLength(0), _map.GetLength(1)];
@@ -82,7 +86,32 @@ public class PathfindingScript
             throw;
         }
 
-        return path;
+        path.Reverse();
+
+        return Task.FromResult(path);
+    }
+
+    private void SanitizeInput(ref Vector3Int position)
+    {
+        if (position.x < 0)
+        {
+            position.x = 0;
+        }
+
+        if (position.x >= _map.GetLength(0))
+        {
+            position.x = _map.GetLength(0) - 1;
+        }
+        
+        if (position.y < 0)
+        {
+            position.y = 0;
+        }
+
+        if (position.y >= _map.GetLength(1))
+        {
+            position.y = _map.GetLength(1) - 1;
+        }
     }
 
     public IEnumerator DrawPathToTarget(Vector3Int startingPosition, Vector3Int targetPosition, float waitTime)
@@ -175,6 +204,7 @@ public class PathfindingScript
 
     private PathNode GeneratePathNode(PathNode parentNode, int x, int y, float cost)
     {
+        cost = 0;
         if (x < 0)
         {
             x = 0;

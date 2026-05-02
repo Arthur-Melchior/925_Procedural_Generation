@@ -36,10 +36,22 @@ public class EnemiesManager : MonoBehaviour
     private async Task<List<PathNode>> CalculatePathAsync(Vector3 position)
     {
         await Task.Yield();
+        Transform stair = null;
+        var distance = float.MaxValue;
 
-        return _pathfindingScript.FindPathToTarget(
+        foreach (var s in map.stairs)
+        {
+            var d = Vector2.Distance(target.position, s.transform.position);
+            if (d < distance)
+            {
+                stair = s.transform;
+                distance = d;
+            }
+        }
+
+        return await _pathfindingScript.FindPathToTarget(
             new Vector3Int((int)position.x, (int)position.y, 0),
-            new Vector3Int((int)target.position.x, (int)target.position.y, 0)
+            new Vector3Int((int)stair!.position.x, (int)stair.position.y, 0)
         );
     }
     

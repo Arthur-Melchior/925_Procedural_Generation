@@ -89,7 +89,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.91, y: 8.07}
+  m_Size: {x: 8.06, y: 3.91}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -119,6 +119,7 @@ MonoBehaviour:
   bullet: {fileID: 2205751050675429668, guid: 3f4b9017490e61e48a1474f48b7678c5, type: 3}
   bulletSize: 0
   jamColor: {r: 0, g: 0, b: 0, a: 0}
+  recoilForce: {x: 0.1, y: 0.02}
   bullets: []
   remainingBullets: 0
 --- !u!1 &8599076529645184519
