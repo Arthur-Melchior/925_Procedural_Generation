@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class StairsScript : MonoBehaviour
@@ -5,11 +6,18 @@ public class StairsScript : MonoBehaviour
     [SerializeField] private Transform tpTop;
     [SerializeField] private Transform tpBottom;
     public int roomIndex;
-    
+
+    private PlayerScript _playerScript;
+
+    private void Start()
+    {
+        _playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         var enemyScript = other.GetComponent<EnemyScript>();
-        if (enemyScript)
+        if (enemyScript && _playerScript.currentRoomIndex != enemyScript.currentRoomIndex)
         {
             if (enemyScript.currentRoomIndex == 0)
             {
@@ -21,17 +29,15 @@ public class StairsScript : MonoBehaviour
                 enemyScript.currentRoomIndex = 0;
                 enemyScript.transform.position = tpBottom.position;
             }
-            
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        var playerScript = other.GetComponent<PlayerScript>();
-        if (playerScript)
+        if (other.gameObject.CompareTag("Player"))
         {
             GameObject.Find("EnemiesManager").GetComponent<EnemiesManager>().ClearPath();
-            playerScript.currentRoomIndex = playerScript.currentRoomIndex == 0 ? roomIndex : 0;
+            _playerScript.currentRoomIndex = _playerScript.currentRoomIndex == 0 ? roomIndex : 0;
         }
     }
 }

@@ -108,7 +108,7 @@ Animator:
   m_GameObject: {fileID: 2403897692942207311}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 38431c911ca709b4597e6340e2c1f445, type: 2}
+  m_Controller: {fileID: 22100000, guid: f201a4f8af2a3834d9ee3a1f47ebb27b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -159,15 +159,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f7c65da6b654f4d9a299186258dc154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SteeringScript
-  target: {fileID: 0}
-  speed: 3
-  maxSpeed: 3
+  speed: 1
+  maxSpeed: 2
   isFlying: 0
   avoidDistance: 1
   avoidanceForce: 0.25
   layersToAvoid:
     serializedVersion: 2
     m_Bits: 2048
+  target: {fileID: 0}
   velocity: {x: 0, y: 0}
 --- !u!114 &1308826649495029273
 MonoBehaviour:
@@ -185,8 +185,11 @@ MonoBehaviour:
   attackRange: 2
   steeringScript: {fileID: 5131299201767853460}
   stopingDistance: 1
-  currentRoomIndex: 0
+  currentRoomIndex: 1
   pathIndex: 0
+  canParry: 0
+  parriedBulletSpeedMultiplier: 0.5
+  parriedBulletColor: {r: 1, g: 0, b: 0, a: 1}
   explodeOnDeath: 1
   explosionSize: {x: 1, y: 1}
   explosionDamage: 10
@@ -304,6 +307,26 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 392111996185084988, guid: 5b4f9bd7f869abf4a827f1d8e35d7af4,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 392111996185084988, guid: 5b4f9bd7f869abf4a827f1d8e35d7af4,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1518805563987223170, guid: 5b4f9bd7f869abf4a827f1d8e35d7af4,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343996630388128431, guid: 5b4f9bd7f869abf4a827f1d8e35d7af4,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7428353199889976217, guid: 5b4f9bd7f869abf4a827f1d8e35d7af4,
         type: 3}
       propertyPath: m_Name
@@ -313,6 +336,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7597881986527109998, guid: 5b4f9bd7f869abf4a827f1d8e35d7af4,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7597881986527109998, guid: 5b4f9bd7f869abf4a827f1d8e35d7af4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7597881986527109998, guid: 5b4f9bd7f869abf4a827f1d8e35d7af4,
         type: 3}

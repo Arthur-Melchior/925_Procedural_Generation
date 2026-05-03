@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 6900378002116221633}
   - component: {fileID: 5684490648277034953}
   - component: {fileID: 4366428172926117513}
-  m_Layer: 21
+  m_Layer: 13
   m_Name: Collider Lower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -654,3 +654,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StairsScript
   tpTop: {fileID: 3384668215892243040}
   tpBottom: {fileID: 8904703258731380111}
+  roomIndex: 0

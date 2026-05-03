@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8875010615375480629}
   - component: {fileID: 6534199533599456260}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Stairs L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 6900378002116221633}
   - component: {fileID: 5684490648277034953}
   - component: {fileID: 4366428172926117513}
-  m_Layer: 21
+  m_Layer: 13
   m_Name: Collider Lower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6075975974933568966}
   - component: {fileID: 6075975974933568965}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Stairs U
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -653,3 +653,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StairsScript
   tpTop: {fileID: 4245199734355715375}
   tpBottom: {fileID: 8249701959583315140}
+  roomIndex: 0

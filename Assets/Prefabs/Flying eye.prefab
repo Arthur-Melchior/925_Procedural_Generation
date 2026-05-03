@@ -107,7 +107,7 @@ Animator:
   m_GameObject: {fileID: 4803415564735348538}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bc6f686325e2745439106bec21fec3cb, type: 2}
+  m_Controller: {fileID: 22100000, guid: c58071205e288cc4691ddb80edba79a8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -131,15 +131,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f7c65da6b654f4d9a299186258dc154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SteeringScript
-  target: {fileID: 0}
   speed: 2
   maxSpeed: 3
   isFlying: 1
-  aheadDistance: 2
+  avoidDistance: 1
   avoidanceForce: 0.25
   layersToAvoid:
     serializedVersion: 2
     m_Bits: 0
+  target: {fileID: 0}
   velocity: {x: 0, y: 0}
 --- !u!114 &2565974814171995438
 MonoBehaviour:
@@ -153,7 +153,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a0f3becf5e94dcc81a082af3263f48c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyScript
+  attackDamage: 1
+  attackRange: 2
+  steeringScript: {fileID: 3192172073877797387}
+  stopingDistance: 1.5
   currentRoomIndex: 0
+  pathIndex: 0
+  canParry: 0
+  explodeOnDeath: 0
+  explosionSize: {x: 1, y: 1}
+  explosionDamage: 10
+  explosionVFX: {fileID: 0}
   target: {fileID: 0}
   player: {fileID: 0}
   enemiesManager: {fileID: 0}
@@ -208,11 +218,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  pathIndex: 0
-  attackDamage: 1
-  attackRange: 2
-  steeringScript: {fileID: 3192172073877797387}
-  stopingDistance: 1.5
 --- !u!50 &4635076643393287782
 Rigidbody2D:
   serializedVersion: 5

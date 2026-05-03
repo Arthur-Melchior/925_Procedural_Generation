@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -60,10 +61,12 @@ public class GunScript : MonoBehaviour
     private bool _isReloading;
     private bool _reloadPressed;
     private Camera _camera;
+    private ContactFilter2D _meleeAttackFilter;
 
     private void Start()
     {
         _camera = Camera.main;
+        _meleeAttackFilter.SetLayerMask(LayerMask.GetMask("Enemy", "Bullet", "Flying Enemy"));
         bullets = new GameObject[magazineSize];
         FillMagazine();
 
@@ -93,15 +96,25 @@ public class GunScript : MonoBehaviour
     {
         if (!ctx.performed || _isAttacking) return;
         _isAttacking = true;
-       
-        var hits = Physics2D.BoxCastAll(transform.position, meleeAttackSize, transform.eulerAngles.z, transform.right,
-            meleeAttackSize.y);
 
-        foreach (var raycastHit2D in hits)
+        var hits = new List<Collider2D>();
+        Physics2D.OverlapBox(gunTip.position, meleeAttackSize, transform.eulerAngles.z, _meleeAttackFilter, hits);
+
+        foreach (var hit in hits)
         {
-            if (raycastHit2D.transform.gameObject.CompareTag("Enemy"))
+            if (hit.gameObject.CompareTag("Enemy"))
             {
-                raycastHit2D.transform.gameObject.GetComponent<EnemyScript>().Die();
+                hit.gameObject.GetComponent<EnemyScript>().Die();
+            }
+
+            if (hit.gameObject.CompareTag("Bullet"))
+            {
+                var bulletScript = hit.gameObject.GetComponent<BulletScript>();
+                bulletScript.isSuperParried = true;
+                bulletScript.isSuper = true;
+                bulletScript.speed *= 5;
+                hit.transform.rotation = gunTip.rotation;
+                hit.gameObject.GetComponent<SpriteRenderer>().color = Color.goldenRod;
             }
         }
 
@@ -113,9 +126,8 @@ public class GunScript : MonoBehaviour
         if (_isAttacking)
         {
             Gizmos.color = Color.red;
-            var end = transform.position + gunTip.right * meleeAttackSize.y;
-            var rotation = Quaternion.Euler(0, 0, gunTip.eulerAngles.z);
-            Gizmos.matrix = Matrix4x4.TRS(end, rotation, meleeAttackSize);
+            var rotation = Quaternion.Euler(0, 0, transform.eulerAngles.z);
+            Gizmos.matrix = Matrix4x4.TRS(gunTip.position, rotation, meleeAttackSize);
             Gizmos.DrawWireCube(Vector3.zero, meleeAttackSize);
         }
     }
@@ -138,7 +150,7 @@ public class GunScript : MonoBehaviour
             yield return null;
         }
 
-        spriteRenderer.transform.rotation = originalRotation;
+        spriteRenderer.transform.rotation = transform.rotation;
         _isAttacking = false;
     }
 

@@ -4,8 +4,10 @@
 public class BulletScript : MonoBehaviour
 {
     public bool isSuper;
+    public bool isParried;
+    public bool isSuperParried;
 
-    [SerializeField] private float speed = 1f;
+    public float speed = 1f;
     [SerializeField] private float maxLifeTime = 10f;
     [SerializeField] private int maxSuperBulletPenetrations = 3;
     [SerializeField] private float swayIntensity = 30f;
@@ -35,6 +37,18 @@ public class BulletScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        if (isParried)
+        {
+            isParried = false;
+            return;
+        }
+
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
         if (isSuper)
         {
             _numberOfPenetrations = maxSuperBulletPenetrations;

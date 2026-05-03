@@ -14,13 +14,21 @@ public class EnemyScript : MonoBehaviour
     [Header("Stats")] [SerializeField] private float attackDamage = 1f;
     [SerializeField] private float attackRange;
 
-    [Header("Movement")] [SerializeField] private SteeringScript steeringScript;
+    [Header("Pathfinding")] [SerializeField]
+    private SteeringScript steeringScript;
+
     [SerializeField] private float stopingDistance = 1f;
     public int currentRoomIndex;
     public int pathIndex;
 
-    [Header("Explosion")] [SerializeField] private bool explodeOnDeath;
-    [SerializeField] private Vector2 explosionSize = new Vector2(1, 1);
+    [Header("Parry")] 
+    public bool canParry;
+    [SerializeField] private float parriedBulletSpeedMultiplier = 0.5f;
+    [SerializeField] private Color parriedBulletColor = Color.red;
+
+    [Header("Explosion")] 
+    public bool explodeOnDeath;
+    [SerializeField] private Vector2 explosionSize = new(1, 1);
     [SerializeField] private float explosionDamage = 10f;
     [SerializeField] private ParticleSystem explosionVFX;
 
@@ -35,18 +43,21 @@ public class EnemyScript : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private BoxCollider2D _boxCollider2D;
     private bool _isFollowingPath;
+    private ContactFilter2D _explosionFilter;
+    private int _playerLayer;
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _boxCollider2D = GetComponent<BoxCollider2D>();
+        _explosionFilter.SetLayerMask(LayerMask.GetMask("Enemy", "Flying Enemy", "Player"));
+        _playerLayer = LayerMask.NameToLayer("Player");
     }
 
     private IEnumerator FollowPath()
     {
         steeringScript.enabled = false;
-        gameObject.layer = LayerMask.NameToLayer("Ignore Collisions");
 
         var distance = float.MaxValue;
         for (var i = 0; i < _path.Count; i++)
@@ -74,7 +85,6 @@ public class EnemyScript : MonoBehaviour
 
 
         steeringScript.enabled = true;
-        gameObject.layer = LayerMask.NameToLayer("Enemy");
         _isFollowingPath = false;
     }
 
@@ -93,18 +103,17 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-    public void Attack()
+    private void Attack()
     {
-        var angle = Mathf.Atan2(steeringScript.velocity.x, steeringScript.velocity.y) * Mathf.Rad2Deg;
-        var hits = Physics2D.BoxCastAll(transform.position, _boxCollider2D.size, angle, steeringScript.velocity,
-            _boxCollider2D.size.x);
-        foreach (var raycastHit2D in hits)
+        var angle =
+            Mathf.Atan2(steeringScript.velocity.x, steeringScript.velocity.y)
+            * Mathf.Rad2Deg;
+
+        var hit = Physics2D.OverlapBox(transform.position, _boxCollider2D.size, angle, _playerLayer);
+
+        if (hit)
         {
-            if (raycastHit2D.transform.gameObject.CompareTag("Player"))
-            {
-                raycastHit2D.transform.gameObject.GetComponent<PlayerScript>().TakeDamage(attackDamage);
-                break;
-            }
+            hit.gameObject.GetComponent<PlayerScript>().TakeDamage(attackDamage);
         }
     }
 
@@ -112,25 +121,53 @@ public class EnemyScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Bullet"))
         {
-            Die();
+            var bulletScript = other.gameObject.GetComponent<BulletScript>();
+            if (canParry && !bulletScript.isSuperParried)
+            {
+                Parry(other.gameObject);
+            }
+            else
+            {
+                Die();
+            }
         }
     }
 
+    private void Parry(GameObject bullet)
+    {
+        var bulletScript = bullet.GetComponent<BulletScript>();
+        bulletScript.isParried = true;
+        bulletScript.speed *= parriedBulletSpeedMultiplier;
+        bullet.gameObject.GetComponent<SpriteRenderer>().color = parriedBulletColor;
+        bullet.transform.rotation = Quaternion.Euler(bullet.transform.eulerAngles.x, bullet.transform.eulerAngles.y,
+            bullet.transform.eulerAngles.z + 180f);
+        _animator.Play("Parry");
+    }
+
+    private bool _isDead;
+
     public void Die()
     {
+        if (_isDead) return;
+        _isDead = true;
+
         _animator.SetTrigger(Death);
         if (explodeOnDeath)
         {
             explosionVFX.Play();
-            var hits = Physics2D.BoxCastAll(transform.position, explosionSize, 0, Vector2.zero);
-            foreach (var raycastHit2D in hits)
+            var hits = new List<Collider2D>();
+            Physics2D.OverlapBox(transform.position, explosionSize, 0, _explosionFilter, hits);
+
+            foreach (var hit in hits)
             {
-                var gO = raycastHit2D.transform.gameObject;
+                var gO = hit.gameObject;
+
                 if (gO != gameObject && gO.CompareTag("Enemy"))
                 {
                     gO.GetComponent<EnemyScript>().Die();
                 }
-                else if (gO.CompareTag("Player"))
+
+                if (gO.CompareTag("Player"))
                 {
                     gO.GetComponent<PlayerScript>().TakeDamage(explosionDamage);
                 }
@@ -141,5 +178,4 @@ public class EnemyScript : MonoBehaviour
     }
 
     public void TurnOffAnimator() => _animator.enabled = false;
-    
 }

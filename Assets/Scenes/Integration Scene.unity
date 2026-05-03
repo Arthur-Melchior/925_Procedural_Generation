@@ -188,9 +188,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
         type: 3}
+      propertyPath: fireRate
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+        type: 3}
       propertyPath: hudScript
       value: 
       objectReference: {fileID: 681413156}
+    - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+        type: 3}
+      propertyPath: magazineSize
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 5628018141983903104, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
         type: 3}
       propertyPath: m_Name
@@ -428,61 +438,6 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 25.42579, y: 54.80777, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1532619339
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1532619341}
-  - component: {fileID: 1532619340}
-  m_Layer: 0
-  m_Name: EnemySpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1532619340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1532619339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 383ec79faceb4c21b1c4cd7c2d387145, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemiesList:
-  - {fileID: 4803415564735348538, guid: e4f7f16b4375eed49a8df195315278b7, type: 3}
-  - {fileID: 2403897692942207311, guid: ad829f20cbc7be64986a3c05d4e300c1, type: 3}
-  maximumNumberOfEnemies: 100
-  enemiesPerSpawn: 3
-  map: {fileID: 1405108804}
-  player: {fileID: 1305422988}
-  enemiesManager: {fileID: 1468818716}
-  spawnRateIncrementation: 0.01
-  currentNumberOfEnemies: 0
-  spawnRate: 1
---- !u!4 &1532619341
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1532619339}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.55403, y: 7.49227, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -983,6 +938,89 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 484e65a60676556439505af65d8d920a, type: 3}
+--- !u!1001 &7350571518867455538
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2281894726771283392, guid: 5dc46bfc517ec9641a87ab6826b4cb85,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 17.55403
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281894726771283392, guid: 5dc46bfc517ec9641a87ab6826b4cb85,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.49227
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281894726771283392, guid: 5dc46bfc517ec9641a87ab6826b4cb85,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281894726771283392, guid: 5dc46bfc517ec9641a87ab6826b4cb85,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281894726771283392, guid: 5dc46bfc517ec9641a87ab6826b4cb85,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281894726771283392, guid: 5dc46bfc517ec9641a87ab6826b4cb85,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281894726771283392, guid: 5dc46bfc517ec9641a87ab6826b4cb85,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281894726771283392, guid: 5dc46bfc517ec9641a87ab6826b4cb85,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281894726771283392, guid: 5dc46bfc517ec9641a87ab6826b4cb85,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281894726771283392, guid: 5dc46bfc517ec9641a87ab6826b4cb85,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3360353405969341203, guid: 5dc46bfc517ec9641a87ab6826b4cb85,
+        type: 3}
+      propertyPath: m_Name
+      value: EnemySpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 4641235875380177773, guid: 5dc46bfc517ec9641a87ab6826b4cb85,
+        type: 3}
+      propertyPath: map
+      value: 
+      objectReference: {fileID: 1405108804}
+    - target: {fileID: 4641235875380177773, guid: 5dc46bfc517ec9641a87ab6826b4cb85,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1305422988}
+    - target: {fileID: 4641235875380177773, guid: 5dc46bfc517ec9641a87ab6826b4cb85,
+        type: 3}
+      propertyPath: enemiesManager
+      value: 
+      objectReference: {fileID: 1468818716}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5dc46bfc517ec9641a87ab6826b4cb85, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -991,7 +1029,7 @@ SceneRoots:
   - {fileID: 1305422981}
   - {fileID: 1405108806}
   - {fileID: 1899399333}
-  - {fileID: 1532619341}
+  - {fileID: 7350571518867455538}
   - {fileID: 1468818717}
   - {fileID: 2074738015}
   - {fileID: 1082204234}
