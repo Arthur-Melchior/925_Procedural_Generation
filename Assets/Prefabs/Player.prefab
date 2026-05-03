@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2579820090429100601}
   - component: {fileID: 7778142105706153702}
-  m_Layer: 20
+  m_Layer: 12
   m_Name: Skin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5628018140324151391}
   - component: {fileID: 5628018140324151390}
-  m_Layer: 20
+  m_Layer: 12
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 5628018141983903117}
   - component: {fileID: 4616719885696106401}
   - component: {fileID: 2578375853740800874}
-  m_Layer: 20
+  m_Layer: 12
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -236,6 +236,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasKey: 0
   currentRoomIndex: 0
+  health: 0
+  isInvulnerable: 0
+  invulnerabilityDuration: 1
   speed: 3
   dodgeForce: 3
   dodgeDuration: 0.4
@@ -580,10 +583,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1261191870530783383, guid: 841004c4c6a39e244abe2257394de913,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 3042519775331041172, guid: 841004c4c6a39e244abe2257394de913,
         type: 3}
       propertyPath: m_Name
       value: VFX_ImpactClassic01_1.1.0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3042519775331041172, guid: 841004c4c6a39e244abe2257394de913,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3929562162717368386, guid: 841004c4c6a39e244abe2257394de913,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8021906141195003489, guid: 841004c4c6a39e244abe2257394de913,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -614,6 +637,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 82824114700058684, guid: 26aad711a7ce4524585672fc4d8b0a16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1053702542317156462, guid: 26aad711a7ce4524585672fc4d8b0a16,
         type: 3}
@@ -683,7 +711,7 @@ PrefabInstance:
     - target: {fileID: 7644004507277069909, guid: 26aad711a7ce4524585672fc4d8b0a16,
         type: 3}
       propertyPath: fireRate
-      value: 20
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7644004507277069909, guid: 26aad711a7ce4524585672fc4d8b0a16,
         type: 3}
@@ -723,7 +751,7 @@ PrefabInstance:
     - target: {fileID: 7644004507277069909, guid: 26aad711a7ce4524585672fc4d8b0a16,
         type: 3}
       propertyPath: magazineSize
-      value: 400
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7644004507277069909, guid: 26aad711a7ce4524585672fc4d8b0a16,
         type: 3}
@@ -814,6 +842,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GunTip
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599076529645184519, guid: 26aad711a7ce4524585672fc4d8b0a16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -113,6 +113,8 @@ public class DungeonGenerator : MonoBehaviour
             tilemap.CompressBounds();
             tilemap.GetComponent<TilemapRenderer>().sortingOrder = 2;
 
+            tilemap.gameObject.layer = LayerMask.NameToLayer("Walls");
+
             foreach (var stair in _tempStairsList.Where(stair => stair.Value == index))
             {
                 stair.Key.transform.SetParent(tilemap.transform);

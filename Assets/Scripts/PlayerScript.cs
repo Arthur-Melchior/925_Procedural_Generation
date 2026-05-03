@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
@@ -13,6 +14,9 @@ public class PlayerScript : MonoBehaviour
 
     public bool hasKey;
     public int currentRoomIndex;
+    public float health = 100f;
+    public bool isInvulnerable;
+    public float invulnerabilityDuration = 1f;
 
     [SerializeField] private float speed = 3f;
     [SerializeField] private float dodgeForce = 2f;
@@ -70,5 +74,19 @@ public class PlayerScript : MonoBehaviour
         _dodgeDelta = 0;
 
         _animator.SetBool(IsDodging, true);
+    }
+
+    public void TakeDamage(float attackDamage)
+    {
+        if (isInvulnerable) return;
+        health -= attackDamage;
+        StartCoroutine(TemporaryInvulnerability());
+    }
+
+    private IEnumerator TemporaryInvulnerability()
+    {
+        isInvulnerable = true;
+        yield return new WaitForSeconds(invulnerabilityDuration);
+        isInvulnerable = false;
     }
 }

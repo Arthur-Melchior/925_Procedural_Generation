@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2565974814171995438}
   - component: {fileID: 4635076643393287782}
   - component: {fileID: 6186665582648839264}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: Flying eye
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -132,14 +132,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SteeringScript
   target: {fileID: 0}
-  speed: 3
-  maxSpeed: 5
+  speed: 2
+  maxSpeed: 3
   isFlying: 1
   aheadDistance: 2
   avoidanceForce: 0.25
-  layerMask:
+  layersToAvoid:
     serializedVersion: 2
-    m_Bits: 6291511
+    m_Bits: 0
+  velocity: {x: 0, y: 0}
 --- !u!114 &2565974814171995438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,6 +209,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   pathIndex: 0
+  attackDamage: 1
   attackRange: 2
   steeringScript: {fileID: 3192172073877797387}
   stopingDistance: 1.5

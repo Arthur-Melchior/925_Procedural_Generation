@@ -4,15 +4,22 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class SteeringScript : MonoBehaviour
 {
-    public Transform target;
+    [Header("Stats")]
     public float speed;
     public float maxSpeed;
-    public bool isFlying;
-    [Min(1)] public float aheadDistance = 1;
+    
+    [Header("Avoid Values")]
+    [Tooltip("If the enemy is flying it won't avoid obstacles")] public bool isFlying;
+    [Min(1)] public float avoidDistance = 1;
     public float avoidanceForce = 1;
-    public LayerMask layerMask;
+    public LayerMask layersToAvoid;
+    
+    [Header("References")]
+    public Transform target;
+    
+    [HideInInspector] public Vector2 velocity;
+    
     private Rigidbody2D _rb;
-    private Vector2 _velocity;
 
     private void Start()
     {
@@ -21,21 +28,21 @@ public class SteeringScript : MonoBehaviour
 
     private void Update()
     {
-        _velocity = Vector2.ClampMagnitude(Seek(target) * speed, maxSpeed);
-        Debug.DrawRay(transform.position, _velocity);
+        velocity = Vector2.ClampMagnitude(Seek(target) * speed, maxSpeed);
+        Debug.DrawRay(transform.position, velocity);
 
         if (!isFlying)
         {
             AvoidCollisions();
         }
 
-        _rb.linearVelocity = _velocity;
+        _rb.linearVelocity = velocity;
     }
 
     private void AvoidCollisions()
     {
-        var ahead = _velocity * aheadDistance;
-        var collision = Physics2D.Raycast(transform.position, ahead, ahead.magnitude, layerMask);
+        var ahead = velocity * avoidDistance;
+        var collision = Physics2D.Raycast(transform.position, ahead, ahead.magnitude, layersToAvoid);
 
         Debug.DrawRay(transform.position, ahead, Color.aquamarine);
 
@@ -46,8 +53,8 @@ public class SteeringScript : MonoBehaviour
             Debug.DrawRay((Vector2) transform.position + ahead, avoidanceVector, Color.red);
             Debug.DrawRay(collision.centroid, ahead, Color.blue);
             
-            _velocity += avoidanceVector;
-            Debug.DrawRay(transform.position, _velocity);
+            velocity += avoidanceVector;
+            Debug.DrawRay(transform.position, velocity);
         }
     }
 

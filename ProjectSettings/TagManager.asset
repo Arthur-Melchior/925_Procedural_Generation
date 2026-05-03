@@ -18,6 +18,9 @@ TagManager:
   - Ignore Collisions
   - Stairs
   - Bullet
+  - Flying Enemy
+  - Walls
+  - Player
   - 
   - 
   - 
@@ -28,9 +31,6 @@ TagManager:
   - 
   - 
   - 
-  - Layer 1
-  - Layer 2
-  - Layer 3
   - 
   - 
   - 

@@ -5,36 +5,49 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(BoxCollider2D))]
 public class EnemyScript : MonoBehaviour
 {
+    private static readonly int AttackAnimation = Animator.StringToHash("Attack");
+    private static readonly int Death = Animator.StringToHash("Death");
+
+    [Header("Stats")] [SerializeField] private float attackDamage = 1f;
+    [SerializeField] private float attackRange;
+
+    [Header("Movement")] [SerializeField] private SteeringScript steeringScript;
+    [SerializeField] private float stopingDistance = 1f;
     public int currentRoomIndex;
-    public Transform target;
-    public PlayerScript player;
-    public EnemiesManager enemiesManager;
-    public UnityEvent onDeath;
     public int pathIndex;
 
-    [SerializeField] private float attackRange;
-    [SerializeField] private SteeringScript steeringScript;
-    [SerializeField] private float stopingDistance = 1f;
+    [Header("Explosion")] [SerializeField] private bool explodeOnDeath;
+    [SerializeField] private Vector2 explosionSize = new Vector2(1, 1);
+    [SerializeField] private float explosionDamage = 10f;
+    [SerializeField] private ParticleSystem explosionVFX;
+
+    [Header("References")] public Transform target;
+    public PlayerScript player;
+    public EnemiesManager enemiesManager;
+
+    [Header("Events")] public UnityEvent onDeath;
 
     private Animator _animator;
     private List<PathNode> _path;
     private Rigidbody2D _rigidbody2D;
+    private BoxCollider2D _boxCollider2D;
     private bool _isFollowingPath;
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _boxCollider2D = GetComponent<BoxCollider2D>();
     }
-
 
     private IEnumerator FollowPath()
     {
         steeringScript.enabled = false;
         gameObject.layer = LayerMask.NameToLayer("Ignore Collisions");
-        
+
         var distance = float.MaxValue;
         for (var i = 0; i < _path.Count; i++)
         {
@@ -48,7 +61,8 @@ public class EnemyScript : MonoBehaviour
 
         while (pathIndex < _path.Count && currentRoomIndex != player.currentRoomIndex)
         {
-            var newPosition = Vector3.Lerp(_rigidbody2D.position, _path[pathIndex].Tile.Position, steeringScript.speed * Time.deltaTime);
+            var newPosition = Vector3.Lerp(_rigidbody2D.position, _path[pathIndex].Tile.Position,
+                steeringScript.speed * Time.deltaTime);
             _rigidbody2D.MovePosition(newPosition);
             if (Vector3.Distance(transform.position, _path[pathIndex].Tile.Position) < stopingDistance)
             {
@@ -57,8 +71,8 @@ public class EnemyScript : MonoBehaviour
 
             yield return null;
         }
-        
-        
+
+
         steeringScript.enabled = true;
         gameObject.layer = LayerMask.NameToLayer("Enemy");
         _isFollowingPath = false;
@@ -68,7 +82,7 @@ public class EnemyScript : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, target.position) < attackRange)
         {
-            _animator.SetTrigger("Attack");
+            _animator.SetTrigger(AttackAnimation);
         }
 
         if (!steeringScript.isFlying && currentRoomIndex != player.currentRoomIndex && !_isFollowingPath)
@@ -76,6 +90,21 @@ public class EnemyScript : MonoBehaviour
             _isFollowingPath = true;
             _path = await enemiesManager.GetPathAsync(transform.position);
             StartCoroutine(FollowPath());
+        }
+    }
+
+    public void Attack()
+    {
+        var angle = Mathf.Atan2(steeringScript.velocity.x, steeringScript.velocity.y) * Mathf.Rad2Deg;
+        var hits = Physics2D.BoxCastAll(transform.position, _boxCollider2D.size, angle, steeringScript.velocity,
+            _boxCollider2D.size.x);
+        foreach (var raycastHit2D in hits)
+        {
+            if (raycastHit2D.transform.gameObject.CompareTag("Player"))
+            {
+                raycastHit2D.transform.gameObject.GetComponent<PlayerScript>().TakeDamage(attackDamage);
+                break;
+            }
         }
     }
 
@@ -89,7 +118,28 @@ public class EnemyScript : MonoBehaviour
 
     public void Die()
     {
-        _animator.SetTrigger("Death");
+        _animator.SetTrigger(Death);
+        if (explodeOnDeath)
+        {
+            explosionVFX.Play();
+            var hits = Physics2D.BoxCastAll(transform.position, explosionSize, 0, Vector2.zero);
+            foreach (var raycastHit2D in hits)
+            {
+                var gO = raycastHit2D.transform.gameObject;
+                if (gO != gameObject && gO.CompareTag("Enemy"))
+                {
+                    gO.GetComponent<EnemyScript>().Die();
+                }
+                else if (gO.CompareTag("Player"))
+                {
+                    gO.GetComponent<PlayerScript>().TakeDamage(explosionDamage);
+                }
+            }
+        }
+
         onDeath?.Invoke();
     }
+
+    public void TurnOffAnimator() => _animator.enabled = false;
+    
 }

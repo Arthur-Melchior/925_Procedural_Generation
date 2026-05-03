@@ -188,29 +188,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
         type: 3}
-      propertyPath: fireRate
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
-        type: 3}
       propertyPath: hudScript
       value: 
       objectReference: {fileID: 681413156}
-    - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
-        type: 3}
-      propertyPath: magazineSize
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
-        type: 3}
-      propertyPath: gunDistanceFromPlayer.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
-        type: 3}
-      propertyPath: gunDistanceFromPlayer.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5628018141983903104, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
         type: 3}
       propertyPath: m_Name
@@ -484,6 +464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemiesList:
   - {fileID: 4803415564735348538, guid: e4f7f16b4375eed49a8df195315278b7, type: 3}
+  - {fileID: 2403897692942207311, guid: ad829f20cbc7be64986a3c05d4e300c1, type: 3}
   maximumNumberOfEnemies: 100
   enemiesPerSpawn: 3
   map: {fileID: 1405108804}
