@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e6bbaf16678ec942b859408266ce275, type: 3}
+  m_Name: AllPowerUps
+  m_EditorClassIdentifier: Assembly-CSharp::Scriptable_Objects.PowerUps
+  powerUps:
+  - name: Fire Rate UP
+    description: Increases fire rate by 1 (The higher the firerate, the longer the
+      gun jams)
+    sprite: {fileID: 0}
+    spawnForce: 8
+  - name: Magazine size UP
+    description: Increases magazine size by 5 (The bigger the mag, the slower the
+      reload)
+    sprite: {fileID: 0}
+    spawnForce: 10
+  - name: Bullet Penetration UP
+    description: Increases the number of enemies a super bullet can pass through
+      by 1
+    sprite: {fileID: 0}
+    spawnForce: 1
+  - name: Bullet Sway DOWN
+    description: Decreases the sway of bullets by 1 degree (if sway is already at
+      0, gives 2 random power ups instead)
+    sprite: {fileID: 0}
+    spawnForce: 3
+  - name: Speed UP
+    description: Increases the character speed by 1
+    sprite: {fileID: 0}
+    spawnForce: 10
+  - name: Dash UP
+    description: Increases the dash duration by 0.2 and distance by 1
+    sprite: {fileID: 0}
+    spawnForce: 5
+  - name: Melee Speed UP
+    description: Increases the speed of the melee attack by 10%
+    sprite: {fileID: 0}
+    spawnForce: 3
+  - name: Melee Attack UP
+    description: Increases the size of the melee attack by 1
+    sprite: {fileID: 0}
+    spawnForce: 1
+  - name: Sweet Spot UP
+    description: Increases the size of the reload sweet spot by 10%
+    sprite: {fileID: 0}
+    spawnForce: 6
+  - name: Bullet Speed UP
+    description: Increases the bullet speed by 0.5
+    sprite: {fileID: 0}
+    spawnForce: 10
+  - name: Health UP
+    description: Increases Max and Current Health by 10%
+    sprite: {fileID: 0}
+    spawnForce: 6
+  - name: Dodge Cooldown DOWN
+    description: Reduces dodge cooldown by 0.1 (if already at 0, picks 2 random power
+      ups instead)
+    sprite: {fileID: 0}
+    spawnForce: 5
+  - name: Bullet size UP
+    description: Increases the size of the bullet by 10%
+    sprite: {fileID: 0}
+    spawnForce: 4

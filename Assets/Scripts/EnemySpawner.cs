@@ -8,7 +8,10 @@ using Random = UnityEngine.Random;
 public class GameObjectFloatPair
 {
     public GameObject gameObject;
-    [Tooltip("Spawn chances compared to the sum of all spawn forces \n Ex : sum = 1 + 2 + 3 = 6 => 3 = 50% chance to spawn (6/3), 2 = 33.3%, 1 = 16.6%")] public float spawnForce;
+
+    [Tooltip(
+        "Spawn chances compared to the sum of all spawn forces \n Ex : sum = 1 + 2 + 3 = 6 => 3 = 50% chance to spawn (6/3), 2 = 33.3%, 1 = 16.6%")]
+    public float spawnForce;
 }
 
 public class EnemySpawner : MonoBehaviour
@@ -75,8 +78,12 @@ public class EnemySpawner : MonoBehaviour
 
                     var instance = Instantiate(enemy, randomTile.Position, new Quaternion(0, 0, 0, 0));
                     var instanceScript = instance.GetComponent<EnemyScript>();
-                    instanceScript.onDeath.AddListener(IncreaseSpawnRate);
-                    instanceScript.onDeath.AddListener(() => _currentNumberOfEnemies--);
+                    instanceScript.onDeath.AddListener(experience =>
+                    {
+                        IncreaseSpawnRate();
+                        _currentNumberOfEnemies--;
+                        player.playerStats.experience += experience;
+                    });
 
                     _currentNumberOfEnemies++;
                 }

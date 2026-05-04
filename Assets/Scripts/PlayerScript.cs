@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using Scriptable_Objects;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
@@ -14,18 +16,15 @@ public class PlayerScript : MonoBehaviour
     private static readonly int DirectionY = Animator.StringToHash("DirectionY");
     private static readonly int Hit = Animator.StringToHash("Hit");
 
-    public bool hasKey;
+
+    [Header("State")] public bool hasKey;
     public int currentRoomIndex;
-    public float health = 100f;
     public bool isInvulnerable;
-    public float invulnerabilityDuration = 1f;
 
-    [SerializeField] private float speed = 3f;
-    [SerializeField] private float dodgeForce = 2f;
-    [SerializeField] private float dodgeDuration = 0.2f;
-    [SerializeField] private float dodgeCooldown = 1f;
-    [SerializeField] private float getHitRecoil = 2f;
+    [Header("Events")] public UnityEvent onLevelUp;
 
+
+    [HideInInspector] public PlayerStats playerStats;
     [HideInInspector] public bool isDodging;
 
     private float _dodgeForce;
@@ -39,11 +38,17 @@ public class PlayerScript : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        _dodgeDelta = dodgeCooldown;
+        _dodgeDelta = playerStats.dodgeCooldown;
     }
 
     private void Update()
     {
+        if (playerStats.experience >= playerStats.experienceToLevelUp)
+        {
+            onLevelUp?.Invoke();
+            playerStats.experienceToLevelUp *= playerStats.experienceLevelUpMultiplier;
+        }
+
         _dodgeDelta += Time.deltaTime;
 
         if (_dodgeDuration > 0)
@@ -59,7 +64,7 @@ public class PlayerScript : MonoBehaviour
 
         if (!isInvulnerable)
         {
-            _rigidbody2D.linearVelocity = speed * _dodgeForce * _direction;
+            _rigidbody2D.linearVelocity = playerStats.speed * _dodgeForce * _direction;
         }
 
         _animator.SetBool(IsMoving, _direction.magnitude > 0);
@@ -76,10 +81,10 @@ public class PlayerScript : MonoBehaviour
 
     public void OnDodge(InputAction.CallbackContext ctx)
     {
-        if (!ctx.performed || _dodgeDuration > 0 || _dodgeDelta < dodgeCooldown) return;
+        if (!ctx.performed || _dodgeDuration > 0 || _dodgeDelta < playerStats.dodgeCooldown) return;
 
-        _dodgeForce = dodgeForce;
-        _dodgeDuration = dodgeDuration;
+        _dodgeForce = playerStats.dodgeForce;
+        _dodgeDuration = playerStats.dodgeDuration;
         _dodgeDelta = 0;
         isDodging = true;
 
@@ -89,8 +94,8 @@ public class PlayerScript : MonoBehaviour
     public void TakeDamage(float attackDamage, Vector3 origin)
     {
         if (isInvulnerable || isDodging) return;
-        health -= attackDamage;
-        _rigidbody2D.AddForce((transform.position - origin).normalized * getHitRecoil, ForceMode2D.Impulse);
+        playerStats.health -= attackDamage;
+        _rigidbody2D.AddForce((transform.position - origin).normalized * playerStats.getHitRecoil, ForceMode2D.Impulse);
         _animator.SetTrigger(Hit);
         StartCoroutine(TemporaryInvulnerability());
     }
@@ -106,7 +111,7 @@ public class PlayerScript : MonoBehaviour
     private IEnumerator TemporaryInvulnerability()
     {
         isInvulnerable = true;
-        yield return new WaitForSeconds(invulnerabilityDuration);
+        yield return new WaitForSeconds(playerStats.invulnerabilityDuration);
         isInvulnerable = false;
     }
 }

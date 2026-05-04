@@ -11,7 +11,8 @@ public class EnemyScript : MonoBehaviour
     private static readonly int AttackAnimation = Animator.StringToHash("Attack");
     private static readonly int Death = Animator.StringToHash("Death");
 
-    [Header("Stats")] [SerializeField] private float attackDamage = 1f;
+    [Header("Stats")] [SerializeField] private float experienceOnDeath;
+    [SerializeField] private float attackDamage = 1f;
     [SerializeField] private float attackRange;
     [SerializeField] private Vector2 attackSize = new(2, 2);
 
@@ -35,7 +36,7 @@ public class EnemyScript : MonoBehaviour
     public PlayerScript player;
     public EnemiesManager enemiesManager;
 
-    [Header("Events")] public UnityEvent onDeath;
+    [Header("Events")] public UnityEvent<float> onDeath;
 
     private Animator _animator;
     private List<PathNode> _path;
@@ -174,7 +175,7 @@ public class EnemyScript : MonoBehaviour
             }
         }
 
-        onDeath?.Invoke();
+        onDeath?.Invoke(experienceOnDeath);
     }
 
     public void TurnOffAnimator() => _animator.enabled = false;

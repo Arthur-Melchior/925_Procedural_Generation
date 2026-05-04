@@ -19,14 +19,14 @@ public class HUDScript : MonoBehaviour
         _camera = Camera.main;
         gunScript.onReloadFinished.AddListener(() => reloadHud.gameObject.SetActive(false));
         sweetSpotImage.transform.rotation =
-            Quaternion.Euler(0, 0, 360 / gunScript.reloadTime * gunScript.sweetSpotStart * -1);
+            Quaternion.Euler(0, 0, 360 / gunScript.gunStats.reloadTime * gunScript.gunStats.sweetSpotStart * -1);
     }
 
     public void UpdateReloadHUD(float passedTime)
     {
         reloadHud.gameObject.SetActive(true);
-        sweetSpotImage.fillAmount = 1 / (gunScript.reloadTime / (gunScript.sweetSpotEnd - gunScript.sweetSpotStart));
-        forGroundImage.fillAmount = 1 / gunScript.reloadTime * passedTime;
+        sweetSpotImage.fillAmount = 1 / (gunScript.gunStats.reloadTime / (gunScript.gunStats.sweetSpotEnd - gunScript.gunStats.sweetSpotStart));
+        forGroundImage.fillAmount = 1 / gunScript.gunStats.reloadTime * passedTime;
         reloadHud.position = _camera.WorldToScreenPoint(gunScript.transform.position + reloadHudOffset);
     }
 }

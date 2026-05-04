@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using Scriptable_Objects;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,34 +17,13 @@ public class GunScript : MonoBehaviour
 {
     [Header("Events")] [Space] public UnityEvent onReloadFinished;
 
-    [Header("Stats")] [Tooltip("Reload time in seconds")]
-    public float reloadTime = 2f;
-
-    [Tooltip("Start of the sweet spot in seconds")]
-    public float sweetSpotStart = 0.5f;
-
-    [Tooltip("End of the sweet spot in seconds")]
-    public float sweetSpotEnd = 1f;
-
-    public int magazineSize = 20;
-
-    [SerializeField] [Tooltip("Number of shots per second")]
-    private float fireRate = 2f;
-
-    [SerializeField] private float jamDuration = 1f;
-
-    public float meleeAttackDuration = 0.5f;
-    public Vector2 meleeAttackSize = new(2f, 2f);
-
-    [Header("Bullet")] [SerializeField] private GameObject bullet;
-    [SerializeField] private float bulletSize = 1f;
-    [SerializeField] private Transform gunTip;
 
     [Header("HUD")] [SerializeField] private HUDScript hudScript;
 
     [Header("Animations")] [SerializeField]
-    private SpriteRenderer spriteRenderer;
+    private Transform gunTip;
 
+    [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private AnimationCurve meleeAttackCurve;
     [SerializeField] private float meleeAttackRotation = 190f;
     [SerializeField] private ParticleSystem meleeAttackVFX;
@@ -52,6 +32,7 @@ public class GunScript : MonoBehaviour
 
     [SerializeField] private Color jamColor;
 
+    [HideInInspector] public GunStats gunStats;
     [HideInInspector] public GameObject[] bullets;
     [HideInInspector] public int remainingBullets;
 
@@ -68,10 +49,9 @@ public class GunScript : MonoBehaviour
     {
         _camera = Camera.main;
         _meleeAttackFilter.SetLayerMask(LayerMask.GetMask("Enemy", "Bullet", "Flying Enemy"));
-        bullets = new GameObject[magazineSize];
         FillMagazine();
 
-        remainingBullets = magazineSize - 1;
+        remainingBullets = gunStats.magazineSize - 1;
     }
 
     private void Update()
@@ -99,7 +79,8 @@ public class GunScript : MonoBehaviour
         _isAttacking = true;
 
         var hits = new List<Collider2D>();
-        Physics2D.OverlapBox(gunTip.position, meleeAttackSize, transform.eulerAngles.z, _meleeAttackFilter, hits);
+        Physics2D.OverlapBox(gunTip.position, gunStats.meleeAttackSize, transform.eulerAngles.z, _meleeAttackFilter,
+            hits);
 
         foreach (var hit in hits)
         {
@@ -127,7 +108,7 @@ public class GunScript : MonoBehaviour
         if (_isAttacking)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(gunTip.position, meleeAttackSize);
+            Gizmos.DrawWireCube(gunTip.position, gunStats.meleeAttackSize);
         }
     }
 
@@ -141,11 +122,11 @@ public class GunScript : MonoBehaviour
         meleeAttackVFX.transform.position = gunTip.position;
         meleeAttackVFX.Play();
 
-        while (delta < meleeAttackDuration)
+        while (delta < gunStats.meleeAttackDuration)
         {
             delta += Time.deltaTime;
             spriteRenderer.transform.rotation = Quaternion.Slerp(originalRotation, animationDestination,
-                meleeAttackCurve.Evaluate(1 / (meleeAttackDuration / delta)));
+                meleeAttackCurve.Evaluate(1 / (gunStats.meleeAttackDuration / delta)));
             yield return null;
         }
 
@@ -155,12 +136,14 @@ public class GunScript : MonoBehaviour
 
     private void Shoot()
     {
-        if (_isShooting && _shootDeltaTime > 1 / fireRate && remainingBullets > 0 && !_isReloading && !_isJammed &&
+        if (_isShooting && _shootDeltaTime > 1 / gunStats.fireRate && remainingBullets > 0 && !_isReloading &&
+            !_isJammed &&
             !_isAttacking)
         {
             bullets[remainingBullets].transform.position = gunTip.position;
             bullets[remainingBullets].transform.rotation = gunTip.rotation;
-            bullets[remainingBullets].transform.localScale = new Vector3(bulletSize, bulletSize, bulletSize);
+            bullets[remainingBullets].transform.localScale =
+                new Vector3(gunStats.bulletSize, gunStats.bulletSize, gunStats.bulletSize);
             bullets[remainingBullets].SetActive(true);
             remainingBullets--;
             StartCoroutine(Recoil());
@@ -215,14 +198,14 @@ public class GunScript : MonoBehaviour
 
         var passedTime = 0f;
 
-        while (passedTime < reloadTime)
+        while (passedTime < gunStats.reloadTime)
         {
             passedTime += Time.deltaTime;
             hudScript.UpdateReloadHUD(passedTime);
 
             if (_reloadPressed)
             {
-                if (passedTime > sweetSpotStart && passedTime < sweetSpotEnd)
+                if (passedTime > gunStats.sweetSpotStart && passedTime < gunStats.sweetSpotEnd)
                 {
                     FillMagazine(true);
                 }
@@ -249,9 +232,9 @@ public class GunScript : MonoBehaviour
         spriteRenderer.color = jamColor;
 
         var deltaTime = Time.deltaTime;
-        while (deltaTime < jamDuration)
+        while (deltaTime < gunStats.jamDuration)
         {
-            spriteRenderer.color = Color.Lerp(jamColor, originalColor, 1 / (jamDuration / deltaTime));
+            spriteRenderer.color = Color.Lerp(jamColor, originalColor, 1 / (gunStats.jamDuration / deltaTime));
             yield return null;
             deltaTime += Time.deltaTime;
         }
@@ -264,9 +247,10 @@ public class GunScript : MonoBehaviour
 
     private void FillMagazine(bool isSuper = false)
     {
-        for (var i = 0; i < magazineSize; i++)
+        bullets = new GameObject[gunStats.magazineSize];
+        for (var i = 0; i < gunStats.magazineSize; i++)
         {
-            bullets[i] = Instantiate(bullet, gunTip);
+            bullets[i] = Instantiate(gunStats.bullet, gunTip);
             bullets[i].transform.SetParent(transform.parent);
             if (isSuper)
             {
@@ -278,13 +262,13 @@ public class GunScript : MonoBehaviour
 
         _isReloading = false;
         _reloadPressed = false;
-        remainingBullets = magazineSize - 1;
+        remainingBullets = gunStats.magazineSize - 1;
         onReloadFinished?.Invoke();
     }
 
     private IEnumerator Recoil()
     {
-        var recoilDuration = 1 / fireRate;
+        var recoilDuration = 1 / gunStats.fireRate;
         var recoilDelta = 0f;
         while (recoilDelta < recoilDuration)
         {

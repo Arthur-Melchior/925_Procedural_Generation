@@ -8,9 +8,9 @@ public class BulletScript : MonoBehaviour
     public bool isSuperParried;
 
     public float speed = 1f;
+    public int maxSuperBulletPenetrations = 3;
+    public float swayIntensity = 30f;
     [SerializeField] private float maxLifeTime = 10f;
-    [SerializeField] private int maxSuperBulletPenetrations = 3;
-    [SerializeField] private float swayIntensity = 30f;
 
     private int _numberOfPenetrations;
     private int _penIterations;
