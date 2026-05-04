@@ -2,33 +2,35 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class SteeringScript : MonoBehaviour
 {
-    [Header("Stats")]
-    public float speed;
+    [Header("Stats")] public float speed;
     public float maxSpeed;
-    
-    [Header("Avoid Values")]
-    [Tooltip("If the enemy is flying it won't avoid obstacles")] public bool isFlying;
+
+    [Header("Avoid Values")] [Tooltip("If the enemy is flying it won't avoid obstacles")]
+    public bool isFlying;
+
     [Min(1)] public float avoidDistance = 1;
     public float avoidanceForce = 1;
     public LayerMask layersToAvoid;
-    
-    [Header("References")]
-    public Transform target;
-    
+
+    [Header("References")] public Transform target;
+    [SerializeField] private bool spriteIsLookingLeft;
     [HideInInspector] public Vector2 velocity;
-    
+
     private Rigidbody2D _rb;
+    private SpriteRenderer _spriteRenderer;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
-        velocity = Vector2.ClampMagnitude(Seek(target) * speed, maxSpeed);
+        velocity = Vector2.ClampMagnitude((Seek(target) - Seek(target).normalized) * speed, maxSpeed);
         Debug.DrawRay(transform.position, velocity);
 
         if (!isFlying)
@@ -37,6 +39,14 @@ public class SteeringScript : MonoBehaviour
         }
 
         _rb.linearVelocity = velocity;
+        if (spriteIsLookingLeft)
+        {
+            _spriteRenderer.flipX = velocity.x > 0;
+        }
+        else
+        {
+            _spriteRenderer.flipX = velocity.x < 0;
+        }
     }
 
     private void AvoidCollisions()
@@ -49,10 +59,10 @@ public class SteeringScript : MonoBehaviour
         if (collision)
         {
             var avoidanceVector = Avoid(collision.centroid, collision.collider.bounds.center);
-            
+
             Debug.DrawRay((Vector2) transform.position + ahead, avoidanceVector, Color.red);
             Debug.DrawRay(collision.centroid, ahead, Color.blue);
-            
+
             velocity += avoidanceVector;
             Debug.DrawRay(transform.position, velocity);
         }

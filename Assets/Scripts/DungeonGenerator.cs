@@ -305,6 +305,12 @@ public class DungeonGenerator : MonoBehaviour
             WalkableTiles[tile.x, tile.y] = new WalkableTile(tile, true);
         }
 
+        foreach (var tile in WalkableTiles.Cast<WalkableTile>().Where(t =>
+                     t.Position.x == 0 || t.Position.x == sizeX - 1 || t.Position.y == 0 || t.Position.y == sizeY - 1))
+        {
+            tile.IsWalkable = false;
+        }
+
         foreach (var wall in _wallPositions)
         {
             foreach (var vector3Int in wall.Value)
@@ -379,8 +385,8 @@ public class DungeonGenerator : MonoBehaviour
     public void GenerateRoom()
     {
         var randomPosition =
-            new Vector3Int(_random.Next(0, (int)(sizeX * 0.8f)), _random.Next(0, (int)(sizeY * 0.8f)));
-        var room = new HashSet<Vector3Int> { randomPosition };
+            new Vector3Int(_random.Next(0, (int) (sizeX * 0.8f)), _random.Next(0, (int) (sizeY * 0.8f)));
+        var room = new HashSet<Vector3Int> {randomPosition};
 
         for (var i = 0; i < maxSteps; i++)
         {

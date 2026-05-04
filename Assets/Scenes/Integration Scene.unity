@@ -189,7 +189,7 @@ PrefabInstance:
     - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
         type: 3}
       propertyPath: fireRate
-      value: 20
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
         type: 3}
@@ -199,7 +199,17 @@ PrefabInstance:
     - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
         type: 3}
       propertyPath: magazineSize
-      value: 400
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+        type: 3}
+      propertyPath: meleeAttackSize.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3510335822690761825, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
+        type: 3}
+      propertyPath: meleeAttackSize.y
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5628018141983903104, guid: ef67ba864d1ecc042b5f4cf48455c0a6,
         type: 3}

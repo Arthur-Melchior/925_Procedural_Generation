@@ -13,6 +13,7 @@ public class EnemyScript : MonoBehaviour
 
     [Header("Stats")] [SerializeField] private float attackDamage = 1f;
     [SerializeField] private float attackRange;
+    [SerializeField] private Vector2 attackSize = new(2, 2);
 
     [Header("Pathfinding")] [SerializeField]
     private SteeringScript steeringScript;
@@ -21,13 +22,11 @@ public class EnemyScript : MonoBehaviour
     public int currentRoomIndex;
     public int pathIndex;
 
-    [Header("Parry")] 
-    public bool canParry;
+    [Header("Parry")] public bool canParry;
     [SerializeField] private float parriedBulletSpeedMultiplier = 0.5f;
     [SerializeField] private Color parriedBulletColor = Color.red;
 
-    [Header("Explosion")] 
-    public bool explodeOnDeath;
+    [Header("Explosion")] public bool explodeOnDeath;
     [SerializeField] private Vector2 explosionSize = new(1, 1);
     [SerializeField] private float explosionDamage = 10f;
     [SerializeField] private ParticleSystem explosionVFX;
@@ -43,6 +42,7 @@ public class EnemyScript : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private BoxCollider2D _boxCollider2D;
     private bool _isFollowingPath;
+    private bool _isDead;
     private ContactFilter2D _explosionFilter;
     private int _playerLayer;
 
@@ -57,8 +57,6 @@ public class EnemyScript : MonoBehaviour
 
     private IEnumerator FollowPath()
     {
-        steeringScript.enabled = false;
-
         var distance = float.MaxValue;
         for (var i = 0; i < _path.Count; i++)
         {
@@ -72,9 +70,9 @@ public class EnemyScript : MonoBehaviour
 
         while (pathIndex < _path.Count && currentRoomIndex != player.currentRoomIndex)
         {
-            var newPosition = Vector3.Lerp(_rigidbody2D.position, _path[pathIndex].Tile.Position,
-                steeringScript.speed * Time.deltaTime);
-            _rigidbody2D.MovePosition(newPosition);
+            var newPosition = (_path[pathIndex].Tile.Position - transform.position).normalized *
+                              (steeringScript.speed * Time.deltaTime);
+            _rigidbody2D.MovePosition(transform.position + newPosition);
             if (Vector3.Distance(transform.position, _path[pathIndex].Tile.Position) < stopingDistance)
             {
                 pathIndex++;
@@ -83,8 +81,6 @@ public class EnemyScript : MonoBehaviour
             yield return null;
         }
 
-
-        steeringScript.enabled = true;
         _isFollowingPath = false;
     }
 
@@ -109,11 +105,15 @@ public class EnemyScript : MonoBehaviour
             Mathf.Atan2(steeringScript.velocity.x, steeringScript.velocity.y)
             * Mathf.Rad2Deg;
 
-        var hit = Physics2D.OverlapBox(transform.position, _boxCollider2D.size, angle, _playerLayer);
+        var hits = new List<Collider2D>();
+        Physics2D.OverlapBox(transform.position, attackSize, angle, _explosionFilter, hits);
 
-        if (hit)
+        foreach (var hit in hits)
         {
-            hit.gameObject.GetComponent<PlayerScript>().TakeDamage(attackDamage);
+            if (hit.gameObject.CompareTag("Player"))
+            {
+                hit.gameObject.GetComponent<PlayerScript>().TakeDamage(attackDamage, transform.position);
+            }
         }
     }
 
@@ -131,6 +131,12 @@ public class EnemyScript : MonoBehaviour
                 Die();
             }
         }
+
+        if (other.gameObject.CompareTag("Player"))
+        {
+            var playerScript = other.gameObject.GetComponent<PlayerScript>();
+            if (playerScript.isInvulnerable || playerScript.isDodging) Die();
+        }
     }
 
     private void Parry(GameObject bullet)
@@ -143,8 +149,6 @@ public class EnemyScript : MonoBehaviour
             bullet.transform.eulerAngles.z + 180f);
         _animator.Play("Parry");
     }
-
-    private bool _isDead;
 
     public void Die()
     {
@@ -169,7 +173,7 @@ public class EnemyScript : MonoBehaviour
 
                 if (gO.CompareTag("Player"))
                 {
-                    gO.GetComponent<PlayerScript>().TakeDamage(explosionDamage);
+                    gO.GetComponent<PlayerScript>().TakeDamage(explosionDamage, transform.position);
                 }
             }
         }

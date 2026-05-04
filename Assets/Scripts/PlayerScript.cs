@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
@@ -11,6 +12,7 @@ public class PlayerScript : MonoBehaviour
     private static readonly int IsMoving = Animator.StringToHash("IsMoving");
     private static readonly int DirectionX = Animator.StringToHash("DirectionX");
     private static readonly int DirectionY = Animator.StringToHash("DirectionY");
+    private static readonly int Hit = Animator.StringToHash("Hit");
 
     public bool hasKey;
     public int currentRoomIndex;
@@ -22,7 +24,10 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float dodgeForce = 2f;
     [SerializeField] private float dodgeDuration = 0.2f;
     [SerializeField] private float dodgeCooldown = 1f;
-    
+    [SerializeField] private float getHitRecoil = 2f;
+
+    [HideInInspector] public bool isDodging;
+
     private float _dodgeForce;
     private float _dodgeDuration;
     private float _dodgeDelta;
@@ -40,7 +45,7 @@ public class PlayerScript : MonoBehaviour
     private void Update()
     {
         _dodgeDelta += Time.deltaTime;
-        
+
         if (_dodgeDuration > 0)
         {
             _dodgeDuration -= Time.deltaTime;
@@ -48,10 +53,14 @@ public class PlayerScript : MonoBehaviour
         else
         {
             _dodgeForce = 1f;
+            isDodging = false;
             _animator.SetBool(IsDodging, false);
         }
 
-        _rigidbody2D.linearVelocity = speed * _dodgeForce * _direction;
+        if (!isInvulnerable)
+        {
+            _rigidbody2D.linearVelocity = speed * _dodgeForce * _direction;
+        }
 
         _animator.SetBool(IsMoving, _direction.magnitude > 0);
     }
@@ -72,15 +81,26 @@ public class PlayerScript : MonoBehaviour
         _dodgeForce = dodgeForce;
         _dodgeDuration = dodgeDuration;
         _dodgeDelta = 0;
+        isDodging = true;
 
         _animator.SetBool(IsDodging, true);
     }
 
-    public void TakeDamage(float attackDamage)
+    public void TakeDamage(float attackDamage, Vector3 origin)
     {
-        if (isInvulnerable) return;
+        if (isInvulnerable || isDodging) return;
         health -= attackDamage;
+        _rigidbody2D.AddForce((transform.position - origin).normalized * getHitRecoil, ForceMode2D.Impulse);
+        _animator.SetTrigger(Hit);
         StartCoroutine(TemporaryInvulnerability());
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Bullet"))
+        {
+            TakeDamage(5, other.transform.position);
+        }
     }
 
     private IEnumerator TemporaryInvulnerability()

@@ -131,8 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f7c65da6b654f4d9a299186258dc154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SteeringScript
-  speed: 2
-  maxSpeed: 3
+  speed: 1
+  maxSpeed: 2
   isFlying: 1
   avoidDistance: 1
   avoidanceForce: 0.25
@@ -154,12 +154,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyScript
   attackDamage: 1
-  attackRange: 2
+  attackRange: 3
+  attackSize: {x: 2, y: 2}
   steeringScript: {fileID: 3192172073877797387}
   stopingDistance: 1.5
   currentRoomIndex: 0
   pathIndex: 0
   canParry: 0
+  parriedBulletSpeedMultiplier: 0.5
+  parriedBulletColor: {r: 1, g: 0, b: 0, a: 1}
   explodeOnDeath: 0
   explosionSize: {x: 1, y: 1}
   explosionDamage: 10

@@ -26,13 +26,14 @@ public class GunScript : MonoBehaviour
     public float sweetSpotEnd = 1f;
 
     public int magazineSize = 20;
-    public float meleeAttackDuration = 0.5f;
-    public Vector2 meleeAttackSize = new(2f, 2f);
 
     [SerializeField] [Tooltip("Number of shots per second")]
     private float fireRate = 2f;
 
     [SerializeField] private float jamDuration = 1f;
+
+    public float meleeAttackDuration = 0.5f;
+    public Vector2 meleeAttackSize = new(2f, 2f);
 
     [Header("Bullet")] [SerializeField] private GameObject bullet;
     [SerializeField] private float bulletSize = 1f;
@@ -126,9 +127,7 @@ public class GunScript : MonoBehaviour
         if (_isAttacking)
         {
             Gizmos.color = Color.red;
-            var rotation = Quaternion.Euler(0, 0, transform.eulerAngles.z);
-            Gizmos.matrix = Matrix4x4.TRS(gunTip.position, rotation, meleeAttackSize);
-            Gizmos.DrawWireCube(Vector3.zero, meleeAttackSize);
+            Gizmos.DrawWireCube(gunTip.position, meleeAttackSize);
         }
     }
 
@@ -182,12 +181,17 @@ public class GunScript : MonoBehaviour
         var mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
 
-        var direction = mousePos - transform.position;
+        var direction = mousePos - transform.parent.position;
 
-        var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        if (direction.sqrMagnitude > float.Epsilon)
+        {
+            direction.Normalize();
 
-        transform.rotation = Quaternion.Euler(0f, 0f, angle);
-        transform.position = transform.parent.position + direction.normalized;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+            transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            transform.position = transform.parent.position + direction;
+        }
     }
 
     public void OnReload(InputAction.CallbackContext ctx)
