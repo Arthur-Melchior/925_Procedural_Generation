@@ -359,10 +359,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  sizeX: 100
-  sizeY: 100
-  maxSteps: 100
-  numberOfRooms: 5
+  sizeX: 80
+  sizeY: 80
+  maxSteps: 80
+  numberOfRooms: 7
   growthIterations: 3
   tilePerStair: 200
   spaceBetweenStairs: 20

@@ -44,7 +44,7 @@ public class EnemyScript : MonoBehaviour
     private bool _isFollowingPath;
     private bool _isDead;
     private ContactFilter2D _explosionFilter;
-    private int _playerLayer;
+    private int _playerMask;
 
     private void Start()
     {
@@ -52,7 +52,7 @@ public class EnemyScript : MonoBehaviour
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _boxCollider2D = GetComponent<BoxCollider2D>();
         _explosionFilter.SetLayerMask(LayerMask.GetMask("Enemy", "Flying Enemy", "Player"));
-        _playerLayer = LayerMask.NameToLayer("Player");
+        _playerMask = LayerMask.GetMask("Player");
     }
 
     private IEnumerator FollowPath()
@@ -105,15 +105,11 @@ public class EnemyScript : MonoBehaviour
             Mathf.Atan2(steeringScript.velocity.x, steeringScript.velocity.y)
             * Mathf.Rad2Deg;
 
-        var hits = new List<Collider2D>();
-        Physics2D.OverlapBox(transform.position, attackSize, angle, _explosionFilter, hits);
 
-        foreach (var hit in hits)
+        var hit = Physics2D.OverlapBox(transform.position, attackSize, angle, _playerMask);
+        if (hit)
         {
-            if (hit.gameObject.CompareTag("Player"))
-            {
-                hit.gameObject.GetComponent<PlayerScript>().TakeDamage(attackDamage, transform.position);
-            }
+            hit.gameObject.GetComponent<PlayerScript>().TakeDamage(attackDamage, transform.position);
         }
     }
 
