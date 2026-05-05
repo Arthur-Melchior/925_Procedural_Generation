@@ -58,7 +58,7 @@ public class PowerUpsScript : MonoBehaviour
                 bulletScript.maxSuperBulletPenetrations++;
                 break;
             case "Bullet Sway DOWN":
-                if (bulletScript.swayIntensity == 0)
+                if (bulletScript.swayIntensity <= float.Epsilon)
                 {
                     ApplyPowerUp(allPowerUps.SelectRandomPowerUp());
                     ApplyPowerUp(allPowerUps.SelectRandomPowerUp());
@@ -94,7 +94,7 @@ public class PowerUpsScript : MonoBehaviour
                 playerStats.currentHealth *= 1.1f;
                 break;
             case "Dodge Cooldown DOWN":
-                if (playerStats.dodgeCooldown == 0)
+                if (playerStats.dodgeCooldown <= float.Epsilon)
                 {
                     ApplyPowerUp(allPowerUps.SelectRandomPowerUp());
                     ApplyPowerUp(allPowerUps.SelectRandomPowerUp());

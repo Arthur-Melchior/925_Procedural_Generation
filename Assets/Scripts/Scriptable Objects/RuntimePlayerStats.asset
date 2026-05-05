@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03f1dd43f76a3df4483aae7f7e529e7e, type: 3}
   m_Name: RuntimePlayerStats
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  health: 100
+  maxHealth: 100
+  currentHealth: 100
   experience: 0
-  experienceToLevelUp: 10
-  experienceLevelUpMultiplier: 2
+  experienceToLevelUp: 100
+  experienceLevelUpMultiplier: 1.5
   speed: 3
   invulnerabilityDuration: 1
   dodgeForce: 2
-  dodgeDuration: 0.4
+  dodgeDuration: 0.2
   dodgeCooldown: 1
   getHitRecoil: 2

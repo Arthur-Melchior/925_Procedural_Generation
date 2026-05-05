@@ -46,7 +46,7 @@ public class PlayerScript : MonoBehaviour
         if (playerStats.experience >= playerStats.experienceToLevelUp)
         {
             onLevelUp?.Invoke();
-            playerStats.experienceToLevelUp *= playerStats.experienceLevelUpMultiplier;
+            playerStats.experienceToLevelUp += playerStats.experienceToLevelUp * playerStats.experienceLevelUpMultiplier;
         }
 
         _dodgeDelta += Time.deltaTime;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -22,6 +23,9 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] private float stopingDistance = 1f;
     public int currentRoomIndex;
     public int pathIndex;
+
+    [Header("Dodge")] public bool canDodge;
+    [SerializeField] private Vector2 dodgeLookAhead;
 
     [Header("Parry")] public bool canParry;
     [SerializeField] private float parriedBulletSpeedMultiplier = 0.5f;
@@ -71,8 +75,8 @@ public class EnemyScript : MonoBehaviour
 
         while (pathIndex < _path.Count && currentRoomIndex != player.currentRoomIndex)
         {
-            var newPosition = (_path[pathIndex].Tile.Position - transform.position).normalized *
-                              steeringScript.speed;
+            var newPosition = (_path[pathIndex].Tile.Position - transform.position) *
+                              (steeringScript.speed * Time.deltaTime);
             _rigidbody2D.MovePosition(transform.position + newPosition);
             if (Vector3.Distance(transform.position, _path[pathIndex].Tile.Position) < stopingDistance)
             {
@@ -97,6 +101,30 @@ public class EnemyScript : MonoBehaviour
             _isFollowingPath = true;
             _path = await enemiesManager.GetPathAsync(transform.position);
             StartCoroutine(FollowPath());
+        }
+
+        if (canDodge)
+        {
+            var angle =
+                Mathf.Atan2(steeringScript.velocity.x, steeringScript.velocity.y)
+                * Mathf.Rad2Deg;
+            var hit = Physics2D.BoxCast(transform.position, dodgeLookAhead, angle, steeringScript.velocity, 0,
+                LayerMask.GetMask("Bullet"));
+            if (hit)
+            {
+                var avoid = (Vector3) steeringScript.Avoid(transform.position, hit.point) * 10;
+                _animator.Play("Dodge");
+                _rigidbody2D.AddForce(transform.position + avoid, ForceMode2D.Impulse);
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (canDodge)
+        {
+            Gizmos.color = Color.aquamarine;
+            Gizmos.DrawWireCube(transform.position, dodgeLookAhead);
         }
     }
 

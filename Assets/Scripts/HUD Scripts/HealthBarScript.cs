@@ -14,7 +14,7 @@ namespace HUD_Scripts
         private void Update()
         {
             text.text = playerStats.currentHealth.ToString();
-            image.fillAmount = playerStats.maxHealth / playerStats.currentHealth;
+            image.fillAmount = playerStats.currentHealth / playerStats.maxHealth;
         }
     }
 }

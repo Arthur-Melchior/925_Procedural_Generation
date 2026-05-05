@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03f1dd43f76a3df4483aae7f7e529e7e, type: 3}
   m_Name: DefaultPlayerStats
   m_EditorClassIdentifier: Assembly-CSharp::Scriptable_Objects.PlayerStats
-  health: 100
+  maxHealth: 100
+  currentHealth: 100
   experience: 0
-  experienceToLevelUp: 10
+  experienceToLevelUp: 100
   experienceLevelUpMultiplier: 1.5
   speed: 3
   invulnerabilityDuration: 1

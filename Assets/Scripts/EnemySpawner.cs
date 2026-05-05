@@ -82,7 +82,7 @@ public class EnemySpawner : MonoBehaviour
                     {
                         IncreaseSpawnRate();
                         _currentNumberOfEnemies--;
-                        player.playerStats.experience += experience;
+                        player.playerStats.experience += experience * spawnRate;
                     });
 
                     _currentNumberOfEnemies++;

@@ -711,6 +711,16 @@ PrefabInstance:
       propertyPath: gunScript
       value: 
       objectReference: {fileID: 1534750025}
+    - target: {fileID: 2332921119011869683, guid: 484e65a60676556439505af65d8d920a,
+        type: 3}
+      propertyPath: m_text
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3999189683620542080, guid: 484e65a60676556439505af65d8d920a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4008873895293076055, guid: 484e65a60676556439505af65d8d920a,
         type: 3}
       propertyPath: gunScript
@@ -835,6 +845,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 684
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354710035063398475, guid: 484e65a60676556439505af65d8d920a,
+        type: 3}
+      propertyPath: m_text
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7473264829010426462, guid: 484e65a60676556439505af65d8d920a,
         type: 3}
@@ -1175,6 +1190,11 @@ PrefabInstance:
       propertyPath: enemiesManager
       value: 
       objectReference: {fileID: 1468818716}
+    - target: {fileID: 4641235875380177773, guid: 5dc46bfc517ec9641a87ab6826b4cb85,
+        type: 3}
+      propertyPath: enemiesList.Array.data[3].spawnForce
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

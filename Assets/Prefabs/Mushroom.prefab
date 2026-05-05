@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyScript
   experienceOnDeath: 15
-  attackDamage: 1
+  attackDamage: 10
   attackRange: 3
   attackSize: {x: 4, y: 4}
   steeringScript: {fileID: 5131299201767853460}

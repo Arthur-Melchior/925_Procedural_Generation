@@ -54,8 +54,11 @@ MonoBehaviour:
   - gameObject: {fileID: 1463392086428580, guid: 3248535f6a2562c489a1223a75951ef2,
       type: 3}
     spawnForce: 1
-  maximumNumberOfEnemies: 100
-  enemiesPerSpawn: 3
+  - gameObject: {fileID: 7644375424464794979, guid: 127f2595c4a68bd4aa1793a238cd89c5,
+      type: 3}
+    spawnForce: 10
+  maximumNumberOfEnemies: 200
+  enemiesPerSpawn: 2
   map: {fileID: 0}
   player: {fileID: 0}
   enemiesManager: {fileID: 0}
