@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
+using HUD_Scripts;
 using Scriptable_Objects;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
-using Matrix4x4 = UnityEngine.Matrix4x4;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
@@ -17,6 +13,7 @@ public class GunScript : MonoBehaviour
 {
     [Header("Events")] [Space] public UnityEvent onReloadFinished;
 
+    [Header("Stats")] public GunStats gunStats;
 
     [Header("HUD")] [SerializeField] private HUDScript hudScript;
 
@@ -32,7 +29,6 @@ public class GunScript : MonoBehaviour
 
     [SerializeField] private Color jamColor;
 
-    [HideInInspector] public GunStats gunStats;
     [HideInInspector] public GameObject[] bullets;
     [HideInInspector] public int remainingBullets;
 
@@ -51,7 +47,7 @@ public class GunScript : MonoBehaviour
         _meleeAttackFilter.SetLayerMask(LayerMask.GetMask("Enemy", "Bullet", "Flying Enemy"));
         FillMagazine();
 
-        remainingBullets = gunStats.magazineSize - 1;
+        remainingBullets = gunStats.magazineSize;
     }
 
     private void Update()
@@ -140,11 +136,12 @@ public class GunScript : MonoBehaviour
             !_isJammed &&
             !_isAttacking)
         {
-            bullets[remainingBullets].transform.position = gunTip.position;
-            bullets[remainingBullets].transform.rotation = gunTip.rotation;
-            bullets[remainingBullets].transform.localScale =
+            var bullet = bullets[remainingBullets - 1];
+            bullet.transform.position = gunTip.position;
+            bullet.transform.rotation = gunTip.rotation;
+            bullet.transform.localScale =
                 new Vector3(gunStats.bulletSize, gunStats.bulletSize, gunStats.bulletSize);
-            bullets[remainingBullets].SetActive(true);
+            bullet.SetActive(true);
             remainingBullets--;
             StartCoroutine(Recoil());
 
@@ -262,7 +259,7 @@ public class GunScript : MonoBehaviour
 
         _isReloading = false;
         _reloadPressed = false;
-        remainingBullets = gunStats.magazineSize - 1;
+        remainingBullets = gunStats.magazineSize;
         onReloadFinished?.Invoke();
     }
 

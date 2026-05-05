@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6ec40475a96e694cad6e7bf47d85072, type: 3}
-  m_Name: MainGunStats
+  m_Name: RuntimeGunStats
   m_EditorClassIdentifier: Assembly-CSharp::Scriptable_Objects.GunStats
   reloadTime: 2
   sweetSpotStart: 0.5

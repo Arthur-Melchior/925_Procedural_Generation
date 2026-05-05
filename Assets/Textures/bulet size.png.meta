@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: f7dc3d8409c045041955e343cbd094ab
+guid: 053035116cfb8f0429eee13d2df9e880
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8062031955039098867
-    second: keyHole_0
-  - first:
-      213: -5984938394154151198
-    second: keyHole_1
+      213: 306779654363890379
+    second: bulet size_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: keyHole_0
+      name: bulet size_0
       rect:
         serializedVersion: 2
-        x: 25
-        y: 30
-        width: 285
-        height: 461
+        x: 162
+        y: 86
+        width: 305
+        height: 153
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3f714ff395712ef60800000000000000
-      internalID: 8062031955039098867
+      spriteID: bc24da26876e14400800000000000000
+      internalID: 306779654363890379
       vertices: []
       indices: 
       edges: []
@@ -128,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: eb5e67237bb109e4cac61e16c311bc6e
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -138,8 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      keyHole_0: 8062031955039098867
-      keyHole_1: -5984938394154151198
+      bulet size_0: 306779654363890379
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -16,57 +16,67 @@ MonoBehaviour:
   - name: Fire Rate UP
     description: Increases fire rate by 1 (The higher the firerate, the longer the
       gun jams)
-    sprite: {fileID: 0}
+    sprite: {fileID: 4670273689547874826, guid: 983091bd61aec36419fb4da02edc1658,
+      type: 3}
     spawnForce: 8
   - name: Magazine size UP
     description: Increases magazine size by 5 (The bigger the mag, the slower the
       reload)
-    sprite: {fileID: 0}
+    sprite: {fileID: -2346302928887187388, guid: 4c4b38c04673a0b42bf2704c8ab0e812,
+      type: 3}
     spawnForce: 10
   - name: Bullet Penetration UP
     description: Increases the number of enemies a super bullet can pass through
       by 1
-    sprite: {fileID: 0}
+    sprite: {fileID: 1306442215628890933, guid: 8b3ceb635c3fa354391beaf4530f87aa,
+      type: 3}
     spawnForce: 1
   - name: Bullet Sway DOWN
     description: Decreases the sway of bullets by 1 degree (if sway is already at
       0, gives 2 random power ups instead)
-    sprite: {fileID: 0}
+    sprite: {fileID: 8018994692472929492, guid: 08ca0c0044c0299419f5e7930fa16e9a,
+      type: 3}
     spawnForce: 3
   - name: Speed UP
     description: Increases the character speed by 1
-    sprite: {fileID: 0}
+    sprite: {fileID: -9083362998159298969, guid: 5de900601483ef847b6528fef6b91e6d,
+      type: 3}
     spawnForce: 10
   - name: Dash UP
     description: Increases the dash duration by 0.2 and distance by 1
-    sprite: {fileID: 0}
+    sprite: {fileID: 6133308401552470239, guid: 736a9440f06689a4790aca9d3cfdea25,
+      type: 3}
     spawnForce: 5
   - name: Melee Speed UP
     description: Increases the speed of the melee attack by 10%
-    sprite: {fileID: 0}
+    sprite: {fileID: 469066394501635642, guid: bacd645730aecda4c98170af4fd0b846, type: 3}
     spawnForce: 3
   - name: Melee Attack UP
     description: Increases the size of the melee attack by 1
-    sprite: {fileID: 0}
+    sprite: {fileID: 3080192962817999620, guid: 4daab5160fb70424f8cda5d3e2331e99,
+      type: 3}
     spawnForce: 1
   - name: Sweet Spot UP
     description: Increases the size of the reload sweet spot by 10%
-    sprite: {fileID: 0}
+    sprite: {fileID: 2338714319128808966, guid: 31ab6cc401e18b84aad9c9564345dc48,
+      type: 3}
     spawnForce: 6
   - name: Bullet Speed UP
-    description: Increases the bullet speed by 0.5
+    description: Increases bullets speed by 0.5
     sprite: {fileID: 0}
     spawnForce: 10
   - name: Health UP
     description: Increases Max and Current Health by 10%
-    sprite: {fileID: 0}
+    sprite: {fileID: -5513223382738174869, guid: a335e453ba5df49449aa665fc25b39ff,
+      type: 3}
     spawnForce: 6
   - name: Dodge Cooldown DOWN
     description: Reduces dodge cooldown by 0.1 (if already at 0, picks 2 random power
       ups instead)
-    sprite: {fileID: 0}
+    sprite: {fileID: 3394545258419392358, guid: 9132312b4ac1d064aa97dcd78b05e20a,
+      type: 3}
     spawnForce: 5
   - name: Bullet size UP
     description: Increases the size of the bullet by 10%
-    sprite: {fileID: 0}
+    sprite: {fileID: 306779654363890379, guid: 053035116cfb8f0429eee13d2df9e880, type: 3}
     spawnForce: 4

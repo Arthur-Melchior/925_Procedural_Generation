@@ -72,7 +72,7 @@ public class EnemyScript : MonoBehaviour
         while (pathIndex < _path.Count && currentRoomIndex != player.currentRoomIndex)
         {
             var newPosition = (_path[pathIndex].Tile.Position - transform.position).normalized *
-                              (steeringScript.speed * Time.deltaTime);
+                              steeringScript.speed;
             _rigidbody2D.MovePosition(transform.position + newPosition);
             if (Vector3.Distance(transform.position, _path[pathIndex].Tile.Position) < stopingDistance)
             {

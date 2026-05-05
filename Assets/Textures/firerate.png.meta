@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: f7dc3d8409c045041955e343cbd094ab
+guid: 983091bd61aec36419fb4da02edc1658
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8062031955039098867
-    second: keyHole_0
+      213: 4670273689547874826
+    second: firerate_0
   - first:
-      213: -5984938394154151198
-    second: keyHole_1
+      213: -8166487129582471282
+    second: firerate_1
+  - first:
+      213: -1707670625740677903
+    second: firerate_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: keyHole_0
+      name: firerate_0
       rect:
         serializedVersion: 2
-        x: 25
-        y: 30
-        width: 285
-        height: 461
+        x: 41
+        y: 20
+        width: 568
+        height: 274
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,8 +121,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3f714ff395712ef60800000000000000
-      internalID: 8062031955039098867
+      spriteID: a02aa5d2d2520d040800000000000000
+      internalID: 4670273689547874826
       vertices: []
       indices: 
       edges: []
@@ -128,7 +131,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: eb5e67237bb109e4cac61e16c311bc6e
+    spriteID: 6e0b44867b89af645ac963e144d8de96
     internalID: 0
     vertices: []
     indices: 
@@ -138,8 +141,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      keyHole_0: 8062031955039098867
-      keyHole_1: -5984938394154151198
+      firerate_0: 4670273689547874826
+      firerate_1: -8166487129582471282
+      firerate_2: -1707670625740677903
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

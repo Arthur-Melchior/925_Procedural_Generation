@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: f7dc3d8409c045041955e343cbd094ab
+guid: bacd645730aecda4c98170af4fd0b846
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8062031955039098867
-    second: keyHole_0
+      213: 469066394501635642
+    second: melee speed_0
   - first:
-      213: -5984938394154151198
-    second: keyHole_1
+      213: -8968273900895815011
+    second: melee speed_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: keyHole_0
+      name: melee speed_0
       rect:
         serializedVersion: 2
-        x: 25
-        y: 30
-        width: 285
-        height: 461
+        x: 127
+        y: 8
+        width: 381
+        height: 308
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,8 +118,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3f714ff395712ef60800000000000000
-      internalID: 8062031955039098867
+      spriteID: a3ed75c8665728600800000000000000
+      internalID: 469066394501635642
       vertices: []
       indices: 
       edges: []
@@ -128,7 +128,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: eb5e67237bb109e4cac61e16c311bc6e
+    spriteID: 6d99f0fa111011a48b5f0144265fdafc
     internalID: 0
     vertices: []
     indices: 
@@ -138,8 +138,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      keyHole_0: 8062031955039098867
-      keyHole_1: -5984938394154151198
+      melee speed_0: 469066394501635642
+      melee speed_1: -8968273900895815011
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

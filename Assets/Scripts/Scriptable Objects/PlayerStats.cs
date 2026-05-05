@@ -6,10 +6,11 @@ namespace Scriptable_Objects
     public class PlayerStats : ScriptableObject
     {
     
-        public float health = 100f;
+        public float maxHealth = 100f;
+        public float currentHealth = 100f;
         public float experience;
-        public float experienceToLevelUp;
-        public float experienceLevelUpMultiplier;
+        public float experienceToLevelUp = 100f;
+        public float experienceLevelUpMultiplier = 1f;
         public float speed = 3f;
         public float invulnerabilityDuration = 1f;
         public float dodgeForce = 2f;

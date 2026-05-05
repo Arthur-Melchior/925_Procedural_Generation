@@ -131,6 +131,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 951935375cb1c7a4eb8ec77cb66a0a9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HUDScript
+--- !u!114 &892849250 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5027035732563299483, guid: 484e65a60676556439505af65d8d920a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1576580263124186775}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40c5b128b00d5cc45a9bc93342138316, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatsHUD
 --- !u!114 &1082204233 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 79663259066530478, guid: f2b6ee4ba7d5e3b49aa4bf43bd559392,
@@ -379,7 +391,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.24
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -442,6 +454,18 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
+--- !u!114 &1898762494 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6433777804232528358, guid: 484e65a60676556439505af65d8d920a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1576580263124186775}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 003b817e362f1744b98bd7bc0899482c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GunStatsHudScript
 --- !u!1 &1899399330
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,7 +648,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 7.24
+    OrthographicSize: 10
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -657,6 +681,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2082168540 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3679651912205857236, guid: 484e65a60676556439505af65d8d920a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1576580263124186775}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4f794a2c99c3489e068a20a2e8972, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExperienceBarScript
 --- !u!1001 &1576580263124186775
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -665,36 +701,36 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1249142304739077243, guid: 484e65a60676556439505af65d8d920a,
+    - target: {fileID: 566008992462247066, guid: 484e65a60676556439505af65d8d920a,
         type: 3}
-      propertyPath: powerUpsScript
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1307486098537644088, guid: 484e65a60676556439505af65d8d920a,
+        type: 3}
+      propertyPath: gunScript
       value: 
-      objectReference: {fileID: 1399192067}
-    - target: {fileID: 2656441490139080400, guid: 484e65a60676556439505af65d8d920a,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2656441490139080400, guid: 484e65a60676556439505af65d8d920a,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2656441490139080400, guid: 484e65a60676556439505af65d8d920a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2656441490139080400, guid: 484e65a60676556439505af65d8d920a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1534750025}
     - target: {fileID: 4008873895293076055, guid: 484e65a60676556439505af65d8d920a,
         type: 3}
       propertyPath: gunScript
       value: 
       objectReference: {fileID: 1534750025}
+    - target: {fileID: 4965431222324214684, guid: 484e65a60676556439505af65d8d920a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965431222324214684, guid: 484e65a60676556439505af65d8d920a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965431222324214684, guid: 484e65a60676556439505af65d8d920a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 145
+      objectReference: {fileID: 0}
     - target: {fileID: 5327971127078029861, guid: 484e65a60676556439505af65d8d920a,
         type: 3}
       propertyPath: m_Pivot.x
@@ -794,6 +830,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5664606672090876897, guid: 484e65a60676556439505af65d8d920a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 684
       objectReference: {fileID: 0}
     - target: {fileID: 7473264829010426462, guid: 484e65a60676556439505af65d8d920a,
         type: 3}
@@ -1164,9 +1205,24 @@ PrefabInstance:
       objectReference: {fileID: 1305422988}
     - target: {fileID: 4549503527429151591, guid: 5c8e8b56cdd15004e94bac306c482325,
         type: 3}
+      propertyPath: playerStatsHUD
+      value: 
+      objectReference: {fileID: 892849250}
+    - target: {fileID: 4549503527429151591, guid: 5c8e8b56cdd15004e94bac306c482325,
+        type: 3}
+      propertyPath: gunStatsHudScript
+      value: 
+      objectReference: {fileID: 1898762494}
+    - target: {fileID: 4549503527429151591, guid: 5c8e8b56cdd15004e94bac306c482325,
+        type: 3}
       propertyPath: upgradeBoardScript
       value: 
       objectReference: {fileID: 1576580263124186776}
+    - target: {fileID: 4549503527429151591, guid: 5c8e8b56cdd15004e94bac306c482325,
+        type: 3}
+      propertyPath: experienceBarScript
+      value: 
+      objectReference: {fileID: 2082168540}
     - target: {fileID: 5259042487158399787, guid: 5c8e8b56cdd15004e94bac306c482325,
         type: 3}
       propertyPath: m_LocalPosition.x

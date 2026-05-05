@@ -16,6 +16,7 @@ public class PlayerScript : MonoBehaviour
     private static readonly int DirectionY = Animator.StringToHash("DirectionY");
     private static readonly int Hit = Animator.StringToHash("Hit");
 
+    [Header("Stats")] public PlayerStats playerStats;
 
     [Header("State")] public bool hasKey;
     public int currentRoomIndex;
@@ -24,7 +25,6 @@ public class PlayerScript : MonoBehaviour
     [Header("Events")] public UnityEvent onLevelUp;
 
 
-    [HideInInspector] public PlayerStats playerStats;
     [HideInInspector] public bool isDodging;
 
     private float _dodgeForce;
@@ -94,7 +94,7 @@ public class PlayerScript : MonoBehaviour
     public void TakeDamage(float attackDamage, Vector3 origin)
     {
         if (isInvulnerable || isDodging) return;
-        playerStats.health -= attackDamage;
+        playerStats.currentHealth -= attackDamage;
         _rigidbody2D.AddForce((transform.position - origin).normalized * playerStats.getHitRecoil, ForceMode2D.Impulse);
         _animator.SetTrigger(Hit);
         StartCoroutine(TemporaryInvulnerability());

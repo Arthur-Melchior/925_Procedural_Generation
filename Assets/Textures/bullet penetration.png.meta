@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: f7dc3d8409c045041955e343cbd094ab
+guid: 8b3ceb635c3fa354391beaf4530f87aa
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8062031955039098867
-    second: keyHole_0
+      213: 3171072207220106920
+    second: bullet penetration_0
   - first:
-      213: -5984938394154151198
-    second: keyHole_1
+      213: 1306442215628890933
+    second: bullet penetration_1
+  - first:
+      213: 3813989541609958709
+    second: bullet penetration_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: keyHole_0
+      name: bullet penetration_1
       rect:
         serializedVersion: 2
-        x: 25
-        y: 30
-        width: 285
-        height: 461
+        x: 128
+        y: 39
+        width: 408
+        height: 262
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,8 +121,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3f714ff395712ef60800000000000000
-      internalID: 8062031955039098867
+      spriteID: 5336226f54a612210800000000000000
+      internalID: 1306442215628890933
       vertices: []
       indices: 
       edges: []
@@ -128,7 +131,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: eb5e67237bb109e4cac61e16c311bc6e
+    spriteID: 0b99680d53f2a2b48a0bd25c206d0f68
     internalID: 0
     vertices: []
     indices: 
@@ -138,8 +141,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      keyHole_0: 8062031955039098867
-      keyHole_1: -5984938394154151198
+      bullet penetration_0: 3171072207220106920
+      bullet penetration_1: 1306442215628890933
+      bullet penetration_2: 3813989541609958709
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -168,6 +168,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   target: {fileID: 0}
+  spriteIsLookingLeft: 0
   velocity: {x: 0, y: 0}
 --- !u!114 &1308826649495029273
 MonoBehaviour:
@@ -181,6 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a0f3becf5e94dcc81a082af3263f48c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyScript
+  experienceOnDeath: 15
   attackDamage: 1
   attackRange: 3
   attackSize: {x: 4, y: 4}

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03f1dd43f76a3df4483aae7f7e529e7e, type: 3}
-  m_Name: PlayerStats
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  m_Name: DefaultPlayerStats
+  m_EditorClassIdentifier: Assembly-CSharp::Scriptable_Objects.PlayerStats
   health: 100
   experience: 0
   experienceToLevelUp: 10
-  experienceLevelUpMultiplier: 2
+  experienceLevelUpMultiplier: 1.5
   speed: 3
   invulnerabilityDuration: 1
   dodgeForce: 2
-  dodgeDuration: 0.4
+  dodgeDuration: 0.2
   dodgeCooldown: 1
   getHitRecoil: 2

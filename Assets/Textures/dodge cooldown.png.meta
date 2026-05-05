@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: f7dc3d8409c045041955e343cbd094ab
+guid: 9132312b4ac1d064aa97dcd78b05e20a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8062031955039098867
-    second: keyHole_0
-  - first:
-      213: -5984938394154151198
-    second: keyHole_1
+      213: 3394545258419392358
+    second: dodge cooldown_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: keyHole_0
+      name: dodge cooldown_0
       rect:
         serializedVersion: 2
-        x: 25
-        y: 30
-        width: 285
-        height: 461
+        x: 228
+        y: 120
+        width: 170
+        height: 95
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3f714ff395712ef60800000000000000
-      internalID: 8062031955039098867
+      spriteID: 66f031e6de8db1f20800000000000000
+      internalID: 3394545258419392358
       vertices: []
       indices: 
       edges: []
@@ -128,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: eb5e67237bb109e4cac61e16c311bc6e
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -138,8 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      keyHole_0: 8062031955039098867
-      keyHole_1: -5984938394154151198
+      dodge cooldown_0: 3394545258419392358
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
