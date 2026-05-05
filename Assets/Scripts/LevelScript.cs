@@ -15,7 +15,7 @@ public class LevelScript : MonoBehaviour
     public void PutKeyOnMap()
     {
         var x = Random.Range(0, map.sizeX);
-        var y = Random.Range(0, map.sizeY);
+        var y = Random.Range(map.sizeY / 2, map.sizeY);
         var position = map.grassMap.CellToWorld(new Vector3Int(x, y));
         Instantiate(key, position, new Quaternion(0, 0, 0, 0));
     }
