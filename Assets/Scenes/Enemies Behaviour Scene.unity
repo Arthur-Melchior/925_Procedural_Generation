@@ -333,6 +333,11 @@ PrefabInstance:
       objectReference: {fileID: 762654792}
     - target: {fileID: 3192172073877797387, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
+      propertyPath: isFlying
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3192172073877797387, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
       propertyPath: maxSpeed
       value: 3
       objectReference: {fileID: 0}
@@ -350,6 +355,11 @@ PrefabInstance:
         type: 3}
       propertyPath: layerMask.m_Bits
       value: 7340087
+      objectReference: {fileID: 0}
+    - target: {fileID: 3192172073877797387, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
+      propertyPath: layersToAvoid.m_Bits
+      value: 15287
       objectReference: {fileID: 0}
     - target: {fileID: 4803415564735348538, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
@@ -530,17 +540,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a0f3becf5e94dcc81a082af3263f48c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyScript
-  currentLayer: 0
+  experienceOnDeath: 0
+  attackDamage: 1
   attackRange: 20
-  speed: 0
+  attackSize: {x: 2, y: 2}
+  steeringScript: {fileID: 0}
+  stopingDistance: 1
+  currentRoomIndex: 0
+  pathIndex: 0
+  canDodge: 0
+  dodgeLookAhead: {x: 0, y: 0}
+  canParry: 0
+  parriedBulletSpeedMultiplier: 0.5
+  parriedBulletColor: {r: 1, g: 0, b: 0, a: 1}
+  explodeOnDeath: 0
+  explosionSize: {x: 1, y: 1}
+  explosionDamage: 10
+  explosionVFX: {fileID: 0}
   target: {fileID: 762654792}
   player: {fileID: 0}
-  map: {fileID: 0}
-  steeringScript: {fileID: 0}
+  enemiesManager: {fileID: 0}
   onDeath:
     m_PersistentCalls:
       m_Calls: []
-  waitTime: 0
 --- !u!50 &1623183198
 Rigidbody2D:
   serializedVersion: 5
