@@ -103,6 +103,28 @@ public class EnemyScript : MonoBehaviour
             StartCoroutine(FollowPath());
         }
 
+        if (transform.position.x <= 0)
+        {
+            transform.position = new Vector3(1, transform.position.y);
+        }
+
+        if (transform.position.y <= 0)
+        {
+            transform.position = new Vector3(transform.position.x, 1);
+        }
+
+        if (transform.position.x >= enemiesManager.map.sizeX)
+        {
+            transform.position = new Vector3(enemiesManager.map.sizeX - 2, transform.position.y);
+        }
+
+        if (transform.position.y >= enemiesManager.map.sizeY)
+        {
+            transform.position = new Vector3(transform.position.x, enemiesManager.map.sizeY - 2);
+        }
+
+        steeringScript.shouldAvoid = player.currentRoomIndex != 0 && currentRoomIndex == player.currentRoomIndex;
+
         if (canDodge)
         {
             var angle =

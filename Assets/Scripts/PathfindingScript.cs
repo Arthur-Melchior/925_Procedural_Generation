@@ -9,18 +9,16 @@ public class PathNode
 {
     public readonly WalkableTile Tile;
     public float Distance;
-    public float Cost;
     public float Priority;
     public readonly PathNode Parent;
     public PathNode[] Neighbors;
     public bool isDeadEnd;
     public bool IsSelected;
 
-    public PathNode(WalkableTile t, float d, float c, float pr, PathNode p)
+    public PathNode(WalkableTile t, float d, float pr, PathNode p)
     {
         Tile = t;
         Distance = d;
-        Cost = c;
         Priority = pr;
         Parent = p;
     }
@@ -50,7 +48,7 @@ public class PathfindingScript
 
         //create the first node
         var distance = Vector3.Distance(startingPosition, targetPosition);
-        var currentNode = new PathNode(_map[startingPosition.x, startingPosition.y], distance, 0, distance, null);
+        var currentNode = new PathNode(_map[startingPosition.x, startingPosition.y], distance, distance, null);
 
         var path = new List<PathNode>();
         var iteration = 0;
@@ -60,7 +58,7 @@ public class PathfindingScript
             //Find the path
             while (currentNode.Tile.Position != targetPosition && iteration++ < MaxIterations)
             {
-                currentNode.Neighbors = GetNeighbors(currentNode, currentNode.Cost + 0.5f);
+                currentNode.Neighbors = GetNeighbors(currentNode);
                 var cheapestChoice = FindCheapestChoice();
                 if (cheapestChoice != currentNode)
                 {
@@ -122,7 +120,7 @@ public class PathfindingScript
 
         //create the first node
         var distance = Vector3.Distance(startingPosition, targetPosition);
-        var currentNode = new PathNode(_map[startingPosition.x, startingPosition.y], distance, 0, distance, null);
+        var currentNode = new PathNode(_map[startingPosition.x, startingPosition.y], distance, distance, null);
         currentNode.IsSelected = true;
 
         //instantiate class related variables
@@ -133,7 +131,7 @@ public class PathfindingScript
 
         while (currentNode.Tile.Position != targetPosition && iteration++ < MaxIterations)
         {
-            currentNode.Neighbors = GetNeighbors(currentNode, currentNode.Cost + 0.5f);
+            currentNode.Neighbors = GetNeighbors(currentNode);
             foreach (var currentNodeNeighbor in currentNode.Neighbors)
             {
                 DebugPath.Add(currentNodeNeighbor);
@@ -184,27 +182,18 @@ public class PathfindingScript
         return cheapestChoice;
     }
 
-    private PathNode[] GetNeighbors(PathNode currentNode, float cost)
+    private PathNode[] GetNeighbors(PathNode currentNode)
     {
-        var array = new PathNode[8];
-        array[0] = GeneratePathNode(currentNode, currentNode.Tile.Position.x, currentNode.Tile.Position.y + 1, cost);
-        array[1] = GeneratePathNode(currentNode, currentNode.Tile.Position.x + 1, currentNode.Tile.Position.y + 1,
-            cost + 0.4f);
-        array[2] = GeneratePathNode(currentNode, currentNode.Tile.Position.x + 1, currentNode.Tile.Position.y, cost);
-        array[3] = GeneratePathNode(currentNode, currentNode.Tile.Position.x + 1, currentNode.Tile.Position.y - 1,
-            cost + 0.4f);
-        array[4] = GeneratePathNode(currentNode, currentNode.Tile.Position.x, currentNode.Tile.Position.y - 1, cost);
-        array[5] = GeneratePathNode(currentNode, currentNode.Tile.Position.x - 1, currentNode.Tile.Position.y - 1,
-            cost + 0.4f);
-        array[6] = GeneratePathNode(currentNode, currentNode.Tile.Position.x - 1, currentNode.Tile.Position.y, cost);
-        array[7] = GeneratePathNode(currentNode, currentNode.Tile.Position.x - 1, currentNode.Tile.Position.y + 1,
-            cost + 0.4f);
+        var array = new PathNode[4];
+        array[0] = GeneratePathNode(currentNode, currentNode.Tile.Position.x, currentNode.Tile.Position.y + 1);
+        array[1] = GeneratePathNode(currentNode, currentNode.Tile.Position.x + 1, currentNode.Tile.Position.y);
+        array[2] = GeneratePathNode(currentNode, currentNode.Tile.Position.x, currentNode.Tile.Position.y -1);
+        array[3] = GeneratePathNode(currentNode, currentNode.Tile.Position.x - 1, currentNode.Tile.Position.y);
         return array;
     }
 
-    private PathNode GeneratePathNode(PathNode parentNode, int x, int y, float cost)
+    private PathNode GeneratePathNode(PathNode parentNode, int x, int y)
     {
-        cost = 0;
         if (x < 0)
         {
             x = 0;
@@ -225,7 +214,7 @@ public class PathfindingScript
 
         var tile = _map[x, y];
         var distance = tile.IsWalkable ? Vector3.Distance(tile.Position, _targetPosition) : float.MaxValue;
-        var priority = distance + cost;
+        var priority = distance;
 
         var existingNode = _pathNodeMap[x, y];
         if (existingNode != null)
@@ -233,14 +222,13 @@ public class PathfindingScript
             if (!existingNode.isDeadEnd)
             {
                 existingNode.Distance = distance;
-                existingNode.Cost = cost;
                 existingNode.Priority = priority;
             }
 
             return existingNode;
         }
 
-        var newNode = new PathNode(tile, distance, cost, priority, parentNode);
+        var newNode = new PathNode(tile, distance, priority, parentNode);
         _pathNodeMap[x, y] = newNode;
 
         return newNode;

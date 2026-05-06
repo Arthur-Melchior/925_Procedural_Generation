@@ -11,13 +11,14 @@ public class SteeringScript : MonoBehaviour
     [Header("Avoid Values")] [Tooltip("If the enemy is flying it won't avoid obstacles")]
     public bool isFlying;
 
-    [Min(1)] public float avoidDistance = 1;
+    [Min(1)] public Vector2 avoidLookAheadZone = new(2, 5);
     public float avoidanceForce = 1;
     public LayerMask layersToAvoid;
 
     [Header("References")] public Transform target;
     [SerializeField] private bool spriteIsLookingLeft;
     [HideInInspector] public Vector2 velocity;
+    [HideInInspector] public bool shouldAvoid;
 
     private Rigidbody2D _rb;
     private SpriteRenderer _spriteRenderer;
@@ -51,27 +52,18 @@ public class SteeringScript : MonoBehaviour
 
     private void AvoidCollisions()
     {
-        var ahead = velocity * avoidDistance;
         var angle =
             Mathf.Atan2(velocity.x, velocity.y)
             * Mathf.Rad2Deg;
-        var test = Physics2D.BoxCast(transform.position, ahead, angle, velocity, 1);
-        DrawBoxCast(transform.position, ahead, angle, velocity, 1, Color.bisque);
-        if (test)
-        {
-            Debug.Log(test.point);
-            Debug.Log(test.centroid);
-        }
 
-        var collision = Physics2D.Raycast(transform.position, ahead, ahead.magnitude, layersToAvoid);
-
-        Debug.DrawRay(transform.position, ahead, Color.aquamarine);
+        var collision = Physics2D.OverlapBox(transform.position, avoidLookAheadZone, angle, layersToAvoid);
 
         if (collision)
         {
-            var avoidanceVector = Avoid(collision.point, collision.collider.bounds.center);
+            var avoidanceVector = Avoid(collision.ClosestPoint(transform.position), collision.bounds.center);
 
-            Debug.DrawRay(collision.collider.bounds.center, (Vector3)collision.point - collision.collider.bounds.center,
+            Debug.DrawRay(collision.bounds.center,
+                (Vector3) collision.ClosestPoint(transform.position) - collision.bounds.center,
                 Color.blue);
 
             velocity += avoidanceVector;
@@ -80,64 +72,14 @@ public class SteeringScript : MonoBehaviour
         }
     }
 
-    void DrawBoxCast(
-        Vector2 origin,
-        Vector2 size,
-        float angle,
-        Vector2 direction,
-        float distance,
-        Color color)
+    private void OnDrawGizmos()
     {
-        Vector2 endPosition = origin + direction.normalized * distance;
+        var angle =
+            Mathf.Atan2(velocity.x, velocity.y)
+            * Mathf.Rad2Deg;
 
-        DrawRotatedRectangle(origin, size, angle, color);
-        DrawRotatedRectangle(endPosition, size, angle, color);
-
-        Vector2[] startCorners = GetRectangleCorners(origin, size, angle);
-        Vector2[] endCorners = GetRectangleCorners(endPosition, size, angle);
-
-        for (int i = 0; i < 4; i++)
-        {
-            Debug.DrawLine(startCorners[i], endCorners[i], color);
-        }
-    }
-
-    void DrawRotatedRectangle(
-        Vector2 center,
-        Vector2 size,
-        float angle,
-        Color color)
-    {
-        Vector2[] corners = GetRectangleCorners(center, size, angle);
-
-        Debug.DrawLine(corners[0], corners[1], color);
-        Debug.DrawLine(corners[1], corners[2], color);
-        Debug.DrawLine(corners[2], corners[3], color);
-        Debug.DrawLine(corners[3], corners[0], color);
-    }
-
-    Vector2[] GetRectangleCorners(
-        Vector2 center,
-        Vector2 size,
-        float angle)
-    {
-        Vector2 half = size / 2f;
-
-        Vector2[] corners = new Vector2[4];
-
-        corners[0] = new Vector2(-half.x, half.y);   // TL
-        corners[1] = new Vector2(half.x, half.y);    // TR
-        corners[2] = new Vector2(half.x, -half.y);  // BR
-        corners[3] = new Vector2(-half.x, -half.y); // BL
-
-        Quaternion rotation = Quaternion.Euler(0, 0, angle);
-
-        for (int i = 0; i < corners.Length; i++)
-        {
-            corners[i] = center + (Vector2)(rotation * corners[i]);
-        }
-
-        return corners;
+        Gizmos.matrix = Matrix4x4.TRS(transform.position, Quaternion.Euler(0, 0, angle), Vector3.one);
+        Gizmos.DrawWireCube(Vector3.zero, avoidLookAheadZone);
     }
 
     public Vector2 Seek(Transform seekTarget) => seekTarget.position - transform.position;

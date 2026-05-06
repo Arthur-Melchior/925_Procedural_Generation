@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Scriptable_Objects;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -15,7 +16,7 @@ public class PlayerScript : MonoBehaviour
     private static readonly int DirectionX = Animator.StringToHash("DirectionX");
     private static readonly int DirectionY = Animator.StringToHash("DirectionY");
     private static readonly int Hit = Animator.StringToHash("Hit");
-
+    
     [Header("Stats")] public PlayerStats playerStats;
 
     [Header("State")] public bool hasKey;
@@ -23,7 +24,7 @@ public class PlayerScript : MonoBehaviour
     public bool isInvulnerable;
 
     [Header("Events")] public UnityEvent onLevelUp;
-
+    public UnityEvent onDeath;
 
     [HideInInspector] public bool isDodging;
 
@@ -95,6 +96,13 @@ public class PlayerScript : MonoBehaviour
     {
         if (isInvulnerable || isDodging) return;
         playerStats.currentHealth -= attackDamage;
+        if (playerStats.currentHealth <= 0)
+        {
+            onDeath?.Invoke();
+            Time.timeScale = 0;
+            GameObject.Find("ScoreText").GetComponent<TMP_Text>().text = playerStats.experience.ToString();
+            return;
+        }
         _rigidbody2D.AddForce((transform.position - origin).normalized * playerStats.getHitRecoil, ForceMode2D.Impulse);
         _animator.SetTrigger(Hit);
         StartCoroutine(TemporaryInvulnerability());

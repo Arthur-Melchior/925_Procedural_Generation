@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemiesManager : MonoBehaviour
 {
-    [SerializeField] private DungeonGenerator map;
+    public DungeonGenerator map;
     [SerializeField] private Transform target;
     private PathfindingScript _pathfindingScript;
     private Coroutine _pathCalculating;
@@ -77,7 +77,7 @@ public class EnemiesManager : MonoBehaviour
             foreach (var pathNode in _path)
             {
                 Gizmos.DrawWireCube(pathNode.Tile.Position, new Vector3(1, 1));
-                DrawThreeValues(pathNode.Tile.Position, pathNode.Distance, pathNode.Cost, pathNode.Priority);
+                DrawThreeValues(pathNode.Tile.Position, pathNode.Distance, pathNode.Priority);
             }
         }
 
@@ -90,7 +90,7 @@ public class EnemiesManager : MonoBehaviour
             Gizmos.color = pathNode.IsSelected ? Color.aquamarine : Color.white;
 
             Gizmos.DrawWireCube(pathNode.Tile.Position, new Vector3(1, 1));
-            DrawThreeValues(pathNode.Tile.Position, pathNode.Distance, pathNode.Cost, pathNode.Priority);
+            DrawThreeValues(pathNode.Tile.Position, pathNode.Distance, pathNode.Priority);
         }
 
         var selectedPath = _pathfindingScript.DebugPath.Where(p => p.IsSelected).ToArray();
@@ -103,7 +103,7 @@ public class EnemiesManager : MonoBehaviour
         }
     }
     
-    private void DrawThreeValues(Vector3 center, float v1, float v2, float v3)
+    private void DrawThreeValues(Vector3 center, float v1, float v3)
     {
 #if UNITY_EDITOR
         GUIStyle style = new GUIStyle();
@@ -114,7 +114,6 @@ public class EnemiesManager : MonoBehaviour
         float offset = 0.15f;
 
         UnityEditor.Handles.Label(center + Vector3.up * offset, v1.ToString(), style);
-        // UnityEditor.Handles.Label(center + Vector3.down * offset + Vector3.left * offset, v2.ToString(), style);
         UnityEditor.Handles.Label(center + Vector3.down * offset, v3.ToString(), style);
 #endif
     }

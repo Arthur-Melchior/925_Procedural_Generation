@@ -349,7 +349,7 @@ PrefabInstance:
     - target: {fileID: 3192172073877797387, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
       propertyPath: avoidanceForce
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3192172073877797387, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
@@ -358,8 +358,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3192172073877797387, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
+      propertyPath: avoidLookAheadZone.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3192172073877797387, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
+      propertyPath: avoidLookAheadZone.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3192172073877797387, guid: e4f7f16b4375eed49a8df195315278b7,
+        type: 3}
       propertyPath: layersToAvoid.m_Bits
-      value: 15287
+      value: 2049
       objectReference: {fileID: 0}
     - target: {fileID: 4803415564735348538, guid: e4f7f16b4375eed49a8df195315278b7,
         type: 3}
@@ -434,6 +444,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1308826649495029273, guid: ad829f20cbc7be64986a3c05d4e300c1,
+        type: 3}
+      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2403897692942207311, guid: ad829f20cbc7be64986a3c05d4e300c1,
         type: 3}
       propertyPath: m_Name

@@ -162,14 +162,15 @@ MonoBehaviour:
   speed: 1
   maxSpeed: 2
   isFlying: 0
-  avoidDistance: 1
-  avoidanceForce: 0.25
+  avoidLookAheadZone: {x: 3, y: 3}
+  avoidanceForce: 2
   layersToAvoid:
     serializedVersion: 2
     m_Bits: 2048
   target: {fileID: 0}
   spriteIsLookingLeft: 0
   velocity: {x: 0, y: 0}
+  shouldAvoid: 0
 --- !u!114 &1308826649495029273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,6 +191,8 @@ MonoBehaviour:
   stopingDistance: 1
   currentRoomIndex: 0
   pathIndex: 0
+  canDodge: 0
+  dodgeLookAhead: {x: 0, y: 0}
   canParry: 0
   parriedBulletSpeedMultiplier: 0.5
   parriedBulletColor: {r: 1, g: 0, b: 0, a: 1}
